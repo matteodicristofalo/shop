@@ -1,10 +1,25 @@
+@use "../../mixins/display.scss" as display;
+
 .header {
   align-items: center;
   background-color: var(--white);
+  border: 1px solid var(--gray-borders);
   display: flex;
-  justify-content: space-between;
-  margin: 1rem;
+  justify-content: center;
+  left: 1rem;
   padding: 1rem;
+  position: fixed;
+  top: 1rem;
+  width: calc(100% - 2rem);
+
+  @include display.desktop {
+    justify-content: space-between;
+    left: auto;
+    margin: 1rem;
+    position: static;
+    top: auto;
+    width: auto;
+  }
 
   &__logo {
     font-size: 1.5rem;
@@ -13,14 +28,18 @@
   }
 
   &__ctas {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
+    display: none;
 
-    button {
-      background-color: var(--gray);
-      border: 1px solid #efefef;
-      padding: 0.25rem 0.75rem;
+    @include display.desktop {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+
+      button {
+        background-color: var(--gray);
+        border: 1px solid var(--gray-borders);
+        padding: 0.25rem 0.75rem;
+      }
     }
   }
 }

@@ -1,13 +1,14 @@
 :root {
   --black: #1a1818;
   --gray: #f3f3f3;
+  --gray-borders: #efefef;
   --white: #ffffff;
 }
 
 body {
   background-color: var(--gray);
   color: var(--black);
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 * {

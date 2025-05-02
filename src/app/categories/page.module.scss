@@ -2,8 +2,13 @@
 
 .categories-page {
   background-color: var(--white);
-  margin: 1rem;
+  border: 1px solid var(--gray-borders);
+  margin: 6rem 1rem 1rem 1rem;
   padding: 1rem;
+
+  @include display.desktop {
+    margin: 1rem;
+  }
 
   &__title {
     font-size: 2rem;
