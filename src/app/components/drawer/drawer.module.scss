@@ -35,9 +35,9 @@
     font-weight: 500;
     margin-inline-start: auto;
     padding: 0.25rem 0.75rem;
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
+    position: fixed;
+    right: 2rem;
+    top: 2rem;
   }
 
   &--open {
