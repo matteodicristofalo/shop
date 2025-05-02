@@ -1,0 +1,39 @@
+.product-page {
+  align-items: start;
+  background-color: var(--white);
+  border: 1px solid var(--gray-borders);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 1rem;
+  padding: 1rem;
+
+  &__carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &__image {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__information {
+    padding: 0.25rem 2rem;
+    position: sticky;
+    top: 1rem;
+
+    &__brand {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    &__name {
+      margin: 0.75rem 0 2rem 0;
+    }
+
+    &__price {
+      font-weight: 500;
+    }
+  }
+}
