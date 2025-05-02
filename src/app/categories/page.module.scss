@@ -1,3 +1,5 @@
+@use "../mixins/display.scss" as display;
+
 .categories-page {
   background-color: var(--white);
   margin: 1rem;
@@ -10,8 +12,13 @@
 
   &__products {
     display: grid;
-    gap: 3rem;
-    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
     margin-top: 1rem;
+
+    @include display.desktop {
+      gap: 3rem;
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 }
