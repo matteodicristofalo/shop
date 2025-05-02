@@ -1,3 +1,5 @@
+@use "./mixins/display.scss" as display;
+
 :root {
   --black: #1a1818;
   --gray: #f3f3f3;
@@ -9,6 +11,14 @@ body {
   background-color: var(--gray);
   color: var(--black);
   font-family: "Helvetica Neue", sans-serif;
+}
+
+main {
+  margin: 6rem 1rem 1rem 1rem;
+
+  @include display.desktop {
+    margin: 1rem;
+  }
 }
 
 * {

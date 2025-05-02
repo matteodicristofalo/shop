@@ -3,14 +3,12 @@
 .product-page {
   background-color: var(--white);
   border: 1px solid var(--gray-borders);
-  margin: 6rem 1rem 1rem 1rem;
   padding: 1rem;
 
   @include display.desktop {
     align-items: start;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 1rem;
   }
 
   &__carousel {
