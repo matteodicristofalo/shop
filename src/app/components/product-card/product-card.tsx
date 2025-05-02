@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import styles from "./product-card.module.css";
+import styles from "./product-card.module.scss";
 
 export function ProductCard() {
   return (
