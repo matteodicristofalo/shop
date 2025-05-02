@@ -1,0 +1,26 @@
+.product-card {
+  background-color: var(--gray);
+}
+
+.product-card__image {
+  display: block;
+  width: 100%;
+}
+
+.product-card__information {
+  font-size: 0.75rem;
+  padding: 1rem;
+}
+
+.product-card__brand {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.product-card__name {
+  margin: 0.25rem 0 0.75rem 0;
+}
+
+.product-card__price {
+  font-weight: 500;
+}
