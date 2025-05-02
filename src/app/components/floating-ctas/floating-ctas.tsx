@@ -14,7 +14,7 @@ export function FloatingCTAs() {
   return (
     <div className={styles["floating-ctas"]}>
       <button type="button" onClick={() => openDrawer(CART_DRAWER_ID)}>
-        Carello (0)
+        Carrello (0)
       </button>
       <button type="button" onClick={() => openDrawer(MENU_DRAWER_ID)}>
         Menu

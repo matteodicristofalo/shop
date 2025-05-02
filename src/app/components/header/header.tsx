@@ -18,7 +18,7 @@ export function Header() {
       <ul className={styles["header__ctas"]}>
         <li>
           <button type="button" onClick={() => openDrawer(CART_DRAWER_ID)}>
-            Carello (0)
+            Carrello (0)
           </button>
         </li>
         <li>
