@@ -1,0 +1,15 @@
+.menu {
+  font-size: 1.5rem;
+
+  &__title {
+    font-weight: 500;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    margin-top: 3rem;
+  }
+}

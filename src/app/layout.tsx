@@ -1,4 +1,5 @@
 import { Header } from "./components/header/header";
+import { Menu } from "./components/menu/menu";
 import { FloatingCTAs } from "./components/floating-ctas/floating-ctas";
 import type { Metadata } from "next";
 import "./globals.scss";
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <Header />
         <main>{children}</main>
+        <Menu />
         <FloatingCTAs />
       </body>
     </html>

@@ -1,0 +1,45 @@
+@use "../../mixins/display.scss" as display;
+
+.drawer {
+  background-color: var(--gray);
+  height: 100%;
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translate(0, 100%);
+  transition: transform 500ms ease;
+  width: 100%;
+  z-index: 1;
+
+  @include display.desktop {
+    background-color: transparent;
+    min-width: 450px;
+    transform: translate(100%, 0);
+    width: auto;
+  }
+
+  &__content {
+    background-color: white;
+    border: 1px solid var(--gray-borders);
+    height: 100%;
+    padding: 1rem;
+    position: relative;
+  }
+
+  &__close-button {
+    background-color: var(--gray);
+    border: 1px solid var(--gray-borders);
+    display: block;
+    font-weight: 500;
+    margin-inline-start: auto;
+    padding: 0.25rem 0.75rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+
+  &--open {
+    transform: translate(0);
+  }
+}

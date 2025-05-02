@@ -7,10 +7,10 @@
   bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
-  left: 1rem;
+  left: 0.5rem;
   padding: 1rem;
   position: fixed;
-  width: calc(100% - 2rem);
+  width: calc(100% - 1rem);
 
   @include display.desktop {
     display: none;
