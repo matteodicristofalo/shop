@@ -1,5 +1,11 @@
+@use "../../mixins/display.scss" as display;
+
 .cart {
   font-size: 1.5rem;
+
+  @include display.desktop {
+    max-width: 450px;
+  }
 
   &__title {
     font-weight: 500;
@@ -17,6 +23,12 @@
     left: 1rem;
     position: fixed;
     width: calc(100% - 2rem);
+
+    @include display.desktop {
+      bottom: 1.5rem;
+      left: 2rem;
+      width: calc(100% - 4rem);
+    }
 
     &__content {
       align-items: center;
