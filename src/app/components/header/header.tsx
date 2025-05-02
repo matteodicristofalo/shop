@@ -7,10 +7,10 @@ export function Header() {
 
       <ul className={styles["header__ctas"]}>
         <li>
-          <button>Cart (0)</button>
+          <button type="button">Cart (0)</button>
         </li>
         <li>
-          <button>Menu</button>
+          <button type="button">Menu</button>
         </li>
       </ul>
     </header>

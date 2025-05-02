@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import { Button } from "../components/button/button";
+import { SizeRadio } from "../components/size-radio/size-radio";
 import styles from "./page.module.scss";
 
 export default function ProductPage() {
@@ -26,6 +28,23 @@ export default function ProductPage() {
           Made in USA 990v4
         </p>
         <p className={styles["product-page__information__price"]}>240 EUR</p>
+
+        <form className={styles["product-page__buy-area"]}>
+          <fieldset className={styles["product-page__buy-area__size-selector"]}>
+            <legend>Seleziona taglia</legend>
+
+            <div
+              className={styles["product-page__buy-area__size-selector__sizes"]}
+            >
+              <SizeRadio name="size" value="S" label="S" />
+              <SizeRadio name="size" value="M" label="M" />
+              <SizeRadio name="size" value="L" label="L" />
+              <SizeRadio name="size" value="XL" label="XL" />
+            </div>
+          </fieldset>
+
+          <Button type="submit">Aggiungi al carrello</Button>
+        </form>
       </div>
     </div>
   );

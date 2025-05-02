@@ -51,4 +51,32 @@
       font-weight: 500;
     }
   }
+
+  &__buy-area {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+
+    @include display.desktop {
+      margin-top: 4rem;
+    }
+
+    &__size-selector {
+      all: unset;
+
+      legend {
+        all: unset;
+        font-size: 0.75rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+      }
+
+      &__sizes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+  }
 }

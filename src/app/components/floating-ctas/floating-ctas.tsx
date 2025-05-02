@@ -3,8 +3,8 @@ import styles from "./floating-ctas.module.scss";
 export function FloatingCTAs() {
   return (
     <div className={styles["floating-ctas"]}>
-      <button>Cart (0)</button>
-      <button>Menu</button>
+      <button type="button">Cart (0)</button>
+      <button type="button">Menu</button>
     </div>
   );
 }
