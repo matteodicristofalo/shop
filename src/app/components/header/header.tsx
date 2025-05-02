@@ -1,11 +1,13 @@
 "use client";
 
 import { openDrawerEvent } from "../drawer/event";
+import { MENU_DRAWER_ID } from "../menu/menu";
+import { CART_DRAWER_ID } from "../cart/cart";
 import styles from "./header.module.scss";
 
 export function Header() {
-  const openMenu = () => {
-    const event = openDrawerEvent();
+  const openDrawer = (id: string) => {
+    const event = openDrawerEvent(id);
     document.dispatchEvent(event);
   };
 
@@ -15,10 +17,12 @@ export function Header() {
 
       <ul className={styles["header__ctas"]}>
         <li>
-          <button type="button">Carello (0)</button>
+          <button type="button" onClick={() => openDrawer(CART_DRAWER_ID)}>
+            Carello (0)
+          </button>
         </li>
         <li>
-          <button type="button" onClick={openMenu}>
+          <button type="button" onClick={() => openDrawer(MENU_DRAWER_ID)}>
             Menu
           </button>
         </li>

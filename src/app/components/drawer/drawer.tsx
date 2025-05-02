@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { OPEN_DRAWER } from "./event";
+import { eventName } from "./event";
 import clsx from "clsx";
 import styles from "./drawer.module.scss";
 
 type DrawerProps = {
+  id: string;
   children: React.ReactNode;
 };
 
-export function Drawer({ children }: DrawerProps) {
+export function Drawer({ id, children }: DrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    const event = eventName(id);
     const onOpenDrawer = () => setIsOpen(true);
-    document.addEventListener(OPEN_DRAWER, onOpenDrawer);
-    return () => document.removeEventListener(OPEN_DRAWER, onOpenDrawer);
-  }, []);
+    document.addEventListener(event, onOpenDrawer);
+    return () => document.removeEventListener(event, onOpenDrawer);
+  }, [id]);
 
   return (
     <div
