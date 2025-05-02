@@ -14,11 +14,21 @@ export function Drawer({ id, children }: DrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    const openDrawer = () => {
+      setIsOpen(true);
+      document.body.classList.add("scroll-lock");
+    };
+
     const event = eventName(id);
-    const onOpenDrawer = () => setIsOpen(true);
-    document.addEventListener(event, onOpenDrawer);
-    return () => document.removeEventListener(event, onOpenDrawer);
+    document.addEventListener(event, openDrawer);
+
+    return () => document.removeEventListener(event, openDrawer);
   }, [id]);
+
+  const closeDrawer = () => {
+    setIsOpen(false);
+    document.body.classList.remove("scroll-lock");
+  };
 
   return (
     <div
@@ -28,7 +38,7 @@ export function Drawer({ id, children }: DrawerProps) {
         <button
           type="button"
           className={styles["drawer__close-button"]}
-          onClick={() => setIsOpen(false)}
+          onClick={closeDrawer}
         >
           Chiudi
         </button>

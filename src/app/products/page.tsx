@@ -43,7 +43,9 @@ export default function ProductPage() {
             </div>
           </fieldset>
 
-          <Button type="submit">Aggiungi al carrello</Button>
+          <Button type="submit" fluid>
+            Aggiungi al carrello
+          </Button>
         </form>
       </div>
     </div>

@@ -11,6 +11,10 @@ body {
   background-color: var(--gray);
   color: var(--black);
   font-family: "Helvetica Neue", sans-serif;
+
+  &.scroll-lock {
+    overflow: hidden;
+  }
 }
 
 main {

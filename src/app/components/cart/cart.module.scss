@@ -4,4 +4,28 @@
   &__title {
     font-weight: 500;
   }
+
+  &__items {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 2rem 0 4rem 0;
+  }
+
+  &__pay-button {
+    bottom: 1rem;
+    left: 1rem;
+    position: fixed;
+    width: calc(100% - 2rem);
+
+    &__content {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      span:nth-child(2) {
+        font-weight: 500;
+      }
+    }
+  }
 }

@@ -6,4 +6,8 @@
   font-weight: 400;
   padding: 1rem 2rem;
   text-transform: uppercase;
+
+  &--fluid {
+    width: 100%;
+  }
 }
