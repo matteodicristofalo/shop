@@ -5,9 +5,16 @@ type SizeRadioProps = {
   name: string;
   value: string;
   label: string;
+  disabled?: boolean;
 };
 
-export function SizeRadio({ id, name, value, label }: SizeRadioProps) {
+export function SizeRadio({
+  id,
+  name,
+  value,
+  label,
+  disabled,
+}: SizeRadioProps) {
   return (
     <div className={styles["size-radio"]}>
       <input
@@ -15,6 +22,7 @@ export function SizeRadio({ id, name, value, label }: SizeRadioProps) {
         id={id}
         name={name}
         value={value}
+        disabled={disabled}
         className={styles["size-radio__input"]}
       />
 

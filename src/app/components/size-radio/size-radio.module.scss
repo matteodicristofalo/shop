@@ -27,4 +27,9 @@
     background-color: var(--black);
     color: var(--white);
   }
+
+  &__input:disabled + &__label {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }

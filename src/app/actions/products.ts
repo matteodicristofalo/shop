@@ -14,6 +14,7 @@ type Product = {
   variants: {
     id: string;
     title: string;
+    inStock: boolean;
   }[];
 };
 
@@ -48,6 +49,7 @@ export async function getProduct(id: string): Promise<Product | null> {
         nodes {
           id
           title
+          availableForSale
         }
       }
     }
@@ -65,7 +67,11 @@ export async function getProduct(id: string): Promise<Product | null> {
   const price = product.priceRange.maxVariantPrice;
   const media = product.media.edges.map((edge) => edge.node.image.url);
   const variants = product.variants.nodes
-    .map((variant) => variant)
+    .map((variant) => ({
+      id: variant.id,
+      title: variant.title,
+      inStock: variant.availableForSale,
+    }))
     .toSorted((a, b) => a.title.localeCompare(b.title));
 
   return {

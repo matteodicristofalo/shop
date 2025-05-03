@@ -26,6 +26,7 @@ export type ProductResponse = ShopifyResponse<{
       nodes: {
         id: string;
         title: string;
+        availableForSale: boolean;
       }[];
     };
   };

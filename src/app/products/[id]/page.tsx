@@ -58,6 +58,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   value={variant.title}
                   id={variant.title}
                   label={variant.title}
+                  disabled={!variant.inStock}
                 />
               ))}
             </div>
