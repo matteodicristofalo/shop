@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button } from "../components/button/button";
-import { SizeRadio } from "../components/size-radio/size-radio";
-import { Accordion } from "../components/accordion/accordion";
+import { Button } from "../../components/button/button";
+import { SizeRadio } from "../../components/size-radio/size-radio";
+import { Accordion } from "../../components/accordion/accordion";
 import styles from "./page.module.scss";
 
 export default function ProductPage() {
