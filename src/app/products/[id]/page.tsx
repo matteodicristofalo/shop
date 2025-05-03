@@ -2,9 +2,22 @@
 import { Button } from "../../components/button/button";
 import { SizeRadio } from "../../components/size-radio/size-radio";
 import { Accordion } from "../../components/accordion/accordion";
+import { getProduct } from "@/app/actions/products";
+import { redirect } from "next/navigation";
 import styles from "./page.module.scss";
 
-export default function ProductPage() {
+type ProductPageProps = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params;
+  const product = await getProduct(id);
+
+  if (!product) redirect("/404");
+
   return (
     <div className={styles["product-page"]}>
       <div className={styles["product-page__media"]}>
@@ -24,12 +37,14 @@ export default function ProductPage() {
       <div>
         <div className={styles["product-page__information"]}>
           <p className={styles["product-page__information__brand"]}>
-            New Balance
+            {product.brand}
           </p>
           <p className={styles["product-page__information__name"]}>
-            Made in USA 990v4
+            {product.name}
           </p>
-          <p className={styles["product-page__information__price"]}>240 EUR</p>
+          <p className={styles["product-page__information__price"]}>
+            {product.price.amount} {product.price.currencyCode}
+          </p>
         </div>
 
         <form className={styles["product-page__buy-area"]}>
@@ -39,10 +54,15 @@ export default function ProductPage() {
             <div
               className={styles["product-page__buy-area__size-selector__sizes"]}
             >
-              <SizeRadio name="size" value="S" id="s" label="S" />
-              <SizeRadio name="size" value="M" id="m" label="M" />
-              <SizeRadio name="size" value="L" id="l" label="L" />
-              <SizeRadio name="size" value="XL" id="xl" label="XL" />
+              {product.variants.map((variant) => (
+                <SizeRadio
+                  key={variant.id}
+                  name="size"
+                  value={variant.title}
+                  id={variant.title}
+                  label={variant.title}
+                />
+              ))}
             </div>
           </fieldset>
 
@@ -53,15 +73,7 @@ export default function ProductPage() {
 
         <div className={styles["product-page__accordions"]}>
           <Accordion title="Descrizione articolo">
-            Le New Balance 990 furono progettate per essere le migliori scarpe
-            da corsa sul mercato e, fin dal loro lancio nel 1982, superarono le
-            aspettative grazie al design elegante e al prezzo elevato,
-            diventando un simbolo di qualità e stile sia per runner che per
-            trendsetter. Nel tempo, la scarpa ha subito aggiornamenti estetici e
-            funzionali, mantenendo però intatto il suo status iconico. La
-            versione 990v4 del 2016 ha modernizzato la silhouette con materiali
-            premium come mesh e suede di cinghiale e nuove soluzioni di
-            ammortizzazione.
+            {product.description}
           </Accordion>
 
           <Accordion title="Spedizione e resi">
