@@ -1,4 +1,4 @@
-import { ProductCard } from "../components/product-card/product-card";
+import { ProductCard } from "../../components/product-card/product-card";
 import styles from "./page.module.scss";
 
 export default function CategoryPage() {
