@@ -8,17 +8,13 @@
   &__title {
     font-size: 1.5rem;
     font-weight: 500;
-
-    @include display.desktop {
-      font-size: 2rem;
-    }
   }
 
   &__products {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 
     @include display.desktop {
       gap: 3rem;
