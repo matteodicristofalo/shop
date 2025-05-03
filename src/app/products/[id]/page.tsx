@@ -29,10 +29,10 @@ export default async function ProductPage({ params }: { params: Params }) {
   return (
     <div className={styles["product-page"]}>
       <div className={styles["product-page__media"]}>
-        {product.media.map((media, index) => (
+        {product.images.map((image, index) => (
           <img
             key={index}
-            src={media}
+            src={image}
             alt={product.title}
             className={styles["product-page__media__image"]}
           />

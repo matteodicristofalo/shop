@@ -8,18 +8,10 @@ export type ProductResponse = ShopifyResponse<{
         amount: string;
         currencyCode: string;
       };
-      maxVariantPrice: {
-        amount: string;
-        currencyCode: string;
-      };
     };
-    media: {
-      edges: {
-        node: {
-          image: {
-            url: string;
-          };
-        };
+    images: {
+      nodes: {
+        src: string;
       }[];
     };
     variants: {
