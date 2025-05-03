@@ -1,4 +1,6 @@
-export async function fetchShopify<T>(query: string): Promise<T | null> {
+import { Nullable } from "../types";
+
+export async function fetchShopify<T>(query: string): Promise<Nullable<T>> {
   const url = process.env.SHOPIFY_BASE_URL || "";
   const accessToken = process.env.SHOPIFY_ACCESS_TOKEN || "";
 

@@ -6,13 +6,21 @@ import { getProduct } from "@/app/actions/products";
 import { redirect } from "next/navigation";
 import styles from "./page.module.scss";
 
-type ProductPageProps = {
-  params: Promise<{
-    id: string;
-  }>;
-};
+type Params = Promise<{
+  id: string;
+}>;
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export async function generateMetadata({ params }: { params: Params }) {
+  const { id } = await params;
+  const product = await getProduct(id);
+
+  return {
+    title: product?.title,
+    description: product?.description,
+  };
+}
+
+export default async function ProductPage({ params }: { params: Params }) {
   const { id } = await params;
   const product = await getProduct(id);
 
@@ -25,7 +33,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <img
             key={index}
             src={media}
-            alt={`{product.brand} ${product.name}`}
+            alt={product.title}
             className={styles["product-page__media__image"]}
           />
         ))}

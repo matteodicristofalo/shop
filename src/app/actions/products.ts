@@ -1,8 +1,11 @@
+import { cache } from "react";
 import { fetchShopify } from "../../utils/shopify/fetch";
 import { ProductResponse } from "../../utils/shopify/responses";
+import { Nullable } from "@/utils/types";
 
 type Product = {
   id: string;
+  title: string;
   brand: string;
   name: string;
   description: string;
@@ -18,8 +21,9 @@ type Product = {
   }[];
 };
 
-export async function getProduct(id: string): Promise<Product | null> {
-  const query = `{
+export const getProduct = cache(
+  async (id: string): Promise<Nullable<Product>> => {
+    const query = `{
     product(id: "gid://shopify/Product/${id}") {
       id
       title
@@ -55,37 +59,40 @@ export async function getProduct(id: string): Promise<Product | null> {
     }
   }`;
 
-  const response = await fetchShopify<ProductResponse>(query);
+    const response = await fetchShopify<ProductResponse>(query);
 
-  if (!response) return null;
+    if (!response) return null;
 
-  const { product } = response.data;
+    const { product } = response.data;
 
-  if (!product) return null;
+    if (!product) return null;
 
-  const brand = getBrand(product.title);
-  const name = getName(product.title);
-  const description = product.description;
-  const price = product.priceRange.maxVariantPrice;
-  const media = product.media.edges.map((edge) => edge.node.image.url);
-  const variants = product.variants.nodes
-    .map((variant) => ({
-      id: variant.id,
-      title: variant.title,
-      inStock: variant.availableForSale,
-    }))
-    .toSorted((a, b) => a.title.localeCompare(b.title));
+    const title = product.title;
+    const brand = getBrand(product.title);
+    const name = getName(product.title);
+    const description = product.description;
+    const price = product.priceRange.maxVariantPrice;
+    const media = product.media.edges.map((edge) => edge.node.image.url);
+    const variants = product.variants.nodes
+      .map((variant) => ({
+        id: variant.id,
+        title: variant.title,
+        inStock: variant.availableForSale,
+      }))
+      .toSorted((a, b) => a.title.localeCompare(b.title));
 
-  return {
-    id,
-    brand,
-    name,
-    description,
-    price,
-    media,
-    variants,
-  };
-}
+    return {
+      id,
+      title,
+      brand,
+      name,
+      description,
+      price,
+      media,
+      variants,
+    };
+  }
+);
 
 function getBrand(title: string): string {
   const splittedTitle = title.split("-");
