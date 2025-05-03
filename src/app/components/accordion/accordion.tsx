@@ -24,8 +24,10 @@ export function Accordion({ title, children }: AccordionProps) {
         type="button"
         className={styles["accordion__button"]}
         onClick={toggleOpening}
+        aria-expanded={isExpanded}
       >
-        {title}
+        <span>{title}</span>
+        <span aria-hidden="true">▲</span>
       </button>
 
       <div className={styles["accordion__content"]}>

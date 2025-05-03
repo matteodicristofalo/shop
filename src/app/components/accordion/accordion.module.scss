@@ -20,8 +20,7 @@
       font-size: 0.75rem;
     }
 
-    &::after {
-      content: "▲";
+    span:nth-child(2) {
       font-size: 0.45rem;
       transform: rotate(180deg);
       transition: transform 250ms ease;
