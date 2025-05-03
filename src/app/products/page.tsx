@@ -38,10 +38,10 @@ export default function ProductPage() {
             <div
               className={styles["product-page__buy-area__size-selector__sizes"]}
             >
-              <SizeRadio name="size" value="S" label="S" />
-              <SizeRadio name="size" value="M" label="M" />
-              <SizeRadio name="size" value="L" label="L" />
-              <SizeRadio name="size" value="XL" label="XL" />
+              <SizeRadio name="size" value="S" id="s" label="S" />
+              <SizeRadio name="size" value="M" id="m" label="M" />
+              <SizeRadio name="size" value="L" id="l" label="L" />
+              <SizeRadio name="size" value="XL" id="xl" label="XL" />
             </div>
           </fieldset>
 

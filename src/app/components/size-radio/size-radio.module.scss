@@ -1,18 +1,20 @@
 .size-radio {
-  position: relative;
-
   &__input {
-    cursor: pointer;
-    height: 100%;
+    height: 0;
     opacity: 0;
     position: absolute;
-    width: 100%;
+    width: 0;
   }
 
-  &__button {
+  &__label {
     background-color: var(--gray);
     border: 1px solid var(--gray-borders);
+    cursor: pointer;
+    display: block;
+    font-size: 0.75rem;
     padding: 0.5rem;
+    text-align: center;
+    transition: all 250ms ease;
     width: 100px;
 
     &:hover {
@@ -21,7 +23,7 @@
     }
   }
 
-  &__input:checked + &__button {
+  &__input:checked + &__label {
     background-color: var(--black);
     color: var(--white);
   }
