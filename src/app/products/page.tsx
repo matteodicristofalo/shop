@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "../components/button/button";
 import { SizeRadio } from "../components/size-radio/size-radio";
+import { Accordion } from "../components/accordion/accordion";
 import styles from "./page.module.scss";
 
 export default function ProductPage() {
@@ -49,6 +50,28 @@ export default function ProductPage() {
             Aggiungi al carrello
           </Button>
         </form>
+
+        <div className={styles["product-page__accordions"]}>
+          <Accordion title="Product details">
+            Le New Balance 990 furono progettate per essere le migliori scarpe
+            da corsa sul mercato e, fin dal loro lancio nel 1982, superarono le
+            aspettative grazie al design elegante e al prezzo elevato,
+            diventando un simbolo di qualità e stile sia per runner che per
+            trendsetter. Nel tempo, la scarpa ha subito aggiornamenti estetici e
+            funzionali, mantenendo però intatto il suo status iconico. La
+            versione 990v4 del 2016 ha modernizzato la silhouette con materiali
+            premium come mesh e suede di cinghiale e nuove soluzioni di
+            ammortizzazione.
+          </Accordion>
+
+          <Accordion title="Spedizione e resi">
+            La spedizione express con FedEx ha un costo di 10€ e richiede 1-2
+            giorni lavorativi. È gratuita per ordini superiori a 200€. I prezzi
+            includono IVA locale e non sono previsti dazi doganali. Hai 14
+            giorni di tempo per effettuare un reso (con una trattenuta di 10€
+            sul rimborso) o un cambio taglia (gratuito).
+          </Accordion>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,43 @@
+.accordion {
+  background-color: var(--gray);
+  border: 1px solid var(--gray-borders);
+
+  &__button {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    font-size: 0.75rem;
+    font-weight: 500;
+    justify-content: space-between;
+    padding: 1rem 1.5rem 1rem 1rem;
+    text-transform: uppercase;
+    width: 100%;
+
+    &::after {
+      content: "▲";
+      font-size: 0.5rem;
+      transform: rotate(180deg);
+      transition: transform 250ms ease;
+    }
+  }
+
+  &__content {
+    display: none;
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    padding: 1rem;
+  }
+
+  &--expanded {
+    .accordion {
+      &__button::after {
+        transform: rotate(0);
+      }
+
+      &__content {
+        display: block;
+      }
+    }
+  }
+}
