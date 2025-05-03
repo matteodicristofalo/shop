@@ -61,6 +61,8 @@ export async function getProduct(id: string): Promise<Product | null> {
 
   const { product } = response.data;
 
+  if (!product) return null;
+
   const brand = getBrand(product.title);
   const name = getName(product.title);
   const description = product.description;
