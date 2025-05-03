@@ -21,17 +21,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <div className={styles["product-page"]}>
       <div className={styles["product-page__media"]}>
-        <img
-          src="https://it.slamjam.com/cdn/shop/files/NewBalance-Footwear-Low-U990gr4Grey-U990GR4-20250203110752_01.jpg"
-          alt="New Balance Made in USA 990v4"
-          className={styles["product-page__media__image"]}
-        />
-
-        <img
-          src="https://it.slamjam.com/cdn/shop/files/NewBalance-Footwear-Low-U990gr4Grey-U990GR4-20250203110752_01.jpg"
-          alt="New Balance Made in USA 990v4"
-          className={styles["product-page__media__image"]}
-        />
+        {product.media.map((media, index) => (
+          <img
+            key={index}
+            src={media}
+            alt={`{product.brand} ${product.name}`}
+            className={styles["product-page__media__image"]}
+          />
+        ))}
       </div>
 
       <div>

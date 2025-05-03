@@ -10,6 +10,7 @@ type Product = {
     amount: string;
     currencyCode: string;
   };
+  media: string[];
   variants: {
     id: string;
     title: string;
@@ -32,6 +33,17 @@ export async function getProduct(id: string): Promise<Product | null> {
           currencyCode
         }
       }
+      media(first: 20) {
+        edges {
+          node {
+            ... on MediaImage {
+              image {
+                url
+              }
+            }
+          }
+        }
+      }
       variants(first: 20) {
         nodes {
           id
@@ -51,6 +63,7 @@ export async function getProduct(id: string): Promise<Product | null> {
   const name = getName(product.title);
   const description = product.description;
   const price = product.priceRange.maxVariantPrice;
+  const media = product.media.edges.map((edge) => edge.node.image.url);
   const variants = product.variants.nodes
     .map((variant) => variant)
     .toSorted((a, b) => a.title.localeCompare(b.title));
@@ -61,6 +74,7 @@ export async function getProduct(id: string): Promise<Product | null> {
     name,
     description,
     price,
+    media,
     variants,
   };
 }

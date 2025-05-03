@@ -13,6 +13,15 @@ export type ProductResponse = ShopifyResponse<{
         currencyCode: string;
       };
     };
+    media: {
+      edges: {
+        node: {
+          image: {
+            url: string;
+          };
+        };
+      }[];
+    };
     variants: {
       nodes: {
         id: string;
