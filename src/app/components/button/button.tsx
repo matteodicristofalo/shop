@@ -4,13 +4,15 @@ import styles from "./button.module.scss";
 
 type ButtonProps = PrimaryButtonProps | SecondaryButtonProps;
 
-export function Button({ children, ...props }: ButtonProps) {
-  const variant = props.variant;
-  const fluid = variant === "primary" && props.fluid === true;
+export function Button({ variant, children, ...props }: ButtonProps) {
+  const { fluid, ...buttonProps } = {
+    fluid: false,
+    ...props,
+  };
 
   return (
     <button
-      {...props}
+      {...buttonProps}
       className={clsx(styles["button"], styles[`button--${variant}`], {
         [styles["button--fluid"]]: fluid,
       })}
