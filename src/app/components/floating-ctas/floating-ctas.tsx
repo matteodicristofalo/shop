@@ -3,6 +3,7 @@
 import { openDrawerEvent } from "../drawer/event";
 import { MENU_DRAWER_ID } from "../menu/menu";
 import { CART_DRAWER_ID } from "../cart/cart";
+import { Button } from "../button/button";
 import styles from "./floating-ctas.module.scss";
 
 export function FloatingCTAs() {
@@ -13,12 +14,21 @@ export function FloatingCTAs() {
 
   return (
     <div className={styles["floating-ctas"]}>
-      <button type="button" onClick={() => openDrawer(CART_DRAWER_ID)}>
+      <Button
+        variant="secondary"
+        type="button"
+        onClick={() => openDrawer(CART_DRAWER_ID)}
+      >
         Carrello (0)
-      </button>
-      <button type="button" onClick={() => openDrawer(MENU_DRAWER_ID)}>
+      </Button>
+
+      <Button
+        variant="secondary"
+        type="button"
+        onClick={() => openDrawer(MENU_DRAWER_ID)}
+      >
         Menu
-      </button>
+      </Button>
     </div>
   );
 }

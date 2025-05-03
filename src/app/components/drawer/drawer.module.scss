@@ -29,12 +29,6 @@
   }
 
   &__close-button {
-    background-color: var(--gray);
-    border: 1px solid var(--gray-borders);
-    display: block;
-    font-weight: 500;
-    margin-inline-start: auto;
-    padding: 0.25rem 0.75rem;
     position: fixed;
     right: 2rem;
     top: 2rem;

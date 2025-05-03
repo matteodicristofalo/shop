@@ -1,11 +1,25 @@
 .button {
-  background-color: var(--black);
-  border: none;
-  color: var(--white);
-  font-size: 0.75rem;
-  font-weight: 400;
-  padding: 1rem 2rem;
-  text-transform: uppercase;
+  &--primary {
+    background-color: var(--black);
+    border: none;
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+  }
+
+  &--secondary {
+    background-color: var(--gray);
+    border: 1px solid var(--gray-borders);
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    transition: all 250ms ease;
+
+    &:hover {
+      background-color: var(--dark-gray);
+    }
+  }
 
   &--fluid {
     width: 100%;

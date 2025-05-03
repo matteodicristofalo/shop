@@ -20,7 +20,7 @@ export function Cart() {
         </div>
 
         <div className={styles["cart__pay-button"]}>
-          <Button type="button" fluid>
+          <Button variant="primary" type="button" fluid>
             <span className={styles["cart__pay-button__content"]}>
               <span>Vai al pagamento</span>
               <span>240 EUR</span>

@@ -45,7 +45,7 @@ export default function ProductPage() {
             </div>
           </fieldset>
 
-          <Button type="submit" fluid>
+          <Button variant="primary" type="submit" fluid>
             Aggiungi al carrello
           </Button>
         </form>

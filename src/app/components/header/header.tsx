@@ -3,6 +3,7 @@
 import { openDrawerEvent } from "../drawer/event";
 import { MENU_DRAWER_ID } from "../menu/menu";
 import { CART_DRAWER_ID } from "../cart/cart";
+import { Button } from "../button/button";
 import styles from "./header.module.scss";
 
 export function Header() {
@@ -17,14 +18,22 @@ export function Header() {
 
       <ul className={styles["header__ctas"]}>
         <li>
-          <button type="button" onClick={() => openDrawer(CART_DRAWER_ID)}>
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => openDrawer(CART_DRAWER_ID)}
+          >
             Carrello (0)
-          </button>
+          </Button>
         </li>
         <li>
-          <button type="button" onClick={() => openDrawer(MENU_DRAWER_ID)}>
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => openDrawer(MENU_DRAWER_ID)}
+          >
             Menu
-          </button>
+          </Button>
         </li>
       </ul>
     </header>
