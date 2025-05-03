@@ -23,10 +23,15 @@
   }
 
   &__content {
-    display: none;
-    font-size: 0.9rem;
-    line-height: 1.2rem;
-    padding: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 500ms ease;
+
+    &__wrapper {
+      font-size: 0.9rem;
+      line-height: 1.2rem;
+      padding: 1rem;
+    }
   }
 
   &--expanded {
@@ -36,7 +41,7 @@
       }
 
       &__content {
-        display: block;
+        max-height: 300px;
       }
     }
   }

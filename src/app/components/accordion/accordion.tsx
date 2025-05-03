@@ -28,7 +28,9 @@ export function Accordion({ title, children }: AccordionProps) {
         {title}
       </button>
 
-      <div className={styles["accordion__content"]}>{children}</div>
+      <div className={styles["accordion__content"]}>
+        <div className={styles["accordion__content__wrapper"]}>{children}</div>
+      </div>
     </div>
   );
 }
