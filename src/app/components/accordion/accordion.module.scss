@@ -1,3 +1,5 @@
+@use "../../mixins/display.scss" as display;
+
 .accordion {
   background-color: var(--gray);
   border: 1px solid var(--gray-borders);
@@ -7,18 +9,26 @@
     background-color: transparent;
     border: none;
     display: flex;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 500;
     justify-content: space-between;
     padding: 1rem 1.5rem 1rem 1rem;
     text-transform: uppercase;
     width: 100%;
 
+    @include display.desktop {
+      font-size: 0.75rem;
+    }
+
     &::after {
       content: "▲";
-      font-size: 0.5rem;
+      font-size: 0.45rem;
       transform: rotate(180deg);
       transition: transform 250ms ease;
+
+      @include display.desktop {
+        font-size: 0.5rem;
+      }
     }
   }
 
@@ -28,9 +38,14 @@
     transition: all 500ms ease;
 
     &__wrapper {
-      font-size: 0.9rem;
-      line-height: 1.2rem;
+      font-size: 0.8rem;
+      line-height: 1.1rem;
       padding: 1rem;
+
+      @include display.desktop {
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+      }
     }
   }
 
