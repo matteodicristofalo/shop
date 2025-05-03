@@ -52,7 +52,7 @@ export default function ProductPage() {
         </form>
 
         <div className={styles["product-page__accordions"]}>
-          <Accordion title="Product details">
+          <Accordion title="Descrizione articolo">
             Le New Balance 990 furono progettate per essere le migliori scarpe
             da corsa sul mercato e, fin dal loro lancio nel 1982, superarono le
             aspettative grazie al design elegante e al prezzo elevato,
