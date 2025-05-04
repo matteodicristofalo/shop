@@ -1,5 +1,11 @@
-const EVENT_NAME_PREFIX = "open-drawer";
+const OPEN_EVENT_NAME_PREFIX = "open-drawer";
+const CLOSE_EVENT_NAME_PREFIX = "close-drawer";
 
-export const eventName = (id: string) => `${EVENT_NAME_PREFIX}-${id}`;
+export const openEventName = (id: string) => `${OPEN_EVENT_NAME_PREFIX}-${id}`;
+export const openDrawerEvent = (id: string) =>
+  new CustomEvent(openEventName(id));
 
-export const openDrawerEvent = (id: string) => new CustomEvent(eventName(id));
+export const closeEventName = (id: string) =>
+  `${CLOSE_EVENT_NAME_PREFIX}-${id}`;
+export const closeDrawerEvent = (id: string) =>
+  new CustomEvent(closeEventName(id));

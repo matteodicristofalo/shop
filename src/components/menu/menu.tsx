@@ -1,6 +1,6 @@
 import { getCategories } from "@utils/shopify/services/categories";
 import { Drawer } from "@components/drawer/drawer";
-import Link from "next/link";
+import { NavigationItem } from "./navigation-item";
 import styles from "./menu.module.scss";
 
 export const MENU_DRAWER_ID = "menu";
@@ -16,7 +16,7 @@ export function Menu() {
         <ul className={styles["menu__links"]}>
           {categories.map((category) => (
             <li key={category.id}>
-              <Link href={`/categories/${category.id}`}>{category.name}</Link>
+              <NavigationItem category={category} />
             </li>
           ))}
         </ul>

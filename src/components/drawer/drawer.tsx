@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { eventName } from "./event";
+import { useCallback, useEffect, useState } from "react";
+import { closeEventName, openEventName } from "./event";
 import { Button } from "@components/button/button";
 import clsx from "clsx";
 import styles from "./drawer.module.scss";
@@ -14,22 +14,28 @@ type DrawerProps = {
 export function Drawer({ id, children }: DrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const openDrawer = () => {
-      setIsOpen(true);
-      document.body.classList.add("scroll-lock");
-    };
+  const openDrawer = useCallback(() => {
+    setIsOpen(true);
+    document.body.classList.add("scroll-lock");
+  }, [setIsOpen]);
 
-    const event = eventName(id);
-    document.addEventListener(event, openDrawer);
-
-    return () => document.removeEventListener(event, openDrawer);
-  }, [id]);
-
-  const closeDrawer = () => {
+  const closeDrawer = useCallback(() => {
     setIsOpen(false);
     document.body.classList.remove("scroll-lock");
-  };
+  }, [setIsOpen]);
+
+  useEffect(() => {
+    const openEvent = openEventName(id);
+    const closeEvent = closeEventName(id);
+
+    document.addEventListener(openEvent, openDrawer);
+    document.addEventListener(closeEvent, closeDrawer);
+
+    return () => {
+      document.removeEventListener(openEvent, openDrawer);
+      document.removeEventListener(closeEvent, closeDrawer);
+    };
+  }, [id, openDrawer, closeDrawer]);
 
   return (
     <div
