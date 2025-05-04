@@ -1,4 +1,4 @@
-import { Nullable } from "../types";
+import { Nullable } from "@utils/types";
 
 export async function fetchShopify<T>(query: string): Promise<Nullable<T>> {
   const url = process.env.SHOPIFY_BASE_URL || "";

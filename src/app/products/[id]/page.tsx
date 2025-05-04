@@ -2,7 +2,7 @@
 import { Button } from "@components/button/button";
 import { SizeRadio } from "@components/size-radio/size-radio";
 import { Accordion } from "@components/accordion/accordion";
-import { getProduct } from "../../actions/products";
+import { getProduct } from "./data-fetching";
 import { redirect } from "next/navigation";
 import styles from "./page.module.scss";
 

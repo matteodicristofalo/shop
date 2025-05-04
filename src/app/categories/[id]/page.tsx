@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getProductsInCategory } from "../../actions/categories";
+import { getProductsInCategory } from "./data-fetching";
 import { ProductCard } from "@components/product-card/product-card";
 import styles from "./page.module.scss";
 

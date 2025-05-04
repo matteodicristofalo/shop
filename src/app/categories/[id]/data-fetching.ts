@@ -1,5 +1,5 @@
-import { fetchShopify } from "../../utils/shopify/fetch";
-import { CollectionResponse } from "../../utils/shopify/responses";
+import { fetchShopify } from "@utils/shopify/fetch";
+import { CollectionResponse } from "@utils/shopify/responses";
 import { Nullable } from "@utils/types";
 
 type Product = {
