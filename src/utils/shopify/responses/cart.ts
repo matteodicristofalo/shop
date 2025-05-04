@@ -36,3 +36,33 @@ export type GetCartResponse = ShopifyResponse<{
     checkoutUrl: string;
   };
 }>;
+
+export type AddToCartResponse = ShopifyResponse<{
+  cartLinesAdd: {
+    cart: {
+      id: string;
+      lines: {
+        nodes: {
+          id: string;
+          merchandise: {
+            title: string;
+            price: {
+              amount: string;
+              currencyCode: string;
+            };
+            product: {
+              id: string;
+              title: string;
+              featuredImage: {
+                src: string;
+              };
+            };
+          };
+          quantity: number;
+        }[];
+      };
+      totalQuantity: number;
+      checkoutUrl: string;
+    };
+  };
+}>;
