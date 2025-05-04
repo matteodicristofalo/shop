@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button } from "@components/button/button";
-import { SizeRadio } from "@components/size-radio/size-radio";
 import { Accordion } from "@components/accordion/accordion";
+import { BuyArea } from "./buy-area";
 import { getProduct } from "./data-fetching";
 import { redirect } from "next/navigation";
 import styles from "./page.module.scss";
@@ -52,30 +51,7 @@ export default async function ProductPage({ params }: { params: Params }) {
           </p>
         </div>
 
-        <form className={styles["product-page__buy-area"]}>
-          <fieldset className={styles["product-page__buy-area__size-selector"]}>
-            <legend>Seleziona taglia</legend>
-
-            <div
-              className={styles["product-page__buy-area__size-selector__sizes"]}
-            >
-              {product.variants.map((variant) => (
-                <SizeRadio
-                  key={variant.id}
-                  name="size"
-                  value={variant.title}
-                  id={variant.title}
-                  label={variant.title}
-                  disabled={!variant.availableForSale}
-                />
-              ))}
-            </div>
-          </fieldset>
-
-          <Button variant="primary" type="submit" fluid>
-            Aggiungi al carrello
-          </Button>
-        </form>
+        <BuyArea variants={product.variants} />
 
         <div className={styles["product-page__accordions"]}>
           <Accordion title="Descrizione articolo">
