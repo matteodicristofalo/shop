@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { fetchShopify } from "../../utils/shopify/fetch";
 import { ProductResponse } from "../../utils/shopify/responses";
-import { Nullable } from "@/utils/types";
+import { Nullable } from "@utils/types";
 
 type Product = {
   id: string;
