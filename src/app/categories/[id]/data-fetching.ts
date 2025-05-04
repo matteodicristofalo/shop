@@ -1,6 +1,6 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { CollectionResponse } from "@utils/shopify/responses/collections";
-import { getBrand, getName } from "@utils/shopify/services/products";
+import { getBrand, getId, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 
 type Product = {
@@ -45,7 +45,7 @@ export async function getProductsInCategory(): Promise<Nullable<Product[]>> {
   if (!collection) return null;
 
   return collection.products.nodes.map((product) => ({
-    id: product.id,
+    id: getId(product.id),
     title: product.title,
     brand: getBrand(product.title),
     name: getName(product.title),

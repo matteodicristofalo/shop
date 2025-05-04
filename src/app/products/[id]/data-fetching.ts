@@ -59,7 +59,7 @@ export const getProduct = cache(
     if (!product) return null;
 
     return {
-      id: product.id,
+      id,
       title: product.title,
       brand: getBrand(product.title),
       name: getName(product.title),
