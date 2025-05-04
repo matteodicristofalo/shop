@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { fetchShopify } from "@utils/shopify/fetch";
-import { ProductResponse } from "@utils/shopify/responses";
+import { ProductResponse } from "@utils/shopify/responses/products";
+import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 
 type Product = {
@@ -17,37 +18,37 @@ type Product = {
   variants: {
     id: string;
     title: string;
-    inStock: boolean;
+    availableForSale: boolean;
   }[];
 };
 
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
     const query = `{
-    product(id: "gid://shopify/Product/${id}") {
-      id
-      title
-      description
-      priceRange {
-        minVariantPrice {
-          amount
-          currencyCode
+      product(id: "gid://shopify/Product/${id}") {
+        id
+        title
+        description
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 20) {
+          nodes {
+            src
+          }
+        }
+        variants(first: 20) {
+          nodes {
+            id
+            title
+            availableForSale
+          }
         }
       }
-      images(first: 20) {
-        nodes {
-          src
-        }
-      }
-      variants(first: 20) {
-        nodes {
-          id
-          title
-          availableForSale
-        }
-      }
-    }
-  }`;
+    }`;
 
     const response = await fetchShopify<ProductResponse>(query);
 
@@ -57,41 +58,17 @@ export const getProduct = cache(
 
     if (!product) return null;
 
-    const title = product.title;
-    const brand = getBrand(product.title);
-    const name = getName(product.title);
-    const description = product.description;
-    const price = product.priceRange.minVariantPrice;
-    const images = product.images.nodes.map((node) => node.src);
-    const variants = product.variants.nodes
-      .map((variant) => ({
-        id: variant.id,
-        title: variant.title,
-        inStock: variant.availableForSale,
-      }))
-      .toSorted((a, b) => a.title.localeCompare(b.title));
-
     return {
-      id,
-      title,
-      brand,
-      name,
-      description,
-      price,
-      images,
-      variants,
+      id: product.id,
+      title: product.title,
+      brand: getBrand(product.title),
+      name: getName(product.title),
+      description: product.description,
+      price: product.priceRange.minVariantPrice,
+      images: product.images.nodes.map((node) => node.src),
+      variants: product.variants.nodes.toSorted((a, b) =>
+        a.title.localeCompare(b.title)
+      ),
     };
   }
 );
-
-function getBrand(title: string): string {
-  const splittedTitle = title.split("-");
-  const maybeBrand = splittedTitle.at(0)?.trim();
-  return maybeBrand ?? "";
-}
-
-function getName(title: string): string {
-  const splittedTitle = title.split("-");
-  const maybeName = splittedTitle.at(1)?.trim();
-  return maybeName ?? "";
-}
