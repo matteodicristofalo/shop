@@ -1,4 +1,4 @@
-import { getCategories } from "@utils/shopify/services/taxonomy";
+import { getCategories } from "@utils/shopify/services/categories";
 import { Drawer } from "@components/drawer/drawer";
 import Link from "next/link";
 import styles from "./menu.module.scss";
