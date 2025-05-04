@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@mixins/*": ["./src/mixins/*"]
+      "@mixins/*": ["./src/mixins/*"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

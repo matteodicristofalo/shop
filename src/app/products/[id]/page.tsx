@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button } from "../../components/button/button";
-import { SizeRadio } from "../../components/size-radio/size-radio";
-import { Accordion } from "../../components/accordion/accordion";
-import { getProduct } from "@/app/actions/products";
+import { Button } from "@components/button/button";
+import { SizeRadio } from "@components/size-radio/size-radio";
+import { Accordion } from "@components/accordion/accordion";
+import { getProduct } from "../../actions/products";
 import { redirect } from "next/navigation";
 import styles from "./page.module.scss";
 

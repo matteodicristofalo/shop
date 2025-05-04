@@ -1,6 +1,6 @@
-import { Drawer } from "../drawer/drawer";
-import { Button } from "../button/button";
-import { ProductCard } from "../product-card/product-card";
+import { Drawer } from "@components/drawer/drawer";
+import { Button } from "@components/button/button";
+import { ProductCard } from "@components/product-card/product-card";
 import styles from "./cart.module.scss";
 
 export const CART_DRAWER_ID = "cart";

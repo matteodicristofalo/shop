@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { eventName } from "./event";
-import { Button } from "../button/button";
+import { Button } from "@components/button/button";
 import clsx from "clsx";
 import styles from "./drawer.module.scss";
 

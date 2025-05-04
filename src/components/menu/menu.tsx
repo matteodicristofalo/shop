@@ -1,4 +1,4 @@
-import { Drawer } from "../drawer/drawer";
+import { Drawer } from "@components/drawer/drawer";
 import Link from "next/link";
 import styles from "./menu.module.scss";
 

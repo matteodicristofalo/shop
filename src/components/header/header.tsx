@@ -1,9 +1,9 @@
 "use client";
 
-import { openDrawerEvent } from "../drawer/event";
-import { MENU_DRAWER_ID } from "../menu/menu";
-import { CART_DRAWER_ID } from "../cart/cart";
-import { Button } from "../button/button";
+import { openDrawerEvent } from "@components/drawer/event";
+import { MENU_DRAWER_ID } from "@components/menu/menu";
+import { CART_DRAWER_ID } from "@components/cart/cart";
+import { Button } from "@components/button/button";
 import styles from "./header.module.scss";
 
 export function Header() {
