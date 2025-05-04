@@ -2,6 +2,7 @@ import { Header } from "@components/header/header";
 import { Menu } from "@components/menu/menu";
 import { Cart } from "@components/cart/cart";
 import { FloatingCTAs } from "@components/floating-ctas/floating-ctas";
+import { CartContextProvider } from "../contexts/cart";
 import "./globals.scss";
 
 export default function RootLayout({
@@ -12,11 +13,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main>{children}</main>
-        <Menu />
-        <Cart />
-        <FloatingCTAs />
+        <CartContextProvider>
+          <Header />
+          <main>{children}</main>
+          <Menu />
+          <Cart />
+          <FloatingCTAs />
+        </CartContextProvider>
       </body>
     </html>
   );

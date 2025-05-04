@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { addToCart } from "./actions";
 import { Button } from "@components/button/button";
 import { SizeRadio } from "@components/size-radio/size-radio";
+import { useCartContext } from "../../../contexts/cart";
 import clsx from "clsx";
 import styles from "./page.module.scss";
 
@@ -16,11 +17,12 @@ type BuyAreaProps = {
 };
 
 export function BuyArea({ variants }: BuyAreaProps) {
+  const cart = useCartContext();
   const [error, action, isPending] = useActionState(addToCart, false);
 
   return (
     <form className={styles["product-page__buy-area"]} action={action}>
-      <input type="text" name="cartId" defaultValue="12345" hidden />
+      <input type="text" name="cartId" defaultValue={cart.id} hidden />
 
       <fieldset
         className={clsx(styles["product-page__buy-area__size-selector"], {
