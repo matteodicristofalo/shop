@@ -1,6 +1,7 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { GetCartResponse } from "@utils/shopify/responses/cart";
 import { Cart } from "@models/cart";
+import { flattenCartLine } from "@utils/shopify/services/cart";
 
 export async function POST(request: Request) {
   const { cartId } = await request.json();
@@ -45,23 +46,28 @@ export async function POST(request: Request) {
     return new Response("Error fetching cart", { status: 500 });
   }
 
-  const cart: Cart = {
-    id: response.data.cart.id,
-    lines: response.data.cart.lines.nodes.map((line) => ({
-      id: line.id,
-      merchandise: {
-        title: line.merchandise.title,
-        price: line.merchandise.price,
-        product: {
-          id: line.merchandise.product.id,
-          title: line.merchandise.product.title,
-          image: line.merchandise.product.featuredImage.src,
-        },
+  const { id, lines, checkoutUrl } = response.data.cart;
+
+  const flattenCartLines = flattenCartLine(lines.nodes);
+
+  const cartLines = flattenCartLines.map((line) => ({
+    id: line.id,
+    merchandise: {
+      title: line.merchandise.title,
+      price: line.merchandise.price,
+      product: {
+        id: line.merchandise.product.id,
+        title: line.merchandise.product.title,
+        image: line.merchandise.product.featuredImage.src,
       },
-      quantity: line.quantity,
-    })),
-    totalQuantity: response.data.cart.totalQuantity,
-    checkoutUrl: response.data.cart.checkoutUrl,
+    },
+  }));
+
+  const cart: Cart = {
+    id,
+    checkoutUrl,
+    lines: cartLines,
+    totalQuantity: cartLines.length,
   };
 
   return new Response(JSON.stringify(cart));

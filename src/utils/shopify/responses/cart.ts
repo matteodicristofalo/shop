@@ -13,26 +13,8 @@ export type GetCartResponse = ShopifyResponse<{
   cart: {
     id: string;
     lines: {
-      nodes: {
-        id: string;
-        merchandise: {
-          title: string;
-          price: {
-            amount: string;
-            currencyCode: string;
-          };
-          product: {
-            id: string;
-            title: string;
-            featuredImage: {
-              src: string;
-            };
-          };
-        };
-        quantity: number;
-      }[];
+      nodes: CartLine[];
     };
-    totalQuantity: number;
     checkoutUrl: string;
   };
 }>;
@@ -42,27 +24,28 @@ export type AddToCartResponse = ShopifyResponse<{
     cart: {
       id: string;
       lines: {
-        nodes: {
-          id: string;
-          merchandise: {
-            title: string;
-            price: {
-              amount: string;
-              currencyCode: string;
-            };
-            product: {
-              id: string;
-              title: string;
-              featuredImage: {
-                src: string;
-              };
-            };
-          };
-          quantity: number;
-        }[];
+        nodes: CartLine[];
       };
-      totalQuantity: number;
       checkoutUrl: string;
     };
   };
 }>;
+
+export type CartLine = {
+  id: string;
+  merchandise: {
+    title: string;
+    price: {
+      amount: string;
+      currencyCode: string;
+    };
+    product: {
+      id: string;
+      title: string;
+      featuredImage: {
+        src: string;
+      };
+    };
+  };
+  quantity: number;
+};

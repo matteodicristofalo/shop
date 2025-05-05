@@ -14,7 +14,6 @@ export type Cart = {
         image: string;
       };
     };
-    quantity: number;
   }[];
   totalQuantity: number;
   checkoutUrl: string;
