@@ -1,6 +1,7 @@
 "use client";
 
 import { post } from "@utils/fetch";
+import { Maybe } from "@utils/types";
 import {
   createContext,
   useCallback,
@@ -39,7 +40,7 @@ type Cart = {
   checkoutUrl: string;
 };
 
-const CartContext = createContext<CartContext | undefined>(undefined);
+const CartContext = createContext<Maybe<CartContext>>(undefined);
 
 export function CartContextProvider({
   children,
@@ -52,6 +53,8 @@ export function CartContextProvider({
     totalQuantity: 0,
     checkoutUrl: "",
   });
+
+  console.log("cart", cart);
 
   useEffect(() => {
     async function getCart() {
