@@ -21,11 +21,9 @@ export function ProductCard({
 }: ProductCardProps) {
   return (
     <div className={styles["product-card"]}>
-      <img
-        src={image}
-        alt={`${brand} - ${name}`}
-        className={styles["product-card__image"]}
-      />
+      <div className={styles["product-card__image"]}>
+        <img src={image} alt={`${brand} - ${name}`} />
+      </div>
 
       <div className={styles["product-card__information"]}>
         <p className={styles["product-card__brand"]}>{brand}</p>

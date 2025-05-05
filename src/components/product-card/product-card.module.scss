@@ -1,9 +1,31 @@
+@use "@mixins/skeleton.scss" as skeleton;
+
 .product-card {
   background-color: var(--gray);
 
   &__image {
-    display: block;
-    width: 100%;
+    aspect-ratio: 4 / 5;
+    position: relative;
+    z-index: 0;
+
+    &::before {
+      @include skeleton.animation();
+      background-color: var(--dark-gray);
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    img {
+      display: block;
+      position: relative;
+      width: 100%;
+      z-index: 1;
+    }
   }
 
   &__information {
