@@ -2,7 +2,7 @@
 
 import { post } from "@utils/fetch";
 import { Maybe } from "@utils/types";
-import { Cart } from "../models/cart";
+import { Cart } from "@models/cart";
 import {
   createContext,
   useCallback,

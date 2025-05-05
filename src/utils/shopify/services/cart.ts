@@ -1,4 +1,4 @@
-import { ShopifCartLine } from "../responses/cart";
+import { ShopifCartLine } from "@utils/shopify/responses/cart";
 
 export function flattenCartLines(
   cartLines: ShopifCartLine[]
