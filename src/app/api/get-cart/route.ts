@@ -2,6 +2,7 @@ import { fetchShopify } from "@utils/shopify/fetch";
 import { GetCartResponse } from "@utils/shopify/responses/cart";
 import { Cart } from "@models/cart";
 import { flattenCartLine } from "@utils/shopify/services/cart";
+import { getBrand, getName } from "@utils/shopify/services/products";
 
 export async function POST(request: Request) {
   const { cartId } = await request.json();
@@ -57,7 +58,8 @@ export async function POST(request: Request) {
       price: line.merchandise.price,
       product: {
         id: line.merchandise.product.id,
-        title: line.merchandise.product.title,
+        name: getName(line.merchandise.product.title),
+        brand: getBrand(line.merchandise.product.title),
         image: line.merchandise.product.featuredImage.src,
       },
     },

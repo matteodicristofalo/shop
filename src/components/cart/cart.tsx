@@ -24,8 +24,8 @@ export function Cart() {
             return (
               <ProductCard
                 key={index}
-                brand={product.title}
-                name={product.title}
+                brand={product.brand}
+                name={product.name}
                 image={product.image}
                 price={merchandise.price}
               />

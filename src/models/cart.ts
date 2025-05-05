@@ -10,7 +10,8 @@ export type Cart = {
       };
       product: {
         id: string;
-        title: string;
+        name: string;
+        brand: string;
         image: string;
       };
     };
