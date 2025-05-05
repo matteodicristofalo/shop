@@ -19,8 +19,8 @@ export default async function CategoryPage({
       <h1 className={styles["category-page__title"]}>{category.name}</h1>
 
       <div className={styles["category-page__products"]}>
-        {category.products.map((product, index) => (
-          <Link href={`/products/${product.id}`} key={index}>
+        {category.products.map((product) => (
+          <Link href={`/products/${product.id}`} key={product.id}>
             <ProductCard
               brand={product.brand}
               name={product.name}
