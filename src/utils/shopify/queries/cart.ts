@@ -4,6 +4,12 @@ export const createCartQuery = `
       cart {
         id
         checkoutUrl
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
       }
     }
   }
@@ -13,6 +19,13 @@ export const getCartQuery = (cartId: string) => `
   {
     cart(id: "${cartId}") {
       id
+      checkoutUrl
+      cost {
+        totalAmount {
+          amount
+          currencyCode
+        }
+      }
       lines(first: 20) {
         nodes {
           id
@@ -35,7 +48,6 @@ export const getCartQuery = (cartId: string) => `
           quantity
         }
       }
-      checkoutUrl
     }
   }
 `;
@@ -45,6 +57,13 @@ export const addToCartQuery = `
     cartLinesAdd(cartId: $cartId, lines: [{ merchandiseId: $variantId, quantity: 1 }]) {
       cart {
         id
+        checkoutUrl
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
         lines(first: 20) {
           nodes {
             id
@@ -67,7 +86,6 @@ export const addToCartQuery = `
             quantity
           }
         }
-        checkoutUrl
       }
     }
   }    

@@ -58,7 +58,7 @@ export function BuyArea({ variants }: BuyAreaProps) {
         </div>
       </fieldset>
 
-      <Button variant="primary" type="submit" onClick={handleSubmit} fluid>
+      <Button variant="primary" type="button" onClick={handleSubmit} fluid>
         {isPending ? "Cariamento..." : "Aggiungi al carrello"}
       </Button>
     </form>

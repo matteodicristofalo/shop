@@ -5,6 +5,7 @@ export type ShopifCreateCartResponse = ShopifyResponse<{
     cart: {
       id: string;
       checkoutUrl: string;
+      cost: ShopifyCartCost;
     };
   };
 }>;
@@ -19,9 +20,17 @@ export type ShopifAddToCartResponse = ShopifyResponse<{
   };
 }>;
 
+type ShopifyCartCost = {
+  totalAmount: {
+    amount: string;
+    currencyCode: string;
+  };
+};
+
 export type ShopifyCart = {
   id: string;
   checkoutUrl: string;
+  cost: ShopifyCartCost;
   lines: {
     nodes: ShopifCartLine[];
   };

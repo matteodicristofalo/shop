@@ -16,6 +16,10 @@ export type Cart = {
       };
     };
   }[];
+  totalAmount: {
+    amount: string;
+    currencyCode: string;
+  };
   totalQuantity: number;
   checkoutUrl: string;
 };

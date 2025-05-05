@@ -26,9 +26,13 @@ export function CartContextProvider({
 }) {
   const [cart, setCart] = useState<Cart>({
     id: "",
+    checkoutUrl: "",
     lines: [],
     totalQuantity: 0,
-    checkoutUrl: "",
+    totalAmount: {
+      amount: "",
+      currencyCode: "",
+    },
   });
 
   useEffect(() => {
@@ -39,15 +43,18 @@ export function CartContextProvider({
         const cart = await post<Cart>("/api/get-cart", { cartId });
         setCart(cart);
       } else {
-        const cart = await post<{ id: string; checkoutUrl: string }>(
+        const cart = await post<Omit<Cart, "lines" | "totalQuantity">>(
           "/api/create-cart"
         );
+
         setCart({
           id: cart.id,
+          checkoutUrl: cart.checkoutUrl,
           lines: [],
           totalQuantity: 0,
-          checkoutUrl: cart.checkoutUrl,
+          totalAmount: cart.totalAmount,
         });
+
         localStorage.setItem("cartId", cart.id);
       }
     }

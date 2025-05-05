@@ -4,7 +4,7 @@ import { flattenCartLines } from "@utils/shopify/services/cart";
 import { getBrand, getName } from "@utils/shopify/services/products";
 
 export function toCart(cart: ShopifyCart): Cart {
-  const { id, checkoutUrl, lines } = cart;
+  const { id, checkoutUrl, lines, cost } = cart;
 
   const cartLines = flattenCartLines(lines.nodes).map((line) => ({
     id: line.id,
@@ -25,5 +25,6 @@ export function toCart(cart: ShopifyCart): Cart {
     checkoutUrl,
     lines: cartLines,
     totalQuantity: cartLines.length,
+    totalAmount: cost.totalAmount,
   };
 }

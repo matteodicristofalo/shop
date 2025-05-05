@@ -38,7 +38,9 @@ export function Cart() {
           <Button variant="primary" type="button" fluid>
             <span className={styles["cart__pay-button__content"]}>
               <span>Vai al pagamento</span>
-              <span>0 EUR</span>
+              <span>
+                {cart.totalAmount.amount} {cart.totalAmount.currencyCode}
+              </span>
             </span>
           </Button>
         </div>
