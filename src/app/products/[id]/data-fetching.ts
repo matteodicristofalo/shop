@@ -3,6 +3,7 @@ import { fetchShopify } from "@utils/shopify/fetch";
 import { ShopifProductResponse } from "@utils/shopify/responses/products";
 import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
+import { getProductQuery } from "@utils/shopify/queries/products";
 
 type Product = {
   id: string;
@@ -24,32 +25,7 @@ type Product = {
 
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
-    const query = `{
-      product(id: "gid://shopify/Product/${id}") {
-        id
-        title
-        description
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-        images(first: 20) {
-          nodes {
-            src
-          }
-        }
-        variants(first: 20) {
-          nodes {
-            id
-            title
-            availableForSale
-          }
-        }
-      }
-    }`;
-
+    const query = getProductQuery(id);
     const response = await fetchShopify<ShopifProductResponse>(query);
 
     if (!response) return null;
