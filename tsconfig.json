@@ -19,9 +19,10 @@
       }
     ],
     "paths": {
-      "@mixins/*": ["./src/mixins/*"],
       "@components/*": ["./src/components/*"],
       "@contexts/*": ["./src/contexts/*"],
+      "@mixins/*": ["./src/mixins/*"],
+      "@models/*": ["./src/models/*"],
       "@utils/*": ["./src/utils/*"]
     }
   },

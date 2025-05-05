@@ -1,5 +1,6 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { GetCartResponse } from "@utils/shopify/responses/cart";
+import { Cart } from "@models/cart";
 
 export async function POST(request: Request) {
   const { cartId } = await request.json();
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
     return new Response("Error fetching cart", { status: 500 });
   }
 
-  const cart = {
+  const cart: Cart = {
     id: response.data.cart.id,
     lines: response.data.cart.lines.nodes.map((line) => ({
       id: line.id,

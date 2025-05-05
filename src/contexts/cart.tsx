@@ -2,6 +2,7 @@
 
 import { post } from "@utils/fetch";
 import { Maybe } from "@utils/types";
+import { Cart } from "../models/cart";
 import {
   createContext,
   useCallback,
@@ -14,28 +15,6 @@ import {
 type CartContext = {
   cart: Cart;
   addToCart: (variantId: string) => Promise<void>;
-};
-
-type Cart = {
-  id: string;
-  lines: {
-    id: string;
-    merchandise: {
-      title: string;
-      price: {
-        amount: string;
-        currencyCode: string;
-      };
-      product: {
-        id: string;
-        title: string;
-        image: string;
-      };
-    };
-    quantity: number;
-  }[];
-  totalQuantity: number;
-  checkoutUrl: string;
 };
 
 const CartContext = createContext<Maybe<CartContext>>(undefined);
@@ -51,8 +30,6 @@ export function CartContextProvider({
     totalQuantity: 0,
     checkoutUrl: "",
   });
-
-  console.log("cart", cart);
 
   useEffect(() => {
     async function getCart() {

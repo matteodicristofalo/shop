@@ -1,5 +1,6 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { AddToCartResponse } from "@utils/shopify/responses/cart";
+import { Cart } from "@models/cart";
 
 export async function POST(request: Request) {
   const { cartId, variantId } = await request.json();
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
     return new Response("Error adding item to the cart", { status: 500 });
   }
 
-  const cart = {
+  const cart: Cart = {
     id: response.data.cartLinesAdd.cart.id,
     lines: response.data.cartLinesAdd.cart.lines.nodes.map((line) => ({
       id: line.id,
