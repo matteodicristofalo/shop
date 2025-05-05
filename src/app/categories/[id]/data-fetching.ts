@@ -1,6 +1,7 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { ShopifyCollectionResponse } from "@utils/shopify/responses/collections";
-import { getBrand, getId, getName } from "@utils/shopify/services/products";
+import { getId } from "@utils/shopify/services/generics";
+import { getBrand, getName } from "@utils/shopify/services/products";
 import { getCategoryById } from "@utils/shopify/services/categories";
 import { Nullable } from "@utils/types";
 import { productsInCollectionQuery } from "@utils/shopify/queries/collections";
