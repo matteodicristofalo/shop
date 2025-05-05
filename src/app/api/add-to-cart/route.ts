@@ -40,7 +40,6 @@ export async function POST(request: Request) {
               quantity
             }
           }
-          totalQuantity
           checkoutUrl
         }
       }
