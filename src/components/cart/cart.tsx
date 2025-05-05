@@ -28,6 +28,7 @@ export function Cart() {
                 name={product.name}
                 image={product.image}
                 price={merchandise.price}
+                size={merchandise.title}
               />
             );
           })}

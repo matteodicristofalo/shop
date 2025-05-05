@@ -17,10 +17,15 @@
   }
 
   &__name {
-    margin: 0.25rem 0 0.75rem 0;
+    margin-top: 0.25rem;
+  }
+
+  &__size {
+    margin-top: 0.5rem;
   }
 
   &__price {
     font-weight: 500;
+    margin-top: 0.75rem;
   }
 }
