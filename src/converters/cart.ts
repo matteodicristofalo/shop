@@ -1,6 +1,7 @@
 import { Cart } from "@models/cart";
 import { ShopifyCart } from "@utils/shopify/responses/cart";
 import { flattenCartLines } from "@utils/shopify/services/cart";
+import { getId } from "@utils/shopify/services/generics";
 import { getBrand, getName } from "@utils/shopify/services/products";
 
 export function toCart(cart: ShopifyCart): Cart {
@@ -12,7 +13,7 @@ export function toCart(cart: ShopifyCart): Cart {
       title: line.merchandise.title,
       price: line.merchandise.price,
       product: {
-        id: line.merchandise.product.id,
+        id: getId(line.merchandise.product.id),
         name: getName(line.merchandise.product.title),
         brand: getBrand(line.merchandise.product.title),
         image: line.merchandise.product.featuredImage.src,
