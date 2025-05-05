@@ -21,6 +21,7 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@contexts/*": ["./src/contexts/*"],
+      "@converters/*": ["./src/converters/*"],
       "@mixins/*": ["./src/mixins/*"],
       "@models/*": ["./src/models/*"],
       "@utils/*": ["./src/utils/*"]

@@ -1,8 +1,6 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { ShopifAddToCartResponse } from "@utils/shopify/responses/cart";
-import { Cart } from "@models/cart";
-import { flattenCartLine } from "@utils/shopify/services/cart";
-import { getBrand, getName } from "@utils/shopify/services/products";
+import { toCart } from "@converters/cart";
 
 export async function POST(request: Request) {
   const { cartId, variantId } = await request.json();
@@ -58,30 +56,9 @@ export async function POST(request: Request) {
     return new Response("Error adding item to the cart", { status: 500 });
   }
 
-  const { id, lines, checkoutUrl } = response.data.cartLinesAdd.cart;
+  const shopifyCart = response.data.cartLinesAdd.cart;
 
-  const flattenCartLines = flattenCartLine(lines.nodes);
-
-  const cartLines = flattenCartLines.map((line) => ({
-    id: line.id,
-    merchandise: {
-      title: line.merchandise.title,
-      price: line.merchandise.price,
-      product: {
-        id: line.merchandise.product.id,
-        name: getName(line.merchandise.product.title),
-        brand: getBrand(line.merchandise.product.title),
-        image: line.merchandise.product.featuredImage.src,
-      },
-    },
-  }));
-
-  const cart: Cart = {
-    id,
-    checkoutUrl,
-    lines: cartLines,
-    totalQuantity: cartLines.length,
-  };
+  const cart = toCart(shopifyCart);
 
   return new Response(JSON.stringify(cart));
 }
