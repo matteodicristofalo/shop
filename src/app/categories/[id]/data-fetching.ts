@@ -3,6 +3,7 @@ import { ShopifyCollectionResponse } from "@utils/shopify/responses/collections"
 import { getBrand, getId, getName } from "@utils/shopify/services/products";
 import { getCategoryById } from "@utils/shopify/services/categories";
 import { Nullable } from "@utils/types";
+import { productsInCollectionQuery } from "@utils/shopify/queries/collections";
 
 type Category = {
   name: string;
@@ -26,26 +27,7 @@ export async function getCategory(id: string): Promise<Nullable<Category>> {
 
   if (!category) return null;
 
-  const query = `{
-    collection(id: "gid://shopify/Collection/639477383501") {
-      products(first: 10, filters: {category: { id: "${id}" } }) {
-        nodes {
-          id
-          title
-          priceRange {
-            minVariantPrice {
-              amount
-              currencyCode
-            }
-          }
-          featuredImage {
-            src
-          }
-        }
-      }
-    }
-  }`;
-
+  const query = productsInCollectionQuery(category.id);
   const response = await fetchShopify<ShopifyCollectionResponse>(query);
 
   if (!response) return null;
