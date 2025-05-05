@@ -65,7 +65,7 @@ export async function POST(request: Request) {
         product: {
           id: line.merchandise.product.id,
           title: line.merchandise.product.title,
-          featuredImage: line.merchandise.product.featuredImage.src,
+          image: line.merchandise.product.featuredImage.src,
         },
       },
       quantity: line.quantity,

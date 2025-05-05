@@ -29,9 +29,7 @@ type Cart = {
       product: {
         id: string;
         title: string;
-        featuredImage: {
-          src: string;
-        };
+        image: string;
       };
     };
     quantity: number;

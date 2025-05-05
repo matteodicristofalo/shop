@@ -22,10 +22,9 @@ export default async function CategoryPage({
         {category.products.map((product, index) => (
           <Link href={`/products/${product.id}`} key={index}>
             <ProductCard
-              title={product.title}
               brand={product.brand}
               name={product.name}
-              price={`${product.price.amount} ${product.price.currencyCode}`}
+              price={product.price}
               image={product.image}
             />
           </Link>
