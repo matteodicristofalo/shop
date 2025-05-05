@@ -1,23 +1,102 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { post } from "@utils/fetch";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
-export type Cart = {
-  id: string;
+type CartContext = {
+  cart: Cart;
+  addToCart: (variantId: string) => Promise<void>;
 };
 
-const CartContext = createContext<Cart | undefined>(undefined);
+type Cart = {
+  id: string;
+  lines: {
+    id: string;
+    merchandise: {
+      title: string;
+      price: {
+        amount: string;
+        currencyCode: string;
+      };
+      product: {
+        id: string;
+        title: string;
+        featuredImage: {
+          src: string;
+        };
+      };
+    };
+    quantity: number;
+  }[];
+  totalQuantity: number;
+  checkoutUrl: string;
+};
+
+const CartContext = createContext<CartContext | undefined>(undefined);
 
 export function CartContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cart = {
-    id: "56789",
-  };
+  const [cart, setCart] = useState<Cart>({
+    id: "",
+    lines: [],
+    totalQuantity: 0,
+    checkoutUrl: "",
+  });
 
-  return <CartContext.Provider value={cart}>{children}</CartContext.Provider>;
+  useEffect(() => {
+    async function getCart() {
+      const cartId = localStorage.getItem("cartId");
+
+      if (cartId) {
+        const cart = await post<Cart>("/api/get-cart", { cartId });
+        setCart(cart);
+      } else {
+        const cart = await post<{ id: string; checkoutUrl: string }>(
+          "/api/create-cart"
+        );
+        setCart({
+          id: cart.id,
+          lines: [],
+          totalQuantity: 0,
+          checkoutUrl: cart.checkoutUrl,
+        });
+        localStorage.setItem("cartId", cart.id);
+      }
+    }
+
+    getCart();
+  }, []);
+
+  const addToCart = useCallback(
+    async (variantId: string) => {
+      const newCart = await post<Cart>("/api/add-to-cart", {
+        cartId: cart.id,
+        variantId,
+      });
+      setCart(newCart);
+    },
+    [cart.id]
+  );
+
+  const value = useMemo(
+    () => ({
+      cart,
+      addToCart,
+    }),
+    [cart, addToCart]
+  );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCartContext() {

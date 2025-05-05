@@ -17,7 +17,7 @@ type BuyAreaProps = {
 };
 
 export function BuyArea({ variants }: BuyAreaProps) {
-  const cart = useCartContext();
+  const { cart } = useCartContext();
   const [error, action, isPending] = useActionState(addToCart, false);
 
   return (
