@@ -1,6 +1,7 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { ShopifGetCartResponse } from "@utils/shopify/responses/cart";
 import { toCart } from "@converters/cart";
+import { getCartQuery } from "@utils/shopify/queries/cart";
 
 export async function POST(request: Request) {
   const { cartId } = await request.json();
@@ -9,35 +10,7 @@ export async function POST(request: Request) {
     return new Response("cartId is required", { status: 400 });
   }
 
-  const query = `{
-    cart(id: "${cartId}") {
-      id
-      lines(first: 20) {
-        nodes {
-          id
-          merchandise {
-            ... on ProductVariant {
-              title
-              price {
-                amount
-                currencyCode
-              }
-              product {
-                id
-                title
-                featuredImage {
-                  src
-                }
-              }
-            }
-          }
-          quantity
-        }
-      }
-      checkoutUrl
-    }
-  }`;
-
+  const query = getCartQuery(cartId);
   const response = await fetchShopify<ShopifGetCartResponse>(query);
 
   if (!response) {

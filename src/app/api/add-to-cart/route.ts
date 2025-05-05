@@ -1,6 +1,7 @@
 import { fetchShopify } from "@utils/shopify/fetch";
 import { ShopifAddToCartResponse } from "@utils/shopify/responses/cart";
 import { toCart } from "@converters/cart";
+import { addToCartQuery } from "@utils/shopify/queries/cart";
 
 export async function POST(request: Request) {
   const { cartId, variantId } = await request.json();
@@ -13,40 +14,7 @@ export async function POST(request: Request) {
     return new Response("variantId is required", { status: 400 });
   }
 
-  const query = `
-    mutation AddToCart($cartId: ID!, $variantId: ID!) {
-      cartLinesAdd(cartId: $cartId, lines: [{ merchandiseId: $variantId, quantity: 1 }]) {
-        cart {
-          id
-          lines(first: 20) {
-            nodes {
-              id
-              merchandise {
-                ... on ProductVariant {
-                  title
-                  price {
-                    amount
-                    currencyCode
-                  }
-                  product {
-                    id
-                    title
-                    featuredImage {
-                      src
-                    }
-                  }
-                }
-              }
-              quantity
-            }
-          }
-          checkoutUrl
-        }
-      }
-    }    
-  `;
-
-  const response = await fetchShopify<ShopifAddToCartResponse>(query, {
+  const response = await fetchShopify<ShopifAddToCartResponse>(addToCartQuery, {
     cartId,
     variantId,
   });
@@ -56,7 +24,6 @@ export async function POST(request: Request) {
   }
 
   const shopifyCart = response.data.cartLinesAdd.cart;
-
   const cart = toCart(shopifyCart);
 
   return new Response(JSON.stringify(cart));
