@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@components/button/button";
 import { SizeRadio } from "@components/size-radio/size-radio";
-import { useCartContext } from "../../../contexts/cart";
+import { useCartContext } from "@contexts/cart";
 import { Maybe } from "@utils/types";
 import clsx from "clsx";
 import styles from "./page.module.scss";
