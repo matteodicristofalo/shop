@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./size-radio.module.scss";
 
 type SizeRadioProps = {
@@ -6,6 +8,7 @@ type SizeRadioProps = {
   value: string;
   label: string;
   disabled?: boolean;
+  onChange?: () => void;
 };
 
 export function SizeRadio({
@@ -14,6 +17,7 @@ export function SizeRadio({
   value,
   label,
   disabled,
+  onChange,
 }: SizeRadioProps) {
   return (
     <div className={styles["size-radio"]}>
@@ -24,6 +28,7 @@ export function SizeRadio({
         value={value}
         disabled={disabled}
         className={styles["size-radio__input"]}
+        onChange={onChange}
       />
 
       <label htmlFor={id} className={styles["size-radio__label"]}>
