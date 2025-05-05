@@ -1,5 +1,5 @@
 import { fetchShopify } from "@utils/shopify/fetch";
-import { AddToCartResponse } from "@utils/shopify/responses/cart";
+import { ShopifAddToCartResponse } from "@utils/shopify/responses/cart";
 import { Cart } from "@models/cart";
 import { flattenCartLine } from "@utils/shopify/services/cart";
 import { getBrand, getName } from "@utils/shopify/services/products";
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
     }    
   `;
 
-  const response = await fetchShopify<AddToCartResponse>(query, {
+  const response = await fetchShopify<ShopifAddToCartResponse>(query, {
     cartId,
     variantId,
   });

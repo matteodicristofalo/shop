@@ -1,6 +1,6 @@
 import { ShopifyResponse } from "./generics";
 
-export type CreateCartResponse = ShopifyResponse<{
+export type ShopifCreateCartResponse = ShopifyResponse<{
   cartCreate: {
     cart: {
       id: string;
@@ -9,29 +9,25 @@ export type CreateCartResponse = ShopifyResponse<{
   };
 }>;
 
-export type GetCartResponse = ShopifyResponse<{
-  cart: {
-    id: string;
-    lines: {
-      nodes: CartLine[];
-    };
-    checkoutUrl: string;
-  };
+export type ShopifGetCartResponse = ShopifyResponse<{
+  cart: ShopifyCart;
 }>;
 
-export type AddToCartResponse = ShopifyResponse<{
+export type ShopifAddToCartResponse = ShopifyResponse<{
   cartLinesAdd: {
-    cart: {
-      id: string;
-      lines: {
-        nodes: CartLine[];
-      };
-      checkoutUrl: string;
-    };
+    cart: ShopifyCart;
   };
 }>;
 
-export type CartLine = {
+export type ShopifyCart = {
+  id: string;
+  checkoutUrl: string;
+  lines: {
+    nodes: ShopifCartLine[];
+  };
+};
+
+export type ShopifCartLine = {
   id: string;
   merchandise: {
     title: string;

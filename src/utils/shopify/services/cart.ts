@@ -1,6 +1,6 @@
-import { CartLine } from "../responses/cart";
+import { ShopifCartLine } from "../responses/cart";
 
-export function flattenCartLine(cartLines: CartLine[]): CartLine[] {
+export function flattenCartLine(cartLines: ShopifCartLine[]): ShopifCartLine[] {
   return cartLines
     .map((cartLine) => {
       const { id, merchandise, quantity } = cartLine;

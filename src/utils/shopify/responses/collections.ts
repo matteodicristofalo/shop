@@ -1,6 +1,6 @@
 import { ShopifyResponse } from "./generics";
 
-export type CollectionResponse = ShopifyResponse<{
+export type ShopifyCollectionResponse = ShopifyResponse<{
   collection: {
     products: {
       nodes: {

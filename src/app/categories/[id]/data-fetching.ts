@@ -1,5 +1,5 @@
 import { fetchShopify } from "@utils/shopify/fetch";
-import { CollectionResponse } from "@utils/shopify/responses/collections";
+import { ShopifyCollectionResponse } from "@utils/shopify/responses/collections";
 import { getBrand, getId, getName } from "@utils/shopify/services/products";
 import { getCategoryById } from "@utils/shopify/services/categories";
 import { Nullable } from "@utils/types";
@@ -46,7 +46,7 @@ export async function getCategory(id: string): Promise<Nullable<Category>> {
     }
   }`;
 
-  const response = await fetchShopify<CollectionResponse>(query);
+  const response = await fetchShopify<ShopifyCollectionResponse>(query);
 
   if (!response) return null;
 

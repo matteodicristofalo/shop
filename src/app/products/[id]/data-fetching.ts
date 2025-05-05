@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { fetchShopify } from "@utils/shopify/fetch";
-import { ProductResponse } from "@utils/shopify/responses/products";
+import { ShopifProductResponse } from "@utils/shopify/responses/products";
 import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 
@@ -50,7 +50,7 @@ export const getProduct = cache(
       }
     }`;
 
-    const response = await fetchShopify<ProductResponse>(query);
+    const response = await fetchShopify<ShopifProductResponse>(query);
 
     if (!response) return null;
 
