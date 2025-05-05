@@ -4,6 +4,7 @@ import { Drawer } from "@components/drawer/drawer";
 import { Button } from "@components/button/button";
 import { ProductCard } from "@components/product-card/product-card";
 import { useCartContext } from "@contexts/cart";
+import { redirect } from "next/navigation";
 import styles from "./cart.module.scss";
 
 export const CART_DRAWER_ID = "cart";
@@ -35,7 +36,12 @@ export function Cart() {
         </div>
 
         <div className={styles["cart__pay-button"]}>
-          <Button variant="primary" type="button" fluid>
+          <Button
+            variant="primary"
+            type="button"
+            fluid
+            onClick={() => redirect(cart.checkoutUrl)}
+          >
             <span className={styles["cart__pay-button__content"]}>
               <span>Vai al pagamento</span>
               <span>
