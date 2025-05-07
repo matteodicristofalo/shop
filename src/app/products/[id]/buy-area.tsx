@@ -5,6 +5,8 @@ import { Button } from "@components/button/button";
 import { SizeRadio } from "@components/size-radio/size-radio";
 import { useCartContext } from "@contexts/cart";
 import { Maybe } from "@utils/types";
+import { CART_DRAWER_ID } from "@components/cart/cart";
+import { openDrawerEvent } from "@components/drawer/event";
 import clsx from "clsx";
 import styles from "./page.module.scss";
 
@@ -32,6 +34,12 @@ export function BuyArea({ variants }: BuyAreaProps) {
     setIsPending(true);
     await addToCart(selectedVariant);
     setIsPending(false);
+    openCartDrawer();
+  };
+
+  const openCartDrawer = () => {
+    const event = openDrawerEvent(CART_DRAWER_ID);
+    document.dispatchEvent(event);
   };
 
   return (
