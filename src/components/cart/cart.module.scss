@@ -18,6 +18,21 @@
     margin: 2rem 0 4rem 0;
   }
 
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &__remove-button {
+      background-color: var(--gray);
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      padding: 0.5rem;
+      width: 100%;
+    }
+  }
+
   &__pay-button {
     bottom: 1rem;
     left: 1rem;

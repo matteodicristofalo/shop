@@ -15,6 +15,7 @@ import {
 type CartContext = {
   cart: Cart;
   addToCart: (variantId: string) => Promise<void>;
+  removeFromCart: (variantId: string) => Promise<void>;
 };
 
 const CartContext = createContext<Maybe<CartContext>>(undefined);
@@ -73,12 +74,31 @@ export function CartContextProvider({
     [cart.id]
   );
 
+  const removeFromCart = useCallback(
+    async (variantId: string) => {
+      const variantLines = cart.lines.filter(
+        (line) => line.merchandise.id === variantId
+      );
+      const variantQuantity = variantLines.length;
+      const lineId = variantLines.reduce((_, line) => line.id, "");
+      const newCart = await post<Cart>("/api/remove-from-cart", {
+        cartId: cart.id,
+        lineId,
+        variantId,
+        quantity: variantQuantity - 1,
+      });
+      setCart(newCart);
+    },
+    [cart]
+  );
+
   const value = useMemo(
     () => ({
       cart,
       addToCart,
+      removeFromCart,
     }),
-    [cart, addToCart]
+    [cart, addToCart, removeFromCart]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

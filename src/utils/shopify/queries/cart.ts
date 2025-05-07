@@ -28,7 +28,7 @@ export const getCartQuery = (cartId: string) => `
       }
       lines(first: 20) {
         nodes {
-          id
+          id  
           merchandise {
             ... on ProductVariant {
               id
@@ -110,6 +110,7 @@ export const removeFromCartQuery = `
             id
             merchandise {
               ... on ProductVariant {
+                id
                 title
                 price {
                   amount
