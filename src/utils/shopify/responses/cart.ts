@@ -20,6 +20,12 @@ export type ShopifyAddToCartResponse = ShopifyResponse<{
   };
 }>;
 
+export type ShopifyRemoveFromCartResponse = ShopifyResponse<{
+  cartLinesUpdate: {
+    cart: ShopifyCart;
+  };
+}>;
+
 type ShopifyCartCost = {
   totalAmount: {
     amount: string;

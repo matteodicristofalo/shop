@@ -92,3 +92,42 @@ export const addToCartQuery = `
     }
   }    
 `;
+
+export const removeFromCartQuery = `
+  mutation cartLinesUpdate($cartId: ID!, $lineId: ID!, $variantId: ID!, $quantity: Int!) {
+    cartLinesUpdate(cartId: $cartId, lines: [{ id: $lineId, merchandiseId: $variantId, quantity: $quantity }]) {
+      cart {
+        id
+        checkoutUrl
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+        lines(first: 20) {
+          nodes {
+            id
+            merchandise {
+              ... on ProductVariant {
+                title
+                price {
+                  amount
+                  currencyCode
+                }
+                product {
+                  id
+                  title
+                  featuredImage {
+                    src
+                  }
+                }
+              }
+            }
+            quantity
+          }
+        }
+      }
+    }
+  }    
+`;

@@ -6,11 +6,11 @@ import { addToCartQuery } from "@utils/shopify/queries/cart";
 export async function POST(request: Request) {
   const { cartId, variantId } = await request.json();
 
-  if (!cartId) {
+  if (cartId === undefined) {
     return new Response("cartId is required", { status: 400 });
   }
 
-  if (!variantId) {
+  if (variantId === undefined) {
     return new Response("variantId is required", { status: 400 });
   }
 
