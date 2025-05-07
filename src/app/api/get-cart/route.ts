@@ -19,6 +19,10 @@ export async function POST(request: Request) {
 
   const shopifyCart = response.data.cart;
 
+  if (!shopifyCart) {
+    return new Response("Cart not found", { status: 404 });
+  }
+
   const cart = toCart(shopifyCart);
 
   return new Response(JSON.stringify(cart));

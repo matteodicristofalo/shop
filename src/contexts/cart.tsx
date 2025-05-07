@@ -36,32 +36,45 @@ export function CartContextProvider({
     },
   });
 
+  const createCart = useCallback(async () => {
+    try {
+      const cart = await post<Omit<Cart, "lines" | "totalQuantity">>(
+        "/api/create-cart"
+      );
+
+      setCart({
+        id: cart.id,
+        checkoutUrl: cart.checkoutUrl,
+        lines: [],
+        totalQuantity: 0,
+        totalAmount: cart.totalAmount,
+      });
+
+      localStorage.setItem("cartId", cart.id);
+    } catch (error) {
+      console.error("Error creating cart:", error);
+    }
+  }, []);
+
   useEffect(() => {
-    async function getCart() {
+    async function initializeCart() {
       const cartId = localStorage.getItem("cartId");
 
       if (cartId) {
-        const cart = await post<Cart>("/api/get-cart", { cartId });
-        setCart(cart);
+        try {
+          const cart = await post<Cart>("/api/get-cart", { cartId });
+          setCart(cart);
+        } catch (error) {
+          console.error("Error fetching cart:", error);
+          await createCart();
+        }
       } else {
-        const cart = await post<Omit<Cart, "lines" | "totalQuantity">>(
-          "/api/create-cart"
-        );
-
-        setCart({
-          id: cart.id,
-          checkoutUrl: cart.checkoutUrl,
-          lines: [],
-          totalQuantity: 0,
-          totalAmount: cart.totalAmount,
-        });
-
-        localStorage.setItem("cartId", cart.id);
+        await createCart();
       }
     }
 
-    getCart();
-  }, []);
+    initializeCart();
+  }, [createCart]);
 
   const addToCart = useCallback(
     async (variantId: string) => {
