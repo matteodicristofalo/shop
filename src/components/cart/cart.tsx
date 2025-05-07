@@ -51,6 +51,7 @@ export function Cart() {
           <Button
             variant="primary"
             type="button"
+            disabled={!cart.totalQuantity}
             fluid
             onClick={() => redirect(cart.checkoutUrl)}
           >
