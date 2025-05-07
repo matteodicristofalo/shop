@@ -3,6 +3,7 @@ export type Cart = {
   lines: {
     id: string;
     merchandise: {
+      id: string;
       title: string;
       price: {
         amount: string;

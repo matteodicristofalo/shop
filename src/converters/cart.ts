@@ -10,6 +10,7 @@ export function toCart(cart: ShopifyCart): Cart {
   const cartLines = flattenCartLines(lines.nodes).map((line) => ({
     id: line.id,
     merchandise: {
+      id: line.merchandise.id,
       title: line.merchandise.title,
       price: line.merchandise.price,
       product: {

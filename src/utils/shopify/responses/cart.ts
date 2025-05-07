@@ -39,6 +39,7 @@ export type ShopifyCart = {
 export type ShopifyCartLine = {
   id: string;
   merchandise: {
+    id: string;
     title: string;
     price: {
       amount: string;

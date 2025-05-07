@@ -31,6 +31,7 @@ export const getCartQuery = (cartId: string) => `
           id
           merchandise {
             ... on ProductVariant {
+              id
               title
               price {
                 amount
@@ -69,6 +70,7 @@ export const addToCartQuery = `
             id
             merchandise {
               ... on ProductVariant {
+                id
                 title
                 price {
                   amount
