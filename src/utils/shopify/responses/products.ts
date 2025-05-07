@@ -1,6 +1,6 @@
 import { ShopifyResponse } from "./generics";
 
-export type ShopifProductResponse = ShopifyResponse<{
+export type ShopifyProductResponse = ShopifyResponse<{
   product: {
     id: string;
     title: string;

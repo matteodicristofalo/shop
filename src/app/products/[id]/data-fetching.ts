@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { fetchShopify } from "@utils/shopify/fetch";
-import { ShopifProductResponse } from "@utils/shopify/responses/products";
+import { ShopifyProductResponse } from "@utils/shopify/responses/products";
 import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 import { getProductQuery } from "@utils/shopify/queries/products";
@@ -26,7 +26,7 @@ type Product = {
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
     const query = getProductQuery(id);
-    const response = await fetchShopify<ShopifProductResponse>(query);
+    const response = await fetchShopify<ShopifyProductResponse>(query);
 
     if (!response) return null;
 

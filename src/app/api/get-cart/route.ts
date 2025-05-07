@@ -1,5 +1,5 @@
 import { fetchShopify } from "@utils/shopify/fetch";
-import { ShopifGetCartResponse } from "@utils/shopify/responses/cart";
+import { ShopifyGetCartResponse } from "@utils/shopify/responses/cart";
 import { toCart } from "@converters/cart";
 import { getCartQuery } from "@utils/shopify/queries/cart";
 
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   }
 
   const query = getCartQuery(cartId);
-  const response = await fetchShopify<ShopifGetCartResponse>(query);
+  const response = await fetchShopify<ShopifyGetCartResponse>(query);
 
   if (!response) {
     return new Response("Error fetching cart", { status: 500 });

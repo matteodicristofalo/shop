@@ -1,10 +1,10 @@
 import { Cart } from "@models/cart";
 import { fetchShopify } from "@utils/shopify/fetch";
 import { createCartQuery } from "@utils/shopify/queries/cart";
-import { ShopifCreateCartResponse } from "@utils/shopify/responses/cart";
+import { ShopifyCreateCartResponse } from "@utils/shopify/responses/cart";
 
 export async function POST() {
-  const response = await fetchShopify<ShopifCreateCartResponse>(
+  const response = await fetchShopify<ShopifyCreateCartResponse>(
     createCartQuery
   );
 

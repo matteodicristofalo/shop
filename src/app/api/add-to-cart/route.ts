@@ -1,5 +1,5 @@
 import { fetchShopify } from "@utils/shopify/fetch";
-import { ShopifAddToCartResponse } from "@utils/shopify/responses/cart";
+import { ShopifyAddToCartResponse } from "@utils/shopify/responses/cart";
 import { toCart } from "@converters/cart";
 import { addToCartQuery } from "@utils/shopify/queries/cart";
 
@@ -14,10 +14,13 @@ export async function POST(request: Request) {
     return new Response("variantId is required", { status: 400 });
   }
 
-  const response = await fetchShopify<ShopifAddToCartResponse>(addToCartQuery, {
-    cartId,
-    variantId,
-  });
+  const response = await fetchShopify<ShopifyAddToCartResponse>(
+    addToCartQuery,
+    {
+      cartId,
+      variantId,
+    }
+  );
 
   if (!response) {
     return new Response("Error adding item to the cart", { status: 500 });

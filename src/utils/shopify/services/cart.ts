@@ -1,8 +1,8 @@
-import { ShopifCartLine } from "@utils/shopify/responses/cart";
+import { ShopifyCartLine } from "@utils/shopify/responses/cart";
 
 export function flattenCartLines(
-  cartLines: ShopifCartLine[]
-): ShopifCartLine[] {
+  cartLines: ShopifyCartLine[]
+): ShopifyCartLine[] {
   return cartLines
     .map((cartLine) => {
       const { id, merchandise, quantity } = cartLine;
