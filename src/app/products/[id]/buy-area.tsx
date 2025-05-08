@@ -45,9 +45,7 @@ export function BuyArea({ variants }: BuyAreaProps) {
   return (
     <form className={styles["product-page__buy-area"]}>
       <fieldset
-        className={clsx(styles["product-page__buy-area__size-selector"], {
-          [styles["product-page__buy-area__size-selector--error"]]: error,
-        })}
+        className={clsx(styles["product-page__buy-area__size-selector"])}
       >
         <legend>Seleziona taglia</legend>
 
@@ -60,14 +58,21 @@ export function BuyArea({ variants }: BuyAreaProps) {
               id={variant.id}
               label={variant.title}
               disabled={!variant.availableForSale}
-              onChange={() => setSelectedVariant(variant.id)}
+              onChange={() => {
+                setSelectedVariant(variant.id);
+                setError(false);
+              }}
             />
           ))}
         </div>
       </fieldset>
 
       <Button variant="primary" type="button" onClick={handleSubmit} fluid>
-        {isPending ? "Cariamento..." : "Aggiungi al carrello"}
+        {isPending
+          ? "Cariamento..."
+          : error
+          ? "Seleziona taglia"
+          : "Aggiungi al carrello"}
       </Button>
     </form>
   );
