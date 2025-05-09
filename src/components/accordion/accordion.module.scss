@@ -50,8 +50,10 @@
 
   &--expanded {
     .accordion {
-      &__button::after {
-        transform: rotate(0);
+      &__button {
+        span:nth-child(2) {
+          transform: rotate(0);
+        }
       }
 
       &__content {
