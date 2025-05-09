@@ -1,8 +1,4 @@
 .button {
-  &:disabled {
-    opacity: 0.75;
-  }
-
   &--primary {
     background-color: var(--black);
     border: none;

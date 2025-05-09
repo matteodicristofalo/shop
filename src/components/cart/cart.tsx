@@ -47,22 +47,23 @@ export function Cart() {
           })}
         </div>
 
-        <div className={styles["cart__pay-button"]}>
-          <Button
-            variant="primary"
-            type="button"
-            disabled={!cart.totalQuantity}
-            fluid
-            onClick={() => redirect(cart.checkoutUrl)}
-          >
-            <span className={styles["cart__pay-button__content"]}>
-              <span>Vai al pagamento</span>
-              <span>
-                {cart.totalAmount.amount} {cart.totalAmount.currencyCode}
+        {cart.totalQuantity > 0 && (
+          <div className={styles["cart__pay-button"]}>
+            <Button
+              variant="primary"
+              type="button"
+              fluid
+              onClick={() => redirect(cart.checkoutUrl)}
+            >
+              <span className={styles["cart__pay-button__content"]}>
+                <span>Vai al pagamento</span>
+                <span>
+                  {cart.totalAmount.amount} {cart.totalAmount.currencyCode}
+                </span>
               </span>
-            </span>
-          </Button>
-        </div>
+            </Button>
+          </div>
+        )}
       </div>
     </Drawer>
   );
