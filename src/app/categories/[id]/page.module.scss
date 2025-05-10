@@ -1,10 +1,10 @@
 @use "@mixins/display.scss" as display;
 
 .category-page {
-  padding: 2rem 1rem;
+  padding: 6rem 1rem 0 1rem;
 
   @include display.desktop {
-    padding: 2rem;
+    padding: 6rem 2rem 0 2rem;
   }
 
   &__title {

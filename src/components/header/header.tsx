@@ -7,7 +7,7 @@ export function Header() {
   return (
     <header className={styles["header"]}>
       <h1 className={styles["header__logo"]}>
-        <Link href="/">Slam Jam</Link>
+        <Link href="/">3&apos;AM</Link>
       </h1>
 
       <ul className={styles["header__ctas"]}>

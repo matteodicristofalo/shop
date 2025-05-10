@@ -2,19 +2,17 @@
 
 .header {
   align-items: center;
-  background-color: var(--white);
-  border-bottom: 1px solid var(--gray-borders);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   left: 0;
-  padding: 1rem 2rem;
+  padding: 1rem;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1;
 
   @include display.desktop {
-    justify-content: space-between;
+    padding: 1rem 2rem;
   }
 
   &__logo {
@@ -24,12 +22,12 @@
   }
 
   &__ctas {
-    display: none;
+    display: flex;
+    gap: 1rem;
+    list-style: none;
 
     @include display.desktop {
-      display: flex;
       gap: 2rem;
-      list-style: none;
     }
   }
 }

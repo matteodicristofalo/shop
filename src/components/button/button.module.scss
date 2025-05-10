@@ -1,3 +1,5 @@
+@use "@mixins/display.scss" as display;
+
 .button {
   &--primary {
     background-color: var(--black);
@@ -12,10 +14,13 @@
   &--secondary {
     background-color: transparent;
     border: none;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 500;
     padding: 0;
-    text-transform: uppercase;
+
+    @include display.desktop {
+      font-size: 0.9rem;
+    }
   }
 
   &--fluid {
