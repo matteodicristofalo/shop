@@ -19,7 +19,6 @@
     margin-top: 1.5rem;
 
     @include display.desktop {
-      gap: 2rem;
       grid-template-columns: repeat(4, 1fr);
     }
   }
