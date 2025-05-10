@@ -9,7 +9,6 @@
 }
 
 body {
-  background-color: var(--gray);
   color: var(--black);
   font-family: "Helvetica Neue", sans-serif;
 
@@ -19,11 +18,7 @@ body {
 }
 
 main {
-  margin: 5rem 1rem 1rem 1rem;
-
-  @include display.desktop {
-    margin: 1rem;
-  }
+  margin-top: 59.5px;
 }
 
 * {

@@ -1,3 +1,5 @@
+@use "@mixins/display" as display;
+
 .size-radio {
   &__input {
     height: 0;
@@ -15,7 +17,11 @@
     padding: 0.5rem;
     text-align: center;
     transition: all 250ms ease;
-    width: 100px;
+    width: 75px;
+
+    @include display.desktop {
+      width: 100px;
+    }
 
     &:hover {
       background-color: var(--black);

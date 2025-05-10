@@ -3,34 +3,24 @@
 .header {
   align-items: center;
   background-color: var(--white);
-  border: 1px solid var(--gray-borders);
+  border-bottom: 1px solid var(--gray-borders);
   display: flex;
   justify-content: center;
-  left: 1rem;
+  left: 0;
   padding: 1rem;
   position: fixed;
-  top: 0.5rem;
-  width: calc(100% - 2rem);
+  top: 0;
+  width: 100%;
+  z-index: 1;
 
   @include display.desktop {
-    justify-content: flex-end;
-    left: auto;
-    margin: 1rem;
-    position: static;
-    top: auto;
-    width: auto;
+    justify-content: space-between;
   }
 
   &__logo {
     font-size: 1.5rem;
     font-weight: 500;
     text-transform: uppercase;
-
-    @include display.desktop {
-      left: 50%;
-      position: absolute;
-      transform: translateX(-50%);
-    }
   }
 
   &__ctas {

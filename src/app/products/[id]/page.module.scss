@@ -1,10 +1,6 @@
 @use "@mixins/display.scss" as display;
 
 .product-page {
-  background-color: var(--white);
-  border: 1px solid var(--gray-borders);
-  padding: 1rem;
-
   @include display.desktop {
     align-items: start;
     display: grid;
@@ -38,12 +34,12 @@
   }
 
   > :nth-child(2) {
-    padding: 2rem 0.25rem 4rem 0.25rem;
+    padding: 2rem 1rem 4rem 1rem;
 
     @include display.desktop {
-      padding: 0.25rem 2rem;
+      padding: 2rem;
       position: sticky;
-      top: 1rem;
+      top: 4rem;
     }
   }
 

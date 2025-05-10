@@ -1,9 +1,7 @@
 @use "@mixins/display.scss" as display;
 
 .drawer {
-  background-color: var(--gray);
   height: 100%;
-  padding: 1rem;
   position: fixed;
   right: 0;
   top: 0;
@@ -13,15 +11,14 @@
   z-index: 1;
 
   @include display.desktop {
-    background-color: transparent;
     min-width: 450px;
+    padding: 1rem;
     transform: translate(100%, 0);
     width: auto;
   }
 
   &__content {
     background-color: white;
-    border: 1px solid var(--gray-borders);
     height: 100%;
     overflow-y: scroll;
     padding: 1rem;
@@ -30,9 +27,14 @@
 
   &__close-button {
     position: fixed;
-    right: 2rem;
-    top: 2rem;
+    right: 1rem;
+    top: 1rem;
     z-index: 1;
+
+    @include display.desktop {
+      right: 2rem;
+      top: 2rem;
+    }
   }
 
   &--open {

@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: { params: Params }) {
         <BuyArea variants={product.variants} />
 
         <div className={styles["product-page__accordions"]}>
-          <Accordion title="Descrizione articolo">
+          <Accordion title="Descrizione articolo" initiallyExpanded>
             {product.description}
           </Accordion>
 

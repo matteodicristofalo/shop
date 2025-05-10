@@ -6,11 +6,16 @@ import styles from "./accordion.module.scss";
 
 type AccordionProps = {
   title: string;
+  initiallyExpanded?: boolean;
   children: React.ReactNode;
 };
 
-export function Accordion({ title, children }: AccordionProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+export function Accordion({
+  title,
+  initiallyExpanded = false,
+  children,
+}: AccordionProps) {
+  const [isExpanded, setIsExpanded] = useState(initiallyExpanded);
 
   const toggleOpening = () => setIsExpanded(!isExpanded);
 
