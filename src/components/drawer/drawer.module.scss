@@ -23,6 +23,10 @@
     overflow-y: scroll;
     padding: 1rem;
     position: relative;
+
+    @include display.desktop {
+      border: 1px solid var(--gray-borders);
+    }
   }
 
   &__close-button {
