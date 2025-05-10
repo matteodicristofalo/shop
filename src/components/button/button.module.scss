@@ -10,15 +10,12 @@
   }
 
   &--secondary {
-    background-color: var(--gray);
-    border: 1px solid var(--gray-borders);
+    background-color: transparent;
+    border: none;
+    font-size: 0.75rem;
     font-weight: 500;
-    padding: 0.25rem 0.75rem;
-    transition: all 250ms ease;
-
-    &:hover {
-      background-color: var(--dark-gray);
-    }
+    padding: 0;
+    text-transform: uppercase;
   }
 
   &--fluid {

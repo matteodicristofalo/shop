@@ -40,7 +40,7 @@
     width: calc(100% - 2rem);
 
     @include display.desktop {
-      bottom: 1.5rem;
+      bottom: 2rem;
       left: 2rem;
       width: calc(100% - 4rem);
     }
