@@ -1,15 +1,43 @@
 .menu {
-  font-size: 1.5rem;
-
   &__title {
+    font-size: 1.5rem;
     font-weight: 500;
   }
 
-  &__links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    list-style: none;
-    margin-top: 3rem;
+  &__navigation {
+    margin-top: 2rem;
+
+    &__items {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &__item {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+
+      a {
+        transition: all 250ms ease;
+
+        &:hover {
+          font-size: 1.5rem;
+          font-weight: 500;
+        }
+      }
+
+      .menu__navigation__items {
+        display: none;
+        padding-bottom: 0.25rem;
+        padding-left: 1rem;
+        padding-top: 0.5rem;
+      }
+
+      &--collapsed {
+        > .menu__navigation__items {
+          display: block;
+        }
+      }
+    }
   }
 }
