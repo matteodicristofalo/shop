@@ -10,8 +10,10 @@ export const productsInCollectionQuery = (id: string) => `{
             currencyCode
           }
         }
-        featuredImage {
-          src
+        images(first: 2) {
+          nodes {
+            src
+          }
         }
       }
     }

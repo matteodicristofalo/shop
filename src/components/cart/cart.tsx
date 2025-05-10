@@ -29,7 +29,7 @@ export function Cart() {
                   <ProductCard
                     brand={product.brand}
                     name={product.name}
-                    image={product.image}
+                    images={[product.image]}
                     price={merchandise.price}
                     size={merchandise.title}
                   />

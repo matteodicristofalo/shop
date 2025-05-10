@@ -12,8 +12,10 @@ export type ShopifyCollectionResponse = ShopifyResponse<{
             currencyCode: string;
           };
         };
-        featuredImage: {
-          src: string;
+        images: {
+          nodes: {
+            src: string;
+          }[];
         };
       }[];
     };

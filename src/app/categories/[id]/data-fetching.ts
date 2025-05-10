@@ -20,7 +20,7 @@ type Product = {
     amount: string;
     currencyCode: string;
   };
-  image: string;
+  images: string[];
 };
 
 export async function getCategory(id: string): Promise<Nullable<Category>> {
@@ -45,7 +45,7 @@ export async function getCategory(id: string): Promise<Nullable<Category>> {
       brand: getBrand(product.title),
       name: getName(product.title),
       price: product.priceRange.minVariantPrice,
-      image: product.featuredImage.src,
+      images: product.images.nodes.map((image) => image.src),
     })),
   };
 }

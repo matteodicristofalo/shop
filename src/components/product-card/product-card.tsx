@@ -8,7 +8,7 @@ type ProductCardProps = {
     amount: string;
     currencyCode: string;
   };
-  image: string;
+  images: string[];
   size?: string;
 };
 
@@ -16,13 +16,15 @@ export function ProductCard({
   brand,
   name,
   price,
-  image,
+  images,
   size,
 }: ProductCardProps) {
   return (
     <div className={styles["product-card"]}>
       <div className={styles["product-card__image"]}>
-        <img src={image} alt={`${brand} - ${name}`} />
+        {images.map((image) => (
+          <img key={image} src={image} alt={`${brand} - ${name}`} />
+        ))}
       </div>
 
       <div className={styles["product-card__information"]}>

@@ -25,6 +25,18 @@
       position: relative;
       width: 100%;
       z-index: 1;
+
+      &:nth-child(2) {
+        display: none;
+        position: absolute;
+        top: 0;
+      }
+    }
+
+    &:hover {
+      img:nth-child(2) {
+        display: block;
+      }
     }
   }
 
