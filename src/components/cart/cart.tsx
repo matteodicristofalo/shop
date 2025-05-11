@@ -16,53 +16,57 @@ export function Cart() {
   return (
     <Drawer id={CART_DRAWER_ID}>
       <div className={styles["cart"]}>
-        <p className={styles["cart__title"]}>Carrello</p>
+        <p className={styles["cart__title"]}>Carrello ({cart.totalQuantity})</p>
 
-        <div className={styles["cart__items"]}>
-          {cart.lines.map((line, index) => {
-            const { merchandise } = line;
-            const { product } = merchandise;
+        {cart.lines.length > 0 ? (
+          <>
+            <div className={styles["cart__items"]}>
+              {cart.lines.map((line, index) => {
+                const { merchandise } = line;
+                const { product } = merchandise;
 
-            return (
-              <div key={index} className={styles["cart__item"]}>
-                <Link href={`/products/${product.id}`}>
-                  <ProductCard
-                    brand={product.brand}
-                    name={product.name}
-                    images={[product.image]}
-                    price={merchandise.price}
-                    size={merchandise.title}
-                  />
-                </Link>
+                return (
+                  <div key={index} className={styles["cart__item"]}>
+                    <Link href={`/products/${product.id}`}>
+                      <ProductCard
+                        brand={product.brand}
+                        name={product.name}
+                        images={[product.image]}
+                        price={merchandise.price}
+                        size={merchandise.title}
+                      />
+                    </Link>
 
-                <button
-                  type="button"
-                  className={styles["cart__item__remove-button"]}
-                  onClick={() => removeFromCart(merchandise.id)}
-                >
-                  Rimuovi
-                </button>
-              </div>
-            );
-          })}
-        </div>
+                    <button
+                      type="button"
+                      className={styles["cart__item__remove-button"]}
+                      onClick={() => removeFromCart(merchandise.id)}
+                    >
+                      Rimuovi
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
 
-        {cart.totalQuantity > 0 && (
-          <div className={styles["cart__pay-button"]}>
-            <Button
-              variant="primary"
-              type="button"
-              fluid
-              onClick={() => redirect(cart.checkoutUrl)}
-            >
-              <span className={styles["cart__pay-button__content"]}>
-                <span>Vai al pagamento</span>
-                <span>
-                  {cart.totalAmount.amount} {cart.totalAmount.currencyCode}
+            <div className={styles["cart__pay-button"]}>
+              <Button
+                variant="primary"
+                type="button"
+                fluid
+                onClick={() => redirect(cart.checkoutUrl)}
+              >
+                <span className={styles["cart__pay-button__content"]}>
+                  <span>Vai al pagamento</span>
+                  <span>
+                    {cart.totalAmount.amount} {cart.totalAmount.currencyCode}
+                  </span>
                 </span>
-              </span>
-            </Button>
-          </div>
+              </Button>
+            </div>
+          </>
+        ) : (
+          <p>Il tuo carrello è vuoto</p>
         )}
       </div>
     </Drawer>

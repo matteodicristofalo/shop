@@ -2,6 +2,7 @@
 
 .cart {
   font-size: 1.5rem;
+  padding-bottom: 4rem;
 
   @include display.desktop {
     max-width: 450px;
@@ -9,13 +10,13 @@
 
   &__title {
     font-weight: 500;
+    margin-bottom: 2rem;
   }
 
   &__items {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
-    margin: 2rem 0 4rem 0;
   }
 
   &__item {
