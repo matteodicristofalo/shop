@@ -11,6 +11,7 @@ import clsx from "clsx";
 import styles from "./page.module.scss";
 
 type BuyAreaProps = {
+  availableForSale: boolean;
   variants: {
     id: string;
     title: string;
@@ -18,7 +19,7 @@ type BuyAreaProps = {
   }[];
 };
 
-export function BuyArea({ variants }: BuyAreaProps) {
+export function BuyArea({ availableForSale, variants }: BuyAreaProps) {
   const { addToCart } = useCartContext();
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(false);
@@ -27,7 +28,6 @@ export function BuyArea({ variants }: BuyAreaProps) {
   const [selectedVariant, setSelectedVariant] = useState<Maybe<string>>(
     initiallySelectedVariant
   );
-  const isOutOfStock = variants.every((variant) => !variant.availableForSale);
 
   const handleSubmit = async () => {
     if (!selectedVariant) {
@@ -79,9 +79,9 @@ export function BuyArea({ variants }: BuyAreaProps) {
         type="button"
         onClick={handleSubmit}
         fluid
-        disabled={isOutOfStock}
+        disabled={!availableForSale}
       >
-        {isOutOfStock
+        {!availableForSale
           ? "Sold out"
           : isPending
           ? "Cariamento..."

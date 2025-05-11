@@ -5,6 +5,7 @@ export type ShopifyProductResponse = ShopifyResponse<{
     id: string;
     title: string;
     description: string;
+    availableForSale: boolean;
     priceRange: {
       minVariantPrice: {
         amount: string;

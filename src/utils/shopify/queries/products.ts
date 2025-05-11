@@ -3,6 +3,7 @@ export const getProductQuery = (id: string) => `{
     id
     title
     description
+    availableForSale
     priceRange {
       minVariantPrice {
         amount

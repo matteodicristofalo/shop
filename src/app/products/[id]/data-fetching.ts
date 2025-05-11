@@ -11,6 +11,7 @@ type Product = {
   brand: string;
   name: string;
   description: string;
+  availableForSale: boolean;
   price: {
     amount: string;
     currencyCode: string;
@@ -40,6 +41,7 @@ export const getProduct = cache(
       brand: getBrand(product.title),
       name: getName(product.title),
       description: product.description,
+      availableForSale: product.availableForSale,
       price: product.priceRange.minVariantPrice,
       images: product.images.nodes.map((node) => node.src),
       variants: product.variants.nodes.toSorted((a, b) =>
