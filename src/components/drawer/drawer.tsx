@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { closeEventName, openEventName } from "./event";
-import { Button } from "@components/button/button";
 import clsx from "clsx";
 import styles from "./drawer.module.scss";
 
@@ -43,9 +42,9 @@ export function Drawer({ id, children }: DrawerProps) {
     >
       <div className={styles["drawer__content"]}>
         <div className={styles["drawer__close-button"]}>
-          <Button variant="secondary" type="button" onClick={closeDrawer}>
+          <button type="button" onClick={closeDrawer}>
             Chiudi
-          </Button>
+          </button>
         </div>
 
         {children}

@@ -1,19 +1,16 @@
-import { PrimaryButtonProps, SecondaryButtonProps } from "./types";
 import clsx from "clsx";
 import styles from "./button.module.scss";
 
-type ButtonProps = PrimaryButtonProps | SecondaryButtonProps;
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  fluid?: boolean;
+  children: React.ReactNode;
+};
 
-export function Button({ variant, children, ...props }: ButtonProps) {
-  const { fluid, ...buttonProps } = {
-    fluid: false,
-    ...props,
-  };
-
+export function Button({ fluid, children, ...props }: ButtonProps) {
   return (
     <button
-      {...buttonProps}
-      className={clsx(styles["button"], styles[`button--${variant}`], {
+      {...props}
+      className={clsx(styles["button"], {
         [styles["button--fluid"]]: fluid,
       })}
     >
