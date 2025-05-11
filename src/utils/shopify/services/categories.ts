@@ -228,12 +228,10 @@ export function getCategoryById(id: string): Maybe<Category> {
 }
 
 function flattenCategories(categories: Category[]): Category[] {
-  return categories.flatMap((category) =>
-    category.children
-      ? [
-          { ...category, children: undefined },
-          ...flattenCategories(category.children),
-        ]
-      : [category]
-  );
+  return categories.flatMap((category) => {
+    const { children, ...rest } = category;
+    return children
+      ? [{ ...rest }, ...flattenCategories(children)]
+      : [category];
+  });
 }
