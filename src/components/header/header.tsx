@@ -1,4 +1,3 @@
-import { Logo } from "@components/logo/logo";
 import { CartButton } from "@components/ctas/cart-button";
 import { MenuButton } from "@components/ctas/menu-button";
 import Link from "next/link";
@@ -8,9 +7,7 @@ export function Header() {
   return (
     <header className={styles["header"]}>
       <div className={styles["header__logo"]}>
-        <Link href="/">
-          <Logo />
-        </Link>
+        <Link href="/">Logo</Link>
       </div>
 
       <ul className={styles["header__ctas"]}>
