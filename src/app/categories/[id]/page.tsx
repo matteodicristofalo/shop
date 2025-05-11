@@ -18,18 +18,20 @@ export default async function CategoryPage({
     <div className={styles["category-page"]}>
       <h1 className={styles["category-page__title"]}>{category.name}</h1>
 
-      <div className={styles["category-page__products"]}>
+      <ul className={styles["category-page__grid"]}>
         {category.products.map((product) => (
-          <Link href={`/products/${product.id}`} key={product.id}>
-            <ProductCard
-              brand={product.brand}
-              name={product.name}
-              price={product.price}
-              images={product.images}
-            />
-          </Link>
+          <li key={product.id} className={styles["category-page__grid__item"]}>
+            <Link href={`/products/${product.id}`}>
+              <ProductCard
+                brand={product.brand}
+                name={product.name}
+                price={product.price}
+                images={product.images}
+              />
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

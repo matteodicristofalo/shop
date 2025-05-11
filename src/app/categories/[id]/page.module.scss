@@ -12,15 +12,25 @@
     font-weight: 500;
   }
 
-  &__products {
+  &__grid {
     display: grid;
     gap: 0.5rem;
     grid-template-columns: repeat(2, 1fr);
+    list-style: none;
     margin-top: 1.5rem;
 
     @include display.desktop {
-      gap: 1rem;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(12, 1fr);
+
+      &__item {
+        grid-column: span 3;
+      }
+
+      &__item:nth-child(7n + 5),
+      &__item:nth-child(7n + 6),
+      &__item:nth-child(7n + 7) {
+        grid-column: span 4;
+      }
     }
   }
 }
