@@ -18,11 +18,13 @@
       margin-bottom: 0.25rem;
 
       a {
+        display: block;
+        transform-origin: left;
         transition: all 250ms ease;
 
         &:hover {
-          font-size: 1.5rem;
           font-weight: 500;
+          transform: scale(1.2);
         }
       }
 
