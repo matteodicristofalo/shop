@@ -51,7 +51,6 @@ export function Cart() {
 
             <div className={styles["cart__pay-button"]}>
               <Button
-                variant="primary"
                 type="button"
                 fluid
                 onClick={() => redirect(cart.checkoutUrl)}

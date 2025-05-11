@@ -67,7 +67,7 @@ export function BuyArea({ variants }: BuyAreaProps) {
         </div>
       </fieldset>
 
-      <Button variant="primary" type="button" onClick={handleSubmit} fluid>
+      <Button type="button" onClick={handleSubmit} fluid>
         {isPending
           ? "Cariamento..."
           : error
