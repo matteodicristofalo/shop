@@ -2,29 +2,34 @@
 
 .header {
   align-items: center;
+  background-color: var(--white);
   display: flex;
   justify-content: space-between;
   left: 0;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1;
 
   @include display.desktop {
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
   }
 
   &__logo {
-    font-size: 1.5rem;
-    font-weight: 500;
-    text-transform: uppercase;
+    width: 50px;
   }
 
   &__ctas {
     display: flex;
     gap: 1rem;
     list-style: none;
+
+    button {
+      background-color: transparent;
+      border: none;
+      font-size: 1rem;
+    }
 
     @include display.desktop {
       gap: 2rem;

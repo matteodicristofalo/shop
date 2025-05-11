@@ -1,7 +1,6 @@
 "use client";
 
 import { CART_DRAWER_ID } from "@components/cart/cart";
-import { Button } from "@components/button/button";
 import { openDrawerEvent } from "@components/drawer/event";
 import { useCartContext } from "@contexts/cart";
 
@@ -14,8 +13,8 @@ export function CartButton() {
   };
 
   return (
-    <Button variant="secondary" type="button" onClick={openDrawer}>
+    <button type="button" onClick={openDrawer}>
       Carrello ({cart.totalQuantity})
-    </Button>
+    </button>
   );
 }
