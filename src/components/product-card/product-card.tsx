@@ -1,13 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+import { Price } from "@models/product";
 import styles from "./product-card.module.scss";
 
 type ProductCardProps = {
   brand: string;
   name: string;
-  price: {
-    amount: string;
-    currencyCode: string;
-  };
+  price: Price;
   images: string[];
   size?: string;
 };

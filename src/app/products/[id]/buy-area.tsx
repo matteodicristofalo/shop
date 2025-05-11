@@ -7,16 +7,13 @@ import { useCartContext } from "@contexts/cart";
 import { Maybe } from "@utils/types";
 import { CART_DRAWER_ID } from "@components/cart/cart";
 import { openDrawerEvent } from "@components/drawer/event";
+import { Variant } from "@models/product";
 import clsx from "clsx";
 import styles from "./page.module.scss";
 
 type BuyAreaProps = {
   availableForSale: boolean;
-  variants: {
-    id: string;
-    title: string;
-    availableForSale: boolean;
-  }[];
+  variants: Variant[];
 };
 
 export function BuyArea({ availableForSale, variants }: BuyAreaProps) {

@@ -4,22 +4,16 @@ import { getId } from "@utils/shopify/services/generics";
 import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 import { productsInCollectionQuery } from "@utils/shopify/queries/collections";
+import { Product } from "@models/product";
 
 type Collection = {
-  products: Product[];
+  products: PartialProduct[];
 };
 
-type Product = {
-  id: string;
-  title: string;
-  brand: string;
-  name: string;
-  price: {
-    amount: string;
-    currencyCode: string;
-  };
-  images: string[];
-};
+type PartialProduct = Omit<
+  Product,
+  "description" | "availableForSale" | "variants"
+>;
 
 export async function getCollection(id: string): Promise<Nullable<Collection>> {
   const query = productsInCollectionQuery(id);

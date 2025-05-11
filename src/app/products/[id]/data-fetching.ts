@@ -4,25 +4,7 @@ import { ShopifyProductResponse } from "@utils/shopify/responses/products";
 import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 import { getProductQuery } from "@utils/shopify/queries/products";
-
-type Product = {
-  id: string;
-  title: string;
-  brand: string;
-  name: string;
-  description: string;
-  availableForSale: boolean;
-  price: {
-    amount: string;
-    currencyCode: string;
-  };
-  images: string[];
-  variants: {
-    id: string;
-    title: string;
-    availableForSale: boolean;
-  }[];
-};
+import { Product } from "@models/product";
 
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
