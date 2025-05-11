@@ -24,7 +24,7 @@
   }
 
   @include display.desktop {
-    &:hover {
+    &:not(:disabled):hover {
       &::before {
         transform: scale(0.95);
       }

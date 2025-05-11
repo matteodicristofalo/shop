@@ -22,8 +22,12 @@ export function BuyArea({ variants }: BuyAreaProps) {
   const { addToCart } = useCartContext();
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [selectedVariant, setSelectedVariant] =
-    useState<Maybe<string>>(undefined);
+  const isSingleSize = variants.length === 1;
+  const initiallySelectedVariant = isSingleSize ? variants[0].id : undefined;
+  const [selectedVariant, setSelectedVariant] = useState<Maybe<string>>(
+    initiallySelectedVariant
+  );
+  const isOutOfStock = variants.every((variant) => !variant.availableForSale);
 
   const handleSubmit = async () => {
     if (!selectedVariant) {
@@ -44,31 +48,42 @@ export function BuyArea({ variants }: BuyAreaProps) {
 
   return (
     <form className={styles["product-page__buy-area"]}>
-      <fieldset
-        className={clsx(styles["product-page__buy-area__size-selector"])}
+      {!isSingleSize && (
+        <fieldset
+          className={clsx(styles["product-page__buy-area__size-selector"])}
+        >
+          <legend>Seleziona taglia</legend>
+
+          <div
+            className={styles["product-page__buy-area__size-selector__sizes"]}
+          >
+            {variants.map((variant) => (
+              <SizeRadio
+                key={variant.id}
+                name="size"
+                value={variant.id}
+                id={variant.id}
+                label={variant.title}
+                disabled={!variant.availableForSale}
+                onChange={() => {
+                  setSelectedVariant(variant.id);
+                  setError(false);
+                }}
+              />
+            ))}
+          </div>
+        </fieldset>
+      )}
+
+      <Button
+        type="button"
+        onClick={handleSubmit}
+        fluid
+        disabled={isOutOfStock}
       >
-        <legend>Seleziona taglia</legend>
-
-        <div className={styles["product-page__buy-area__size-selector__sizes"]}>
-          {variants.map((variant) => (
-            <SizeRadio
-              key={variant.id}
-              name="size"
-              value={variant.id}
-              id={variant.id}
-              label={variant.title}
-              disabled={!variant.availableForSale}
-              onChange={() => {
-                setSelectedVariant(variant.id);
-                setError(false);
-              }}
-            />
-          ))}
-        </div>
-      </fieldset>
-
-      <Button type="button" onClick={handleSubmit} fluid>
-        {isPending
+        {isOutOfStock
+          ? "Sold out"
+          : isPending
           ? "Cariamento..."
           : error
           ? "Seleziona taglia"
