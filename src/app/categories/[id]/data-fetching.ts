@@ -2,12 +2,10 @@ import { fetchShopify } from "@utils/shopify/fetch";
 import { ShopifyCollectionResponse } from "@utils/shopify/responses/collections";
 import { getId } from "@utils/shopify/services/generics";
 import { getBrand, getName } from "@utils/shopify/services/products";
-import { getCategoryById } from "@utils/shopify/services/categories";
 import { Nullable } from "@utils/types";
 import { productsInCollectionQuery } from "@utils/shopify/queries/collections";
 
-type Category = {
-  name: string;
+type Collection = {
   products: Product[];
 };
 
@@ -23,12 +21,8 @@ type Product = {
   images: string[];
 };
 
-export async function getCategory(id: string): Promise<Nullable<Category>> {
-  const category = getCategoryById(id);
-
-  if (!category) return null;
-
-  const query = productsInCollectionQuery(category.id);
+export async function getCollection(id: string): Promise<Nullable<Collection>> {
+  const query = productsInCollectionQuery(id);
   const response = await fetchShopify<ShopifyCollectionResponse>(query);
 
   if (!response) return null;
@@ -38,7 +32,6 @@ export async function getCategory(id: string): Promise<Nullable<Category>> {
   if (!collection) return null;
 
   return {
-    name: category.name,
     products: collection.products.nodes.map((product) => ({
       id: getId(product.id),
       title: product.title,

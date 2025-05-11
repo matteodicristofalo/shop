@@ -1,4 +1,4 @@
-import { Maybe } from "@utils/types";
+import { Nullable } from "@utils/types";
 
 export type Category = {
   id: string;
@@ -223,8 +223,28 @@ export function getCategories(): Category[] {
   return categories;
 }
 
-export function getCategoryById(id: string): Maybe<Category> {
-  return flatCategories.find((cat) => cat.id === id);
+export function getCategory(
+  id: string,
+  options: { anchestors: boolean } = { anchestors: false }
+): Nullable<
+  Category & {
+    anchestors?: Nullable<Category[]>;
+  }
+> {
+  const category = flatCategories.find((cat) => cat.id === id);
+
+  if (!category) {
+    return null;
+  }
+
+  if (!options.anchestors) {
+    return { ...category };
+  }
+
+  return {
+    ...category,
+    anchestors: getCategoryAncestors(categories, id),
+  };
 }
 
 function flattenCategories(categories: Category[]): Category[] {
@@ -234,4 +254,31 @@ function flattenCategories(categories: Category[]): Category[] {
       ? [{ ...rest }, ...flattenCategories(children)]
       : [category];
   });
+}
+
+function getCategoryAncestors(
+  categories: Category[],
+  targetId: string,
+  anchestors: Category[] = []
+): Nullable<Category[]> {
+  for (const category of categories) {
+    if (category.id === targetId) {
+      return anchestors;
+    }
+
+    const { children, ...rest } = category;
+
+    if (children) {
+      const result = getCategoryAncestors(children, targetId, [
+        ...anchestors,
+        { ...rest },
+      ]);
+
+      if (result) {
+        return result;
+      }
+    }
+  }
+
+  return null;
 }

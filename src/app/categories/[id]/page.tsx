@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import { getCategory } from "./data-fetching";
+import { getCategory } from "@utils/shopify/services/categories";
+import { getCollection } from "./data-fetching";
 import { ProductCard } from "@components/product-card/product-card";
 import Link from "next/link";
 import styles from "./page.module.scss";
@@ -10,16 +11,27 @@ export default async function CategoryPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const category = await getCategory(id);
 
+  const category = getCategory(id, { anchestors: true });
   if (!category) redirect("/404");
+
+  const collection = await getCollection(id);
+  if (!collection) redirect("/404");
 
   return (
     <div className={styles["category-page"]}>
-      <h1 className={styles["category-page__title"]}>{category.name}</h1>
+      <h1 className={styles["category-page__title"]}>
+        {category.anchestors?.map((ancestor) => (
+          <Link key={ancestor.id} href={`/categories/${ancestor.id}`}>
+            {ancestor.name},
+          </Link>
+        ))}
+
+        <Link href={`/categories/${category.id}`}>{category.name}</Link>
+      </h1>
 
       <ul className={styles["category-page__grid"]}>
-        {category.products.map((product) => (
+        {collection.products.map((product) => (
           <li key={product.id} className={styles["category-page__grid__item"]}>
             <Link href={`/products/${product.id}`}>
               <ProductCard
