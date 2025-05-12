@@ -5,6 +5,9 @@ import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 import { getProductQuery } from "@utils/shopify/queries/products";
 import { Product } from "@models/product";
+import { productRecommendationsQuery } from "@utils/shopify/queries/recommendations";
+import { ShopifyRecommendationsResponse } from "@utils/shopify/responses/recommendations";
+import { getId } from "@utils/shopify/services/generics";
 
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
@@ -32,3 +35,29 @@ export const getProduct = cache(
     };
   }
 );
+
+type ProductRecommendation = Omit<
+  Product,
+  "title" | "description" | "availableForSale" | "variants"
+>;
+
+export async function getProductRecommendations(
+  id: string
+): Promise<Nullable<ProductRecommendation[]>> {
+  const query = productRecommendationsQuery(id);
+  const response = await fetchShopify<ShopifyRecommendationsResponse>(query);
+
+  if (!response) return null;
+
+  const { productRecommendations } = response.data;
+
+  if (!productRecommendations) return null;
+
+  return productRecommendations.map((product) => ({
+    id: getId(product.id),
+    brand: getBrand(product.title),
+    name: getName(product.title),
+    price: product.priceRange.minVariantPrice,
+    images: product.images.nodes.map((node) => node.src),
+  }));
+}
