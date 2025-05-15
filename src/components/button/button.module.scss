@@ -1,33 +1,20 @@
 @use "@mixins/display.scss" as display;
 
 .button {
-  background-color: transparent;
-  border: none;
+  background-color: var(--black);
+  border: 1px solid var(--black);
   color: var(--white);
   font-size: 0.75rem;
   font-weight: 400;
   padding: 1rem 2rem;
   position: relative;
   text-transform: uppercase;
-
-  &::before {
-    background-color: var(--black);
-    content: "";
-    display: block;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transition: transform 500ms ease;
-    width: 100%;
-    z-index: -1;
-  }
+  transition: all 250ms ease;
 
   @include display.desktop {
     &:not(:disabled):hover {
-      &::before {
-        transform: scale(0.95);
-      }
+      background-color: transparent;
+      color: var(--black);
     }
   }
 
