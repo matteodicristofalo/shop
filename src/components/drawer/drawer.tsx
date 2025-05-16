@@ -42,7 +42,11 @@ export function Drawer({ id, children }: DrawerProps) {
     >
       <div className={styles["drawer__content"]}>
         <div className={styles["drawer__close-button"]}>
-          <button type="button" onClick={closeDrawer}>
+          <button
+            type="button"
+            onClick={closeDrawer}
+            data-testid={`close-${id}-drawer`}
+          >
             Chiudi
           </button>
         </div>

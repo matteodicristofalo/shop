@@ -7,23 +7,27 @@
     padding: 6rem 2rem 0 2rem;
   }
 
-  &__title {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 2rem;
-    font-weight: 400;
-    gap: 0.5rem;
+  &__breadcrumbs {
+    ol {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
 
-    a {
-      transition: transform 250ms ease;
+      a {
+        display: block;
+        font-size: 2rem;
+        font-weight: 400;
+        transition: transform 250ms ease;
 
-      &:hover {
-        transform: scale(0.9);
+        @include display.desktop {
+          font-size: 3rem;
+        }
+
+        &:hover {
+          transform: scale(0.9);
+        }
       }
-    }
-
-    @include display.desktop {
-      font-size: 3rem;
     }
   }
 

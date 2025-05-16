@@ -8,6 +8,7 @@ import { Product } from "@models/product";
 import { productRecommendationsQuery } from "@utils/shopify/queries/recommendations";
 import { ShopifyRecommendationsResponse } from "@utils/shopify/responses/recommendations";
 import { getId } from "@utils/shopify/services/generics";
+import { sizeComparator } from "@utils/sizes";
 
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
@@ -30,7 +31,7 @@ export const getProduct = cache(
       price: product.priceRange.minVariantPrice,
       images: product.images.nodes.map((node) => node.src),
       variants: product.variants.nodes.toSorted((a, b) =>
-        a.title.localeCompare(b.title)
+        sizeComparator(a.title, b.title)
       ),
     };
   }

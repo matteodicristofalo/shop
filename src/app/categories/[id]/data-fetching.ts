@@ -3,20 +3,18 @@ import { ShopifyCollectionResponse } from "@utils/shopify/responses/collections"
 import { getId } from "@utils/shopify/services/generics";
 import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
-import { productsInCollectionQuery } from "@utils/shopify/queries/collections";
+import { productsInCategoryQuery } from "@utils/shopify/queries/collections";
 import { Product } from "@models/product";
-
-type Collection = {
-  products: PartialProduct[];
-};
 
 type PartialProduct = Omit<
   Product,
-  "description" | "availableForSale" | "variants"
+  "title" | "description" | "availableForSale" | "variants"
 >;
 
-export async function getCollection(id: string): Promise<Nullable<Collection>> {
-  const query = productsInCollectionQuery(id);
+export async function getProductsInCategory(
+  id: string
+): Promise<Nullable<PartialProduct[]>> {
+  const query = productsInCategoryQuery(id);
   const response = await fetchShopify<ShopifyCollectionResponse>(query);
 
   if (!response) return null;
@@ -25,14 +23,11 @@ export async function getCollection(id: string): Promise<Nullable<Collection>> {
 
   if (!collection) return null;
 
-  return {
-    products: collection.products.nodes.map((product) => ({
-      id: getId(product.id),
-      title: product.title,
-      brand: getBrand(product.title),
-      name: getName(product.title),
-      price: product.priceRange.minVariantPrice,
-      images: product.images.nodes.map((image) => image.src),
-    })),
-  };
+  return collection.products.nodes.map((product) => ({
+    id: getId(product.id),
+    brand: getBrand(product.title),
+    name: getName(product.title),
+    price: product.priceRange.minVariantPrice,
+    images: product.images.nodes.map((image) => image.src),
+  }));
 }

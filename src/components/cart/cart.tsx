@@ -5,7 +5,6 @@ import { Button } from "@components/button/button";
 import { ProductCard } from "@components/product-card/product-card";
 import { useCartContext } from "@contexts/cart";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import styles from "./cart.module.scss";
 
 export const CART_DRAWER_ID = "cart";
@@ -15,27 +14,26 @@ export function Cart() {
 
   return (
     <Drawer id={CART_DRAWER_ID}>
-      <div className={styles["cart"]}>
+      <div className={styles["cart"]} data-testid="cart">
         <p className={styles["cart__title"]}>Carrello ({cart.totalQuantity})</p>
 
         {cart.lines.length > 0 ? (
           <>
-            <div className={styles["cart__items"]}>
+            <ol className={styles["cart__items"]} title="cart items">
               {cart.lines.map((line, index) => {
                 const { merchandise } = line;
                 const { product } = merchandise;
 
                 return (
-                  <div key={index} className={styles["cart__item"]}>
-                    <Link href={`/products/${product.id}`}>
-                      <ProductCard
-                        brand={product.brand}
-                        name={product.name}
-                        images={[product.image]}
-                        price={merchandise.price}
-                        size={merchandise.title}
-                      />
-                    </Link>
+                  <li key={index} className={styles["cart__item"]}>
+                    <ProductCard
+                      id={product.id}
+                      brand={product.brand}
+                      name={product.name}
+                      images={[product.image]}
+                      price={merchandise.price}
+                      size={merchandise.title}
+                    />
 
                     <button
                       type="button"
@@ -44,10 +42,10 @@ export function Cart() {
                     >
                       Rimuovi
                     </button>
-                  </div>
+                  </li>
                 );
               })}
-            </div>
+            </ol>
 
             <div className={styles["cart__pay-button"]}>
               <Button

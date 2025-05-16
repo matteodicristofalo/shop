@@ -1,5 +1,5 @@
 export const createCartQuery = `
-  mutation cartCreate {
+  mutation CreateCart {
     cartCreate {
       cart {
         id
@@ -16,7 +16,7 @@ export const createCartQuery = `
 `;
 
 export const getCartQuery = (cartId: string) => `
-  {
+  query GetCart {
     cart(id: "${cartId}") {
       id
       checkoutUrl
@@ -94,7 +94,7 @@ export const addToCartQuery = `
 `;
 
 export const removeFromCartQuery = `
-  mutation cartLinesUpdate($cartId: ID!, $lineId: ID!, $variantId: ID!, $quantity: Int!) {
+  mutation RemoveFromCart($cartId: ID!, $lineId: ID!, $variantId: ID!, $quantity: Int!) {
     cartLinesUpdate(cartId: $cartId, lines: [{ id: $lineId, merchandiseId: $variantId, quantity: $quantity }]) {
       cart {
         id

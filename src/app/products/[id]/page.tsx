@@ -4,8 +4,8 @@ import { BuyArea } from "./buy-area";
 import { getProduct, getProductRecommendations } from "./data-fetching";
 import { redirect } from "next/navigation";
 import { ProductCard } from "@components/product-card/product-card";
-import Link from "next/link";
 import styles from "./page.module.scss";
+import { extractFulfilledValueOrDefault } from "@utils/promise";
 
 type Params = Promise<{
   id: string;
@@ -23,17 +23,27 @@ export async function generateMetadata({ params }: { params: Params }) {
 
 export default async function ProductPage({ params }: { params: Params }) {
   const { id } = await params;
-  const [product, recommendations] = await Promise.all([
+
+  const [productPromise, recommendationsPromise] = await Promise.allSettled([
     getProduct(id),
     getProductRecommendations(id),
   ]);
+
+  const product = extractFulfilledValueOrDefault(productPromise, null);
+  const recommendations = extractFulfilledValueOrDefault(
+    recommendationsPromise,
+    []
+  );
 
   if (!product) redirect("/404");
 
   return (
     <div className={styles["product-page"]}>
       <div className={styles["product-page__grid"]}>
-        <div className={styles["product-page__media"]}>
+        <div
+          className={styles["product-page__media"]}
+          data-testid="product-media"
+        >
           {product.images.map((image, index) => (
             <img
               key={index}
@@ -46,13 +56,26 @@ export default async function ProductPage({ params }: { params: Params }) {
 
         <div>
           <div className={styles["product-page__information"]}>
-            <p className={styles["product-page__information__brand"]}>
-              {product.brand}
-            </p>
-            <p className={styles["product-page__information__name"]}>
-              {product.name}
-            </p>
-            <p className={styles["product-page__information__price"]}>
+            <h1 className={styles["product-page__information__title"]}>
+              <span
+                className={styles["product-page__information__title__brand"]}
+                data-testid="product-brand"
+              >
+                {product.brand}
+              </span>
+
+              <span
+                className={styles["product-page__information__title__name"]}
+                data-testid="product-name"
+              >
+                {product.name}
+              </span>
+            </h1>
+
+            <p
+              className={styles["product-page__information__price"]}
+              data-testid="product-price"
+            >
               {product.price.amount} {product.price.currencyCode}
             </p>
           </div>
@@ -79,23 +102,27 @@ export default async function ProductPage({ params }: { params: Params }) {
       </div>
 
       {recommendations && recommendations.length > 0 && (
-        <div className={styles["product-page__recommendations"]}>
-          <p className={styles["product-page__recommendations__title"]}>
+        <div
+          className={styles["product-page__recommendations"]}
+          data-testid="product-recommendations"
+        >
+          <h2 className={styles["product-page__recommendations__title"]}>
             Prodotti consigliati
-          </p>
+          </h2>
 
-          <div className={styles["product-page__recommendations__grid"]}>
+          <ol className={styles["product-page__recommendations__grid"]}>
             {recommendations.map((product) => (
-              <Link key={product.id} href={`/products/${product.id}`}>
+              <li key={product.id}>
                 <ProductCard
+                  id={product.id}
                   name={product.name}
                   brand={product.brand}
                   price={product.price}
                   images={product.images}
                 />
-              </Link>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       )}
     </div>

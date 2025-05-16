@@ -9,7 +9,7 @@ export async function fetchShopify<T>(
   const accessToken = process.env.SHOPIFY_ACCESS_TOKEN || "";
 
   try {
-    return post<T>(
+    return await post<T>(
       url,
       { query, variables },
       {
