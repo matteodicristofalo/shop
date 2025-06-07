@@ -3,6 +3,7 @@ import { expect, Page } from "@playwright/test";
 import { getProduct } from "./fixtures/shopify/stubs/product";
 import { Request } from "./fixtures/shopify/types";
 import { test } from "./fixtures";
+import { waitForBeingDefined } from "./utils/wait";
 
 test("create cart and store the id into localStorage", async ({
   page,
@@ -30,9 +31,10 @@ test("create cart and store the id into localStorage", async ({
 
   await page.goto(`http://localhost:${next.port}/`);
 
-  const localStorageCartId = await page.evaluate(() =>
-    localStorage.getItem("cartId")
+  const localStorageCartId = await waitForBeingDefined(() =>
+    page.evaluate(() => localStorage.getItem("cartId"))
   );
+
   expect(localStorageCartId).toBe(cartId);
 });
 
