@@ -3,7 +3,7 @@
 import { MENU_DRAWER_ID } from "./menu";
 import { closeDrawerEvent } from "@components/ds/drawer/event";
 import { useState } from "react";
-import { Category } from "@domain/services/categories.service";
+import { Category } from "@domain/models/categories.models";
 import { NavigationItems } from "./navigation-items";
 import Link from "next/link";
 import styles from "./menu.module.scss";
@@ -15,6 +15,9 @@ type NavigationItemProps = {
 
 export function NavigationItem({ category }: Readonly<NavigationItemProps>) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const ancestorsSlugs = category.ancestors.map((a) => a.slug);
+  const href = `/categories/${ancestorsSlugs.join("/")}/${category.slug}`;
 
   const closeDrawer = () => {
     const event = closeDrawerEvent(MENU_DRAWER_ID);
@@ -38,7 +41,7 @@ export function NavigationItem({ category }: Readonly<NavigationItemProps>) {
         [styles["menu__navigation__item--collapsed"]]: isCollapsed,
       })}
     >
-      <Link href={`/categories/${category.id}`} onClick={onClick}>
+      <Link href={href} onClick={onClick}>
         {category.name}
       </Link>
 

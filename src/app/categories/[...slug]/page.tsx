@@ -1,19 +1,21 @@
 import { redirect } from "next/navigation";
 import { getCategory } from "@domain/services/categories.service";
 import { getProductsInCategory } from "./data-fetching";
+import { Breadcrumbs } from "@components/business/breadcrumbs/breadcrumbs";
 import { ProductCard } from "@components/business/product-card/product-card";
-import Link from "next/link";
 import styles from "./page.module.scss";
 
 type Params = Promise<{
-  id: string;
+  slug: string[];
 }>;
 
 export async function generateMetadata({
   params,
 }: Readonly<{ params: Params }>) {
-  const { id } = await params;
-  const category = getCategory(id);
+  const { slug } = await params;
+  const lastCategoryLevelSlug = slug[slug.length - 1];
+
+  const category = getCategory(lastCategoryLevelSlug);
 
   return {
     title: category?.name,
@@ -23,29 +25,20 @@ export async function generateMetadata({
 export default async function CategoryPage({
   params,
 }: Readonly<{ params: Params }>) {
-  const { id } = await params;
+  const { slug } = await params;
+  const lastCategoryLevelSlug = slug[slug.length - 1];
 
-  const category = getCategory(id, { anchestors: true });
+  const category = getCategory(lastCategoryLevelSlug, { anchestors: true });
   if (!category) redirect("/404");
 
-  const products = await getProductsInCategory(id);
+  const products = await getProductsInCategory(category.id);
   if (!products) redirect("/404");
 
   return (
     <div className={styles["category-page"]}>
-      <nav className={styles["category-page__breadcrumbs"]} title="breadcrumbs">
-        <ol>
-          {category.anchestors?.map((ancestor) => (
-            <li key={ancestor.id}>
-              <Link href={`/categories/${ancestor.id}`}>{ancestor.name},</Link>
-            </li>
-          ))}
-
-          <li>
-            <Link href={`/categories/${category.id}`}>{category.name}</Link>
-          </li>
-        </ol>
-      </nav>
+      <div className={styles["category-page__breadcrumbs"]} title="breadcrumbs">
+        <Breadcrumbs category={category} />
+      </div>
 
       <ol className={styles["category-page__grid"]} title="products grid">
         {products.map((product) => (

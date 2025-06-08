@@ -1,4 +1,4 @@
-import { Category } from "@domain/services/categories.service";
+import { Category } from "@domain/models/categories.models";
 import { NavigationItem } from "./navigation-item";
 import styles from "./menu.module.scss";
 
