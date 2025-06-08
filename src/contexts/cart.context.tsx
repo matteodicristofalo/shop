@@ -1,8 +1,8 @@
 "use client";
 
-import { post } from "@utils/fetch";
-import { Maybe } from "@utils/types";
-import { Cart } from "@models/cart";
+import { post } from "@utils/fetch.utils";
+import { Maybe } from "@utils/types.utils";
+import { Cart } from "@domain/models/cart.models";
 import {
   createContext,
   useCallback,

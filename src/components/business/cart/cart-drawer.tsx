@@ -1,9 +1,9 @@
 "use client";
 
-import { Drawer } from "@components/drawer/drawer";
-import { Button } from "@components/button/button";
-import { ProductCard } from "@components/product-card/product-card";
-import { useCartContext } from "@contexts/cart";
+import { Drawer } from "@components/ds/drawer/drawer";
+import { Button } from "@components/ds/button/button";
+import { ProductCard } from "@components/business/product-card/product-card";
+import { useCartContext } from "@contexts/cart.context";
 import { redirect } from "next/navigation";
 import styles from "./cart.module.scss";
 

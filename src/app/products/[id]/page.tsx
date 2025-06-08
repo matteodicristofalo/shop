@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { Accordion } from "@components/accordion/accordion";
+import { Accordion } from "@components/ds/accordion/accordion";
 import { BuyArea } from "./buy-area";
 import { getProduct, getProductRecommendations } from "./data-fetching";
 import { redirect } from "next/navigation";
-import { ProductCard } from "@components/product-card/product-card";
+import { ProductCard } from "@components/business/product-card/product-card";
+import { extractFulfilledValueOrDefault } from "@utils/promise.utils";
 import styles from "./page.module.scss";
-import { extractFulfilledValueOrDefault } from "@utils/promise";
 
 type Params = Promise<{
   id: string;

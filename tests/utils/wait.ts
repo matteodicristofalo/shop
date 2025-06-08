@@ -1,8 +1,6 @@
-import { Maybe } from "@utils/types";
-
 export function waitForBeingDefined<T>(
   callback: () => Promise<T>
-): Promise<Maybe<T>> {
+): Promise<T | undefined> {
   return new Promise((resolve) => {
     setTimeout(() => resolve(undefined), 1000);
 

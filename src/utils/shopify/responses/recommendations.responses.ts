@@ -1,5 +1,5 @@
-import { ShopifyResponse } from "./generics";
-import { ShopifyPrice } from "./price";
+import { ShopifyResponse } from "./generics.responses";
+import { ShopifyPrice } from "./price.responses";
 
 export type ShopifyRecommendationsResponse = ShopifyResponse<{
   productRecommendations: {

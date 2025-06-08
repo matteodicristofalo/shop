@@ -1,11 +1,11 @@
-import { fetchShopify } from "@utils/shopify/fetch";
-import { ShopifyCollectionResponse } from "@utils/shopify/responses/collections";
-import { getId } from "@utils/shopify/services/generics";
-import { getBrand, getName } from "@utils/shopify/services/products";
-import { Nullable } from "@utils/types";
-import { productsInCategoryQuery } from "@utils/shopify/queries/collections";
-import { Product } from "@models/product";
-import { toProductPrice } from "@converters/product";
+import { fetchShopify } from "@utils/shopify";
+import { ShopifyCollectionResponse } from "@utils/shopify/responses/collections.responses";
+import { getId } from "@domain/services/ids.service";
+import { getBrand, getName } from "@domain/converters/product.converters";
+import { Nullable } from "@utils/types.utils";
+import { productsInCategoryQuery } from "@utils/shopify/queries/collections.queries";
+import { Product } from "@domain/models/product.models";
+import { getProductPrice } from "@domain/converters/product.converters";
 
 type PartialProduct = Omit<
   Product,
@@ -28,7 +28,7 @@ export async function getProductsInCategory(
     id: getId(product.id),
     brand: getBrand(product.title),
     name: getName(product.title),
-    price: toProductPrice(product.compareAtPriceRange, product.priceRange),
+    price: getProductPrice(product.compareAtPriceRange, product.priceRange),
     images: product.images.nodes.map((image) => image.src),
   }));
 }

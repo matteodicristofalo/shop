@@ -1,7 +1,7 @@
-import { Cart } from "@models/cart";
-import { fetchShopify } from "@utils/shopify/fetch";
-import { createCartQuery } from "@utils/shopify/queries/cart";
-import { ShopifyCreateCartResponse } from "@utils/shopify/responses/cart";
+import { Cart } from "@domain/models/cart.models";
+import { fetchShopify } from "@utils/shopify";
+import { createCartQuery } from "@utils/shopify/queries/cart.queries";
+import { ShopifyCreateCartResponse } from "@utils/shopify/responses/cart.responses";
 
 export async function POST() {
   const response = await fetchShopify<ShopifyCreateCartResponse>(

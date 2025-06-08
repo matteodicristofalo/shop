@@ -1,4 +1,4 @@
-import { Nullable } from "@utils/types";
+import { Nullable } from "@utils/types.utils";
 
 export type Category = {
   id: string;

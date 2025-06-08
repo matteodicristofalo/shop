@@ -1,9 +1,9 @@
 "use client";
 
 import { MENU_DRAWER_ID } from "./menu";
-import { closeDrawerEvent } from "@components/drawer/event";
+import { closeDrawerEvent } from "@components/ds/drawer/event";
 import { useState } from "react";
-import { Category } from "@utils/shopify/services/categories";
+import { Category } from "@domain/services/categories.service";
 import { NavigationItems } from "./navigation-items";
 import Link from "next/link";
 import styles from "./menu.module.scss";

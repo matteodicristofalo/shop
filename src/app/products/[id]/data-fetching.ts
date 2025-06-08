@@ -1,15 +1,15 @@
 import { cache } from "react";
-import { fetchShopify } from "@utils/shopify/fetch";
-import { ShopifyProductResponse } from "@utils/shopify/responses/products";
-import { getBrand, getName } from "@utils/shopify/services/products";
-import { Nullable } from "@utils/types";
-import { getProductQuery } from "@utils/shopify/queries/products";
-import { Product } from "@models/product";
-import { productRecommendationsQuery } from "@utils/shopify/queries/recommendations";
-import { ShopifyRecommendationsResponse } from "@utils/shopify/responses/recommendations";
-import { getId } from "@utils/shopify/services/generics";
-import { sizeComparator } from "@utils/sizes";
-import { toProductPrice } from "@converters/product";
+import { fetchShopify } from "@utils/shopify";
+import { ShopifyProductResponse } from "@utils/shopify/responses/products.responses";
+import { getBrand, getName } from "@domain/converters/product.converters";
+import { Nullable } from "@utils/types.utils";
+import { getProductQuery } from "@utils/shopify/queries/products.queries";
+import { Product } from "@domain/models/product.models";
+import { productRecommendationsQuery } from "@utils/shopify/queries/recommendations.queries";
+import { ShopifyRecommendationsResponse } from "@utils/shopify/responses/recommendations.responses";
+import { getId } from "@domain/services/ids.service";
+import { sizeComparator } from "@domain/services/sizes.service";
+import { getProductPrice } from "@domain/converters/product.converters";
 
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
@@ -29,7 +29,7 @@ export const getProduct = cache(
       name: getName(product.title),
       description: product.description,
       availableForSale: product.availableForSale,
-      price: toProductPrice(product.compareAtPriceRange, product.priceRange),
+      price: getProductPrice(product.compareAtPriceRange, product.priceRange),
       images: product.images.nodes.map((node) => node.src),
       variants: product.variants.nodes.toSorted((a, b) =>
         sizeComparator(a.title, b.title)
@@ -59,7 +59,7 @@ export async function getProductRecommendations(
     id: getId(product.id),
     brand: getBrand(product.title),
     name: getName(product.title),
-    price: toProductPrice(product.compareAtPriceRange, product.priceRange),
+    price: getProductPrice(product.compareAtPriceRange, product.priceRange),
     images: product.images.nodes.map((node) => node.src),
   }));
 }

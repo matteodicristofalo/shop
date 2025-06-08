@@ -1,7 +1,7 @@
-import { fetchShopify } from "@utils/shopify/fetch";
-import { ShopifyRemoveFromCartResponse } from "@utils/shopify/responses/cart";
-import { toCart } from "@converters/cart";
-import { removeFromCartQuery } from "@utils/shopify/queries/cart";
+import { fetchShopify } from "@utils/shopify";
+import { ShopifyRemoveFromCartResponse } from "@utils/shopify/responses/cart.responses";
+import { getCart } from "@domain/converters/cart.converters";
+import { removeFromCartQuery } from "@utils/shopify/queries/cart.queries";
 
 export async function POST(request: Request) {
   const { cartId, lineId, variantId, quantity } = await request.json();
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   }
 
   const shopifyCart = response.data.cartLinesUpdate.cart;
-  const cart = toCart(shopifyCart);
+  const cart = getCart(shopifyCart);
 
   return new Response(JSON.stringify(cart));
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import { CART_DRAWER_ID } from "@components/cart/cart-drawer";
-import { openDrawerEvent } from "@components/drawer/event";
-import { useCartContext } from "@contexts/cart";
+import { CART_DRAWER_ID } from "@components/business/cart/cart-drawer";
+import { openDrawerEvent } from "@components/ds/drawer/event";
+import { useCartContext } from "@contexts/cart.context";
 
 export function CartButton() {
   const { cart } = useCartContext();

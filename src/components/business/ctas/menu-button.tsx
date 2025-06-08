@@ -1,7 +1,7 @@
 "use client";
 
-import { MENU_DRAWER_ID } from "@components/menu/menu";
-import { openDrawerEvent } from "@components/drawer/event";
+import { MENU_DRAWER_ID } from "@components/business/menu/menu";
+import { openDrawerEvent } from "@components/ds/drawer/event";
 
 export function MenuButton() {
   const openDrawer = () => {

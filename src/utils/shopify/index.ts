@@ -1,5 +1,5 @@
-import { Nullable } from "@utils/types";
-import { post } from "@utils/fetch";
+import { Nullable } from "@utils/types.utils";
+import { post } from "@utils/fetch.utils";
 
 export async function fetchShopify<T>(
   query: string,

@@ -1,7 +1,7 @@
-import { fetchShopify } from "@utils/shopify/fetch";
-import { ShopifyGetCartResponse } from "@utils/shopify/responses/cart";
-import { toCart } from "@converters/cart";
-import { getCartQuery } from "@utils/shopify/queries/cart";
+import { fetchShopify } from "@utils/shopify";
+import { ShopifyGetCartResponse } from "@utils/shopify/responses/cart.responses";
+import { getCart } from "@domain/converters/cart.converters";
+import { getCartQuery } from "@utils/shopify/queries/cart.queries";
 
 export async function POST(request: Request) {
   const { cartId } = await request.json();
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     return new Response("Cart not found", { status: 404 });
   }
 
-  const cart = toCart(shopifyCart);
+  const cart = getCart(shopifyCart);
 
   return new Response(JSON.stringify(cart));
 }

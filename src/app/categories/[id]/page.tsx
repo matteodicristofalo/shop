@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { getCategory } from "@utils/shopify/services/categories";
+import { getCategory } from "@domain/services/categories.service";
 import { getProductsInCategory } from "./data-fetching";
-import { ProductCard } from "@components/product-card/product-card";
+import { ProductCard } from "@components/business/product-card/product-card";
 import Link from "next/link";
 import styles from "./page.module.scss";
 

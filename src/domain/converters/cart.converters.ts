@@ -1,10 +1,12 @@
-import { Cart } from "@models/cart";
-import { ShopifyCart } from "@utils/shopify/responses/cart";
-import { flattenCartLines } from "@utils/shopify/services/cart";
-import { getId } from "@utils/shopify/services/generics";
-import { getBrand, getName } from "@utils/shopify/services/products";
+import { Cart } from "@domain/models/cart.models";
+import { getId } from "@domain/services/ids.service";
+import { getBrand, getName } from "@domain/converters/product.converters";
+import {
+  ShopifyCart,
+  ShopifyCartLine,
+} from "@utils/shopify/responses/cart.responses";
 
-export function toCart(cart: ShopifyCart): Cart {
+export function getCart(cart: ShopifyCart): Cart {
   const { id, checkoutUrl, lines, cost } = cart;
 
   const cartLines = flattenCartLines(lines.nodes).map((line) => ({
@@ -29,4 +31,13 @@ export function toCart(cart: ShopifyCart): Cart {
     totalQuantity: cartLines.length,
     totalAmount: cost.totalAmount,
   };
+}
+
+function flattenCartLines(cartLines: ShopifyCartLine[]): ShopifyCartLine[] {
+  return cartLines
+    .map((cartLine) => {
+      const { id, merchandise, quantity } = cartLine;
+      return new Array(quantity).fill({ id, merchandise });
+    })
+    .flat();
 }

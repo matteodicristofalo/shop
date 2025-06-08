@@ -1,4 +1,4 @@
-import { ShopifyResponse } from "./generics";
+import { ShopifyResponse } from "./generics.responses";
 
 export type ShopifyCreateCartResponse = ShopifyResponse<{
   cartCreate: {

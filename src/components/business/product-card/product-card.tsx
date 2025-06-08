@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Price } from "@models/price";
+import { Price } from "@domain/models/price.models";
 import Link from "next/link";
 import styles from "./product-card.module.scss";
 

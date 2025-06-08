@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@components/button/button";
-import { SizeRadio } from "@components/size-radio/size-radio";
-import { useCartContext } from "@contexts/cart";
-import { Maybe } from "@utils/types";
-import { CART_DRAWER_ID } from "@components/cart/cart-drawer";
-import { openDrawerEvent } from "@components/drawer/event";
-import { Variant } from "@models/product";
+import { Button } from "@components/ds/button/button";
+import { SizeRadio } from "@components/business/size-radio/size-radio";
+import { useCartContext } from "@contexts/cart.context";
+import { Maybe } from "@utils/types.utils";
+import { CART_DRAWER_ID } from "@components/business/cart/cart-drawer";
+import { openDrawerEvent } from "@components/ds/drawer/event";
+import { Variant } from "@domain/models/product.models";
 import clsx from "clsx";
 import styles from "./page.module.scss";
 

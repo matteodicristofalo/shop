@@ -1,3 +1,5 @@
+import { Price } from "./price.models";
+
 export type Cart = {
   id: string;
   lines: {
@@ -5,10 +7,7 @@ export type Cart = {
     merchandise: {
       id: string;
       title: string;
-      price: {
-        amount: string;
-        currencyCode: string;
-      };
+      price: Price;
       product: {
         id: string;
         name: string;
@@ -17,10 +16,7 @@ export type Cart = {
       };
     };
   }[];
-  totalAmount: {
-    amount: string;
-    currencyCode: string;
-  };
+  totalAmount: Price;
   totalQuantity: number;
   checkoutUrl: string;
 };

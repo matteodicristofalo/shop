@@ -23,7 +23,7 @@
       "@contexts/*": ["./src/contexts/*"],
       "@converters/*": ["./src/converters/*"],
       "@mixins/*": ["./src/mixins/*"],
-      "@models/*": ["./src/models/*"],
+      "@domain/*": ["./src/domain/*"],
       "@utils/*": ["./src/utils/*"]
     }
   },

@@ -1,5 +1,5 @@
-import { getCategories } from "@utils/shopify/services/categories";
-import { Drawer } from "@components/drawer/drawer";
+import { getCategories } from "@domain/services/categories.service";
+import { Drawer } from "@components/ds/drawer/drawer";
 import { NavigationItems } from "./navigation-items";
 import styles from "./menu.module.scss";
 

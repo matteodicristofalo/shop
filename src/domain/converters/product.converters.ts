@@ -1,8 +1,20 @@
-import { Price } from "@models/price";
-import { ProductPrice } from "@models/product";
-import { ShopifyPrice } from "@utils/shopify/responses/price";
+import { Price } from "@domain/models/price.models";
+import { ProductPrice } from "@domain/models/product.models";
+import { ShopifyPrice } from "@utils/shopify/responses/price.responses";
 
-export function toProductPrice(
+export function getBrand(title: string): string {
+  const splittedTitle = title.split("-");
+  const maybeBrand = splittedTitle.at(0)?.trim();
+  return maybeBrand ?? "";
+}
+
+export function getName(title: string): string {
+  const splittedTitle = title.split("-");
+  const maybeName = splittedTitle.at(1)?.trim();
+  return maybeName ?? "";
+}
+
+export function getProductPrice(
   compareAtPriceRange: ShopifyPrice,
   priceRange: ShopifyPrice
 ): ProductPrice {

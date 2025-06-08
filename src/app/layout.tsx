@@ -1,7 +1,7 @@
-import { Header } from "@components/header/header";
-import { Menu } from "@components/menu/menu";
-import { Cart } from "@components/cart/cart";
-import { CartContextProvider } from "@contexts/cart";
+import { Header } from "@components/business/header/header";
+import { Menu } from "@components/business/menu/menu";
+import { Cart } from "@components/business/cart/cart";
+import { CartContextProvider } from "@contexts/cart.context";
 import "./globals.scss";
 
 export default function RootLayout({

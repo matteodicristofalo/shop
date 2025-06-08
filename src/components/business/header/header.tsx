@@ -1,5 +1,5 @@
-import { CartButton } from "@components/ctas/cart-button";
-import { MenuButton } from "@components/ctas/menu-button";
+import { CartButton } from "@components/business/ctas/cart-button";
+import { MenuButton } from "@components/business/ctas/menu-button";
 import Link from "next/link";
 import styles from "./header.module.scss";
 

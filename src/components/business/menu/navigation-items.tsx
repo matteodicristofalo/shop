@@ -1,4 +1,4 @@
-import { Category } from "@utils/shopify/services/categories";
+import { Category } from "@domain/services/categories.service";
 import { NavigationItem } from "./navigation-item";
 import styles from "./menu.module.scss";
 
