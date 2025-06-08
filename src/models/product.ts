@@ -1,3 +1,5 @@
+import { Price } from "./price";
+
 export type Product = {
   id: string;
   title: string;
@@ -5,14 +7,14 @@ export type Product = {
   name: string;
   description: string;
   availableForSale: boolean;
-  price: Price;
+  price: ProductPrice;
   images: string[];
   variants: Variant[];
 };
 
-export type Price = {
-  amount: string;
-  currencyCode: string;
+export type ProductPrice = {
+  original: Price;
+  discounted?: Price;
 };
 
 export type Variant = {

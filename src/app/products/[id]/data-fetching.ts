@@ -9,6 +9,7 @@ import { productRecommendationsQuery } from "@utils/shopify/queries/recommendati
 import { ShopifyRecommendationsResponse } from "@utils/shopify/responses/recommendations";
 import { getId } from "@utils/shopify/services/generics";
 import { sizeComparator } from "@utils/sizes";
+import { toProductPrice } from "@converters/product";
 
 export const getProduct = cache(
   async (id: string): Promise<Nullable<Product>> => {
@@ -28,7 +29,7 @@ export const getProduct = cache(
       name: getName(product.title),
       description: product.description,
       availableForSale: product.availableForSale,
-      price: product.priceRange.minVariantPrice,
+      price: toProductPrice(product.compareAtPriceRange, product.priceRange),
       images: product.images.nodes.map((node) => node.src),
       variants: product.variants.nodes.toSorted((a, b) =>
         sizeComparator(a.title, b.title)
@@ -58,7 +59,7 @@ export async function getProductRecommendations(
     id: getId(product.id),
     brand: getBrand(product.title),
     name: getName(product.title),
-    price: product.priceRange.minVariantPrice,
+    price: toProductPrice(product.compareAtPriceRange, product.priceRange),
     images: product.images.nodes.map((node) => node.src),
   }));
 }

@@ -10,6 +10,20 @@ export const productsInCategoryQuery = (id: string) => `
               amount
               currencyCode
             }
+            maxVariantPrice {
+              amount
+              currencyCode  
+            }
+          }
+          compareAtPriceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
           }
           images(first: 2) {
             nodes {

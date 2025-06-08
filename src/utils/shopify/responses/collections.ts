@@ -1,4 +1,5 @@
 import { ShopifyResponse } from "./generics";
+import { ShopifyPrice } from "./price";
 
 export type ShopifyCollectionResponse = ShopifyResponse<{
   collection: {
@@ -6,12 +7,8 @@ export type ShopifyCollectionResponse = ShopifyResponse<{
       nodes: {
         id: string;
         title: string;
-        priceRange: {
-          minVariantPrice: {
-            amount: string;
-            currencyCode: string;
-          };
-        };
+        priceRange: ShopifyPrice;
+        compareAtPriceRange: ShopifyPrice;
         images: {
           nodes: {
             src: string;

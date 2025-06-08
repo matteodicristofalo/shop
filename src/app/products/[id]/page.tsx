@@ -72,12 +72,25 @@ export default async function ProductPage({ params }: { params: Params }) {
               </span>
             </h1>
 
-            <p
-              className={styles["product-page__information__price"]}
-              data-testid="product-price"
-            >
-              {product.price.amount} {product.price.currencyCode}
-            </p>
+            <div className={styles["product-page__information__price"]}>
+              <p
+                className={styles["product-page__information__price__original"]}
+                data-testid="product-price"
+              >
+                {`${product.price.original.amount} ${product.price.original.currencyCode}`}
+              </p>
+
+              {product.price.discounted && (
+                <p
+                  className={
+                    styles["product-page__information__price__discounted"]
+                  }
+                  data-testid="product-discounted-price"
+                >
+                  {`${product.price.discounted.amount} ${product.price.discounted.currencyCode}`}
+                </p>
+              )}
+            </div>
           </div>
 
           <BuyArea
@@ -117,7 +130,8 @@ export default async function ProductPage({ params }: { params: Params }) {
                   id={product.id}
                   name={product.name}
                   brand={product.brand}
-                  price={product.price}
+                  price={product.price.original}
+                  discountedPrice={product.price.discounted}
                   images={product.images}
                 />
               </li>

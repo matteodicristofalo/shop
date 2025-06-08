@@ -71,7 +71,15 @@
     }
 
     &__price {
+      display: flex;
       font-weight: 500;
+      gap: 0.5rem;
+
+      &:has(&__discounted) &__original {
+        font-weight: 400;
+        opacity: 0.75;
+        text-decoration: line-through;
+      }
     }
   }
 

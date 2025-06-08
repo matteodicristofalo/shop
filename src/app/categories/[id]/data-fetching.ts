@@ -5,6 +5,7 @@ import { getBrand, getName } from "@utils/shopify/services/products";
 import { Nullable } from "@utils/types";
 import { productsInCategoryQuery } from "@utils/shopify/queries/collections";
 import { Product } from "@models/product";
+import { toProductPrice } from "@converters/product";
 
 type PartialProduct = Omit<
   Product,
@@ -27,7 +28,7 @@ export async function getProductsInCategory(
     id: getId(product.id),
     brand: getBrand(product.title),
     name: getName(product.title),
-    price: product.priceRange.minVariantPrice,
+    price: toProductPrice(product.compareAtPriceRange, product.priceRange),
     images: product.images.nodes.map((image) => image.src),
   }));
 }

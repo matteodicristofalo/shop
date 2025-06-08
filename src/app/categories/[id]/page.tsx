@@ -50,7 +50,8 @@ export default async function CategoryPage({ params }: { params: Params }) {
               id={product.id}
               brand={product.brand}
               name={product.name}
-              price={product.price}
+              price={product.price.original}
+              discountedPrice={product.price.discounted}
               images={product.images}
             />
           </li>
