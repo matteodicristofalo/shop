@@ -1,5 +1,5 @@
 import { getCart } from "./cart";
-import { collection } from "./collection";
+import { getCollection } from "./collection";
 import { Request, Response } from "../types";
 
 export function getDefaultStubs(): Partial<Record<Request, Response>> {
@@ -20,7 +20,7 @@ export function getDefaultStubs(): Partial<Record<Request, Response>> {
     [Request.PRODUCTS_IN_CATEGORY]: {
       status: 200,
       payload: {
-        data: collection([]),
+        data: getCollection([]),
       },
     },
     [Request.PRODUCT_RECOMMENDATIONS]: {

@@ -1,4 +1,4 @@
-import { collection } from "./fixtures/shopify/stubs/collection";
+import { getCollection } from "./fixtures/shopify/stubs/collection";
 import { getPartialProduct as getProduct } from "./fixtures/shopify/stubs/product";
 import { Request } from "./fixtures/shopify/types";
 import { test } from "./fixtures";
@@ -132,7 +132,7 @@ test("render products in grid", async ({
     response: {
       status: 200,
       payload: {
-        data: collection(products),
+        data: getCollection(products),
       },
     },
   });
@@ -196,7 +196,7 @@ test("render products with discounted price in grid", async ({
     response: {
       status: 200,
       payload: {
-        data: collection([product]),
+        data: getCollection([product]),
       },
     },
   });
@@ -233,7 +233,7 @@ test("products grid ordering", async ({ page, pageObjects, next, shopify }) => {
     response: {
       status: 200,
       payload: {
-        data: collection([product2, product1]),
+        data: getCollection([product2, product1]),
       },
     },
   });

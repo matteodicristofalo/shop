@@ -1,6 +1,6 @@
 import { PartialProduct as Product } from "./product";
 
-export function collection(products: Product[]) {
+export function getCollection(products: Product[]) {
   return {
     collection: {
       products: {
