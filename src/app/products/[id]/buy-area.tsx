@@ -5,7 +5,7 @@ import { Button } from "@components/button/button";
 import { SizeRadio } from "@components/size-radio/size-radio";
 import { useCartContext } from "@contexts/cart";
 import { Maybe } from "@utils/types";
-import { CART_DRAWER_ID } from "@components/cart/cart";
+import { CART_DRAWER_ID } from "@components/cart/cart-drawer";
 import { openDrawerEvent } from "@components/drawer/event";
 import { Variant } from "@models/product";
 import clsx from "clsx";

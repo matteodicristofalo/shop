@@ -1,6 +1,6 @@
 "use client";
 
-import { CART_DRAWER_ID } from "@components/cart/cart";
+import { CART_DRAWER_ID } from "@components/cart/cart-drawer";
 import { openDrawerEvent } from "@components/drawer/event";
 import { useCartContext } from "@contexts/cart";
 
