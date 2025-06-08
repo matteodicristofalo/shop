@@ -8,6 +8,10 @@ export function getProduct(
       amount: string;
       currencyCode: string;
     };
+    discountedPrice: {
+      amount: string;
+      currencyCode: string;
+    };
     images: string[];
     variants: Partial<{
       id: string;
@@ -18,6 +22,8 @@ export function getProduct(
 ): Product {
   const images = attribues.images ?? [DEFAULTS.image];
   const variants = attribues.variants ?? [DEFAULTS.variant];
+  const price = attribues.price ?? DEFAULTS.price;
+  const discountedPrice = attribues.discountedPrice ?? price;
 
   return {
     id: attribues.id ?? DEFAULTS.id,
@@ -25,8 +31,14 @@ export function getProduct(
     description: attribues.description ?? DEFAULTS.description,
     availableForSale: attribues.availableForSale ?? true,
     priceRange: {
-      minVariantPrice: attribues.price ?? DEFAULTS.price,
+      minVariantPrice: discountedPrice,
+      maxVariantPrice: discountedPrice,
     },
+    compareAtPriceRange: {
+      minVariantPrice: price,
+      maxVariantPrice: price,
+    },
+    price: discountedPrice,
     images: {
       nodes: getImages(images),
     },
@@ -61,17 +73,29 @@ export function getPartialProduct(
       amount: string;
       currencyCode: string;
     };
+    discountedPrice: {
+      amount: string;
+      currencyCode: string;
+    };
     images: string[];
   }>
 ): PartialProduct {
   const images = attribues.images ?? [DEFAULTS.image];
+  const price = attribues.price ?? DEFAULTS.price;
+  const discountedPrice = attribues.discountedPrice ?? price;
 
   return {
     id: attribues.id ?? DEFAULTS.id,
     title: attribues.title ?? DEFAULTS.title,
     priceRange: {
-      minVariantPrice: attribues.price ?? DEFAULTS.price,
+      minVariantPrice: discountedPrice,
+      maxVariantPrice: discountedPrice,
     },
+    compareAtPriceRange: {
+      minVariantPrice: price,
+      maxVariantPrice: price,
+    },
+    price: discountedPrice,
     images: {
       nodes: getImages(images),
     },
@@ -104,6 +128,25 @@ export type Product = {
       amount: string;
       currencyCode: string;
     };
+    maxVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  compareAtPriceRange: {
+    minVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+    maxVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  // Just to improve the readibility of the tests
+  price: {
+    amount: string;
+    currencyCode: string;
   };
   images: {
     nodes: {
@@ -127,6 +170,25 @@ export type PartialProduct = {
       amount: string;
       currencyCode: string;
     };
+    maxVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  compareAtPriceRange: {
+    minVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+    maxVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  // Just to improve the readibility of the tests
+  price: {
+    amount: string;
+    currencyCode: string;
   };
   images: {
     nodes: {

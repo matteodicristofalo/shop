@@ -70,8 +70,8 @@ function getProductVariant(product: Product, variantTitle: string) {
     id: variant.id,
     title: variant.title,
     price: {
-      amount: product.priceRange.minVariantPrice.amount,
-      currencyCode: product.priceRange.minVariantPrice.currencyCode,
+      amount: product.price.amount,
+      currencyCode: product.price.currencyCode,
     },
   };
 }

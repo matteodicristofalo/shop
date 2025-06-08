@@ -160,10 +160,63 @@ test("render products in grid", async ({
     await expect(productCard.getByText(productBrand)).toBeVisible();
     await expect(productCard.getByText(productName)).toBeVisible();
 
-    const productPrice = product.priceRange.minVariantPrice;
-    const price = `${productPrice.amount} ${productPrice.currencyCode}`;
-    await expect(productCard.getByText(price)).toBeVisible();
+    const { amount, currencyCode } = product.price;
+    await expect(
+      productCard.getByText(`${amount} ${currencyCode}`)
+    ).toBeVisible();
   });
+});
+
+test("render products with discounted price in grid", async ({
+  page,
+  next,
+  pageObjects,
+  shopify,
+}) => {
+  const price = {
+    amount: "110.0",
+    currencyCode: "EUR",
+  };
+
+  const discountedPrice = {
+    amount: "90.0",
+    currencyCode: "EUR",
+  };
+
+  const product = getProduct({
+    id: "gid://shopify/Product/1",
+    title: "Brand 1 - Product 1",
+    price: price,
+    discountedPrice: discountedPrice,
+    images: ["https://mydomain.shopify.com/media/product-1.jpg"],
+  });
+
+  shopify.stub({
+    request: Request.PRODUCTS_IN_CATEGORY,
+    response: {
+      status: 200,
+      payload: {
+        data: collection([product]),
+      },
+    },
+  });
+
+  await page.goto(`http://localhost:${next.port}/categories/aa-1`);
+
+  const { productsGridItems } = pageObjects.categoryPage;
+
+  const productCard = productsGridItems.nth(0);
+
+  const priceLocator = productCard.getByText(
+    `${price.amount} ${price.currencyCode}`
+  );
+  await expect(priceLocator).toBeVisible();
+  await expect(priceLocator).toHaveCSS("text-decoration", /line-through/);
+
+  const discountedPriceLocator = productCard.getByText(
+    `${price.amount} ${price.currencyCode}`
+  );
+  await expect(discountedPriceLocator).toBeVisible();
 });
 
 test("products grid ordering", async ({ page, pageObjects, next, shopify }) => {

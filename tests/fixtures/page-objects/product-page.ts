@@ -10,6 +10,9 @@ export class ProductPage {
   readonly productName = this.h1.getByTestId("product-name");
 
   readonly productPrice = this.page.getByTestId("product-price");
+  readonly productDiscountedPrice = this.page.getByTestId(
+    "product-discounted-price"
+  );
 
   readonly productImages = this.page
     .getByTestId("product-media")
@@ -22,8 +25,10 @@ export class ProductPage {
     name: "Aggiungi al carrello",
   });
 
+  private readonly cartDrawer = this.page.getByTestId("cart");
   readonly addToCart = async () => {
-    this.addToCartButton.click();
+    await this.addToCartButton.click();
+    await this.cartDrawer.waitFor({ state: "visible" });
   };
 
   readonly soldOutButton = this.page.getByRole("button", {

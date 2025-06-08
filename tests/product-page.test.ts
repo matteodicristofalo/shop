@@ -168,12 +168,14 @@ test("render product brand and name", async ({
 });
 
 test("render product price", async ({ page, pageObjects, next, shopify }) => {
+  const price = {
+    amount: "110.0",
+    currencyCode: "EUR",
+  };
+
   const product = getProduct({
     id: "gid://shopify/Product/1234567890",
-    price: {
-      amount: "110.0",
-      currencyCode: "EUR",
-    },
+    price,
   });
 
   shopify.stub({
@@ -191,9 +193,59 @@ test("render product price", async ({ page, pageObjects, next, shopify }) => {
 
   const { productPrice } = pageObjects.productPage;
 
-  const { amount, currencyCode } = product.priceRange.minVariantPrice;
   await expect(productPrice).toBeVisible();
-  await expect(productPrice).toHaveText(`${amount} ${currencyCode}`);
+  await expect(productPrice).toHaveText(
+    `${price.amount} ${price.currencyCode}`
+  );
+});
+
+test("render product with disocunted price", async ({
+  page,
+  pageObjects,
+  next,
+  shopify,
+}) => {
+  const price = {
+    amount: "110.0",
+    currencyCode: "EUR",
+  };
+
+  const discountedPrice = {
+    amount: "90.0",
+    currencyCode: "EUR",
+  };
+
+  const product = getProduct({
+    id: "gid://shopify/Product/1234567890",
+    price,
+    discountedPrice,
+  });
+
+  shopify.stub({
+    request: Request.PRODUCT,
+    response: {
+      payload: {
+        data: {
+          product,
+        },
+      },
+    },
+  });
+
+  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+
+  const { productPrice, productDiscountedPrice } = pageObjects.productPage;
+
+  await expect(productPrice).toBeVisible();
+  await expect(productPrice).toHaveText(
+    `${price.amount} ${price.currencyCode}`
+  );
+  await expect(productPrice).toHaveCSS("text-decoration", /line-through/);
+
+  await expect(productDiscountedPrice).toBeVisible();
+  await expect(productDiscountedPrice).toHaveText(
+    `${discountedPrice.amount} ${discountedPrice.currencyCode}`
+  );
 });
 
 test("render product description", async ({ page, next, shopify }) => {
@@ -786,10 +838,80 @@ test("show product recommendations", async ({
     await expect(productCard.getByText(productBrand)).toBeVisible();
     await expect(productCard.getByText(productName)).toBeVisible();
 
-    const productPrice = product.priceRange.minVariantPrice;
-    const price = `${productPrice.amount} ${productPrice.currencyCode}`;
-    await expect(productCard.getByText(price)).toBeVisible();
+    const { amount, currencyCode } = product.price;
+    await expect(
+      productCard.getByText(`${amount} ${currencyCode}`)
+    ).toBeVisible();
   });
+});
+
+test("show product recommendations with discounted price", async ({
+  page,
+  pageObjects,
+  next,
+  shopify,
+}) => {
+  const product = getProduct({
+    id: "gid://shopify/Product/1234567890",
+  });
+
+  const price = {
+    amount: "110.0",
+    currencyCode: "EUR",
+  };
+
+  const discountedPrice = {
+    amount: "90.0",
+    currencyCode: "EUR",
+  };
+
+  const recommendedProduct = getRecommendedProduct({
+    id: "gid://shopify/Product/12345678901",
+    title: "New Balance - 991v2",
+    images: ["https://mydomain.shopify.com/media/product-1.jpg"],
+    price,
+    discountedPrice,
+  });
+
+  shopify.stub([
+    {
+      request: Request.PRODUCT,
+      response: {
+        payload: {
+          data: {
+            product: product,
+          },
+        },
+      },
+    },
+    {
+      request: Request.PRODUCT_RECOMMENDATIONS,
+      response: {
+        payload: {
+          data: {
+            productRecommendations: [recommendedProduct],
+          },
+        },
+      },
+    },
+  ]);
+
+  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+
+  const { productRecommendationsItems } = pageObjects.productPage;
+
+  const productCard = productRecommendationsItems.nth(0);
+
+  const priceLocator = productCard.getByText(
+    `${price.amount} ${price.currencyCode}`
+  );
+  await expect(priceLocator).toBeVisible();
+  await expect(priceLocator).toHaveCSS("text-decoration", /line-through/);
+
+  const discountedPriceLocator = productCard.getByText(
+    `${price.amount} ${price.currencyCode}`
+  );
+  await expect(discountedPriceLocator).toBeVisible();
 });
 
 test("do not show product recommendations when no recommendations", async ({

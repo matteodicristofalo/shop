@@ -11,13 +11,14 @@ export class Cart {
 
   readonly openCart = async () => {
     await this.cartDrawer.waitFor({ state: "attached" });
-    this.page
+    await this.page
       .getByRole("banner")
       .getByRole("button", {
         name: "Carrello",
         exact: false,
       })
       .click();
+    await this.cartDrawer.waitFor({ state: "visible" });
   };
 
   private readonly closeButton = this.page.getByTestId("close-cart-drawer");
