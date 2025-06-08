@@ -4,7 +4,7 @@ import styles from "./page.module.scss";
 
 export default function Home() {
   return (
-    <div className={styles["home-page"]}>
+    <div className={styles["home-page"]} data-header-variant="transparent">
       <img
         src="/cover.jpg"
         alt="New in cover"
@@ -15,7 +15,7 @@ export default function Home() {
         href="/collections/new-in"
         className={styles["home-page__new-in-cta"]}
       >
-        New in
+        Novità
       </Link>
     </div>
   );

@@ -2,7 +2,8 @@
 
 .header {
   align-items: center;
-  background-color: var(--white);
+  background-color: var(--header-background-color, var(--white));
+  color: var(--header-foreground-color, var(--black));
   display: flex;
   justify-content: space-between;
   left: 0;

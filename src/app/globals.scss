@@ -6,6 +6,11 @@
   --dark-gray: #e1e1e1;
   --gray-borders: #efefef;
   --white: #ffffff;
+
+  &:has([data-header-variant="transparent"]) {
+    --header-background-color: transparent;
+    --header-foreground-color: var(--white);
+  }
 }
 
 body {

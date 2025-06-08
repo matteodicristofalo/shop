@@ -10,9 +10,9 @@
   }
 
   &__new-in-cta {
-    background-color: transparent;
+    background-color: var(--white);
     border: 1px solid var(--white);
-    color: var(--white);
+    color: var(--black);
     font-size: 0.75rem;
     left: 50%;
     padding: 1rem 2rem;
@@ -23,8 +23,8 @@
     transition: all 250ms ease;
 
     &:hover {
-      background-color: var(--white);
-      color: var(--black);
+      background-color: transparent;
+      color: var(--white);
     }
   }
 }
