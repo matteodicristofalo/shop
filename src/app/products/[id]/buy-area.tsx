@@ -16,7 +16,10 @@ type BuyAreaProps = {
   variants: Variant[];
 };
 
-export function BuyArea({ availableForSale, variants }: BuyAreaProps) {
+export function BuyArea({
+  availableForSale,
+  variants,
+}: Readonly<BuyAreaProps>) {
   const { addToCart } = useCartContext();
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(false);

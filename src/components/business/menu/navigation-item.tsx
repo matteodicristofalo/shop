@@ -13,7 +13,7 @@ type NavigationItemProps = {
   category: Category;
 };
 
-export function NavigationItem({ category }: NavigationItemProps) {
+export function NavigationItem({ category }: Readonly<NavigationItemProps>) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const closeDrawer = () => {

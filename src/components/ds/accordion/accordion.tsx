@@ -14,7 +14,7 @@ export function Accordion({
   title,
   initiallyExpanded = false,
   children,
-}: AccordionProps) {
+}: Readonly<AccordionProps>) {
   const [isExpanded, setIsExpanded] = useState(initiallyExpanded);
 
   const toggleOpening = () => setIsExpanded(!isExpanded);

@@ -21,7 +21,7 @@ export function ProductCard({
   discountedPrice,
   images,
   size,
-}: ProductCardProps) {
+}: Readonly<ProductCardProps>) {
   return (
     <Link href={`/products/${id}`} aria-label={`${brand} ${name}`}>
       <div className={styles["product-card"]}>

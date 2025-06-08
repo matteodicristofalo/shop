@@ -22,9 +22,9 @@ const CartContext = createContext<Maybe<CartContext>>(undefined);
 
 export function CartContextProvider({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   const [cart, setCart] = useState<Cart>({
     id: "",
     checkoutUrl: "",

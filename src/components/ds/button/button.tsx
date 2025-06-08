@@ -6,7 +6,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
 };
 
-export function Button({ fluid, children, ...props }: ButtonProps) {
+export function Button({ fluid, children, ...props }: Readonly<ButtonProps>) {
   return (
     <button
       {...props}

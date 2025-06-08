@@ -10,7 +10,7 @@ type DrawerProps = {
   children: React.ReactNode;
 };
 
-export function Drawer({ id, children }: DrawerProps) {
+export function Drawer({ id, children }: Readonly<DrawerProps>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDrawer = useCallback(() => {

@@ -18,7 +18,7 @@ export function SizeRadio({
   label,
   disabled,
   onChange,
-}: SizeRadioProps) {
+}: Readonly<SizeRadioProps>) {
   return (
     <div className={styles["size-radio"]}>
       <input

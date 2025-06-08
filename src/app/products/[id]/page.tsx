@@ -11,7 +11,9 @@ type Params = Promise<{
   id: string;
 }>;
 
-export async function generateMetadata({ params }: { params: Params }) {
+export async function generateMetadata({
+  params,
+}: Readonly<{ params: Params }>) {
   const { id } = await params;
   const product = await getProduct(id);
 
@@ -21,7 +23,9 @@ export async function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-export default async function ProductPage({ params }: { params: Params }) {
+export default async function ProductPage({
+  params,
+}: Readonly<{ params: Params }>) {
   const { id } = await params;
 
   const [productPromise, recommendationsPromise] = await Promise.allSettled([

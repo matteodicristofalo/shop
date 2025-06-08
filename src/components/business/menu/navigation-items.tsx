@@ -6,7 +6,9 @@ type NavigationItemsProps = {
   categories: Category[];
 };
 
-export function NavigationItems({ categories }: NavigationItemsProps) {
+export function NavigationItems({
+  categories,
+}: Readonly<NavigationItemsProps>) {
   if (categories.length === 0) {
     return <></>;
   }

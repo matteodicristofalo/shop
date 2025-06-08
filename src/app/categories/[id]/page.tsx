@@ -9,7 +9,9 @@ type Params = Promise<{
   id: string;
 }>;
 
-export async function generateMetadata({ params }: { params: Params }) {
+export async function generateMetadata({
+  params,
+}: Readonly<{ params: Params }>) {
   const { id } = await params;
   const category = getCategory(id);
 
@@ -18,7 +20,9 @@ export async function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-export default async function CategoryPage({ params }: { params: Params }) {
+export default async function CategoryPage({
+  params,
+}: Readonly<{ params: Params }>) {
   const { id } = await params;
 
   const category = getCategory(id, { anchestors: true });
