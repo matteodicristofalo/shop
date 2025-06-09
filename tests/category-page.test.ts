@@ -18,10 +18,10 @@ test("redirect to 404 when category not found", async ({ page, next }) => {
 test("page title as category name", async ({ page, next }) => {
   const category = {
     name: "Abbigliamento",
-    id: "aa-1",
+    slug: "clothing",
   };
 
-  await page.goto(`http://localhost:${next.port}/categories/${category.id}`);
+  await page.goto(`http://localhost:${next.port}/categories/clothing`);
 
   const title = await page.title();
   expect(title).toEqual(category.name);
@@ -33,12 +33,12 @@ test("first level category breadcrumbs", async ({
   next,
 }) => {
   const firstLevelCategory = {
-    id: "aa-1",
     name: "Abbigliamento",
+    slug: "clothing",
   };
 
   await page.goto(
-    `http://localhost:${next.port}/categories/${firstLevelCategory.id}`
+    `http://localhost:${next.port}/categories/${firstLevelCategory.slug}`
   );
 
   const { breadcrumbs, breadcrumbsItems } = pageObjects.categoryPage;
@@ -52,7 +52,7 @@ test("first level category breadcrumbs", async ({
   await expect(firstLevelCategoryLink).toBeVisible();
   await expect(firstLevelCategoryLink).toHaveAttribute(
     "href",
-    `/categories/${firstLevelCategory.id}`
+    `/categories/${firstLevelCategory.slug}`
   );
 });
 
@@ -63,16 +63,16 @@ test("second level category breadcrumbs", async ({
 }) => {
   const firstLevelCategory = {
     name: "Abbigliamento",
-    id: "aa-1",
+    slug: "clothing",
   };
 
   const secondLevelCategory = {
     name: "Outwear",
-    id: "aa-1-10",
+    slug: "outerwear",
   };
 
   await page.goto(
-    `http://localhost:${next.port}/categories/${secondLevelCategory.id}`
+    `http://localhost:${next.port}/categories/${firstLevelCategory.slug}/${secondLevelCategory.slug}`
   );
 
   const { breadcrumbs, breadcrumbsItems } = pageObjects.categoryPage;
@@ -87,7 +87,7 @@ test("second level category breadcrumbs", async ({
   );
   await expect(firstLevelCategoryLink).toHaveAttribute(
     "href",
-    `/categories/${firstLevelCategory.id}`
+    `/categories/${firstLevelCategory.slug}`
   );
 
   const secondLevelCategoryLink = breadcrumbsItems.nth(1).getByRole("link");
@@ -95,7 +95,7 @@ test("second level category breadcrumbs", async ({
   await expect(secondLevelCategoryLink).toHaveText(secondLevelCategory.name);
   await expect(secondLevelCategoryLink).toHaveAttribute(
     "href",
-    `/categories/${secondLevelCategory.id}`
+    `/categories/${firstLevelCategory.slug}/${secondLevelCategory.slug}`
   );
 });
 
@@ -137,7 +137,7 @@ test("render products in grid", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/categories/aa-1`);
+  await page.goto(`http://localhost:${next.port}/categories/clothing`);
 
   const { productsGrid, productsGridItems } = pageObjects.categoryPage;
 
@@ -201,7 +201,7 @@ test("render products with discounted price in grid", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/categories/aa-1`);
+  await page.goto(`http://localhost:${next.port}/categories/clothing`);
 
   const { productsGridItems } = pageObjects.categoryPage;
 
@@ -238,7 +238,7 @@ test("products grid ordering", async ({ page, pageObjects, next, shopify }) => {
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/categories/aa-1`);
+  await page.goto(`http://localhost:${next.port}/categories/clothing`);
 
   const { productsGridItems } = pageObjects.categoryPage;
 

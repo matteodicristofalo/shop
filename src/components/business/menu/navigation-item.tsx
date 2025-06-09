@@ -17,7 +17,8 @@ export function NavigationItem({ category }: Readonly<NavigationItemProps>) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const ancestorsSlugs = category.ancestors.map((a) => a.slug);
-  const href = `/categories/${ancestorsSlugs.join("/")}/${category.slug}`;
+  const pathSegments = [...ancestorsSlugs, category.slug];
+  const href = `/categories/${pathSegments.join("/")}`;
 
   const closeDrawer = () => {
     const event = closeDrawerEvent(MENU_DRAWER_ID);

@@ -7,10 +7,11 @@ type BreadcrumbsProps = {
 
 export function Breadcrumbs({ category }: Readonly<BreadcrumbsProps>) {
   const ancestorsSlugs = category.ancestors.map((ancestor) => ancestor.slug);
-  const href = `/categories/${ancestorsSlugs.join("/")}/${category.slug}`;
+  const pathSegments = [...ancestorsSlugs, category.slug];
+  const href = `/categories/${pathSegments.join("/")}`;
 
   return (
-    <nav>
+    <nav title="breadcrumbs">
       <ol>
         {category.ancestors?.map((ancestor, i) => {
           const pathSegments = ancestorsSlugs.slice(0, i + 1);
