@@ -663,6 +663,202 @@ test("remove product from cart", async ({
   await expect(checkoutButton).toBeVisible();
 });
 
+test("remove product variant from cart", async ({
+  page,
+  pageObjects,
+  next,
+  shopify,
+}) => {
+  const product = getProduct({
+    id: "gid://shopify/Product/3456789015",
+    slug: "product-slug",
+    price: {
+      amount: "20.00",
+      currencyCode: "EUR",
+    },
+    variants: [
+      {
+        title: "S",
+      },
+      {
+        title: "XL",
+      },
+    ],
+  });
+
+  const cartId = "gid://shopify/Cart/1234567890";
+  const cartBeforeRemoveFromCart = getCart({
+    id: cartId,
+    lines: [getCartLine(product, "XL", 1), getCartLine(product, "S", 1)],
+  });
+  const cartAfterRemoveFromCart = getCart({
+    id: cartId,
+    lines: [getCartLine(product, "XL", 1)],
+  });
+
+  shopify.stub([
+    {
+      request: Request.PRODUCT,
+      response: {
+        payload: {
+          data: {
+            product: product,
+          },
+        },
+      },
+    },
+    {
+      request: Request.GET_CART,
+      response: {
+        payload: {
+          data: {
+            cart: cartBeforeRemoveFromCart,
+          },
+        },
+      },
+    },
+    {
+      request: Request.REMOVE_FROM_CART,
+      response: {
+        payload: {
+          data: {
+            cartLinesUpdate: {
+              cart: cartAfterRemoveFromCart,
+            },
+          },
+        },
+      },
+    },
+  ]);
+
+  await setCartIdInLocalStorage(page, cartId);
+  await page.goto(`http://localhost:${next.port}`);
+
+  const { openCart, cartDrawer, cartItems } = pageObjects.cart;
+
+  await openCart();
+
+  const cartItemToBeRemoved = cartItems.nth(1);
+  const removeFromCartButton = cartItemToBeRemoved.getByRole("button", {
+    name: "Rimuovi",
+  });
+  await removeFromCartButton.click();
+
+  const cartCount = cartDrawer.getByText("Carrello (1)");
+  expect(cartCount).toBeVisible();
+
+  expect(cartItems).toHaveCount(1);
+
+  const cartItem = cartItems.nth(0);
+
+  await expect(cartItem.getByRole("link")).toHaveAttribute(
+    "href",
+    "/products/product-slug/3456789015"
+  );
+
+  await expect(cartItem.getByText("XL")).toBeVisible();
+
+  const checkoutButton = cartDrawer.getByRole("button", {
+    name: "Vai al pagamento 20.00 EUR",
+  });
+  await expect(checkoutButton).toBeVisible();
+});
+
+test("remove duplicated product variant from cart", async ({
+  page,
+  pageObjects,
+  next,
+  shopify,
+}) => {
+  const product = getProduct({
+    id: "gid://shopify/Product/3456789015",
+    slug: "product-slug",
+    price: {
+      amount: "20.00",
+      currencyCode: "EUR",
+    },
+    variants: [
+      {
+        title: "Taglia unica",
+      },
+    ],
+  });
+
+  const cartId = "gid://shopify/Cart/1234567890";
+  const cartBeforeRemoveFromCart = getCart({
+    id: cartId,
+    lines: [getCartLine(product, "Taglia unica", 2)],
+  });
+  const cartAfterRemoveFromCart = getCart({
+    id: cartId,
+    lines: [getCartLine(product, "Taglia unica", 1)],
+  });
+
+  shopify.stub([
+    {
+      request: Request.PRODUCT,
+      response: {
+        payload: {
+          data: {
+            product: product,
+          },
+        },
+      },
+    },
+    {
+      request: Request.GET_CART,
+      response: {
+        payload: {
+          data: {
+            cart: cartBeforeRemoveFromCart,
+          },
+        },
+      },
+    },
+    {
+      request: Request.REMOVE_FROM_CART,
+      response: {
+        payload: {
+          data: {
+            cartLinesUpdate: {
+              cart: cartAfterRemoveFromCart,
+            },
+          },
+        },
+      },
+    },
+  ]);
+
+  await setCartIdInLocalStorage(page, cartId);
+  await page.goto(`http://localhost:${next.port}`);
+
+  const { openCart, cartDrawer, cartItems } = pageObjects.cart;
+
+  await openCart();
+
+  const cartItemToBeRemoved = cartItems.nth(1);
+  const removeFromCartButton = cartItemToBeRemoved.getByRole("button", {
+    name: "Rimuovi",
+  });
+  await removeFromCartButton.click();
+
+  const cartCount = cartDrawer.getByText("Carrello (1)");
+  expect(cartCount).toBeVisible();
+
+  expect(cartItems).toHaveCount(1);
+
+  const cartItem = cartItems.nth(0);
+  await expect(cartItem.getByRole("link")).toHaveAttribute(
+    "href",
+    "/products/product-slug/3456789015"
+  );
+
+  const checkoutButton = cartDrawer.getByRole("button", {
+    name: "Vai al pagamento 20.00 EUR",
+  });
+  await expect(checkoutButton).toBeVisible();
+});
+
 test("remove product from cart when it's the only one", async ({
   page,
   pageObjects,
