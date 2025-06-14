@@ -1,6 +1,7 @@
 export function getProduct(
   attribues: Partial<{
     id: string;
+    slug: string;
     title: string;
     description: string;
     availableForSale: boolean;
@@ -27,6 +28,7 @@ export function getProduct(
 
   return {
     id: attribues.id ?? DEFAULTS.id,
+    handle: attribues.slug ?? DEFAULTS.slug,
     title: attribues.title ?? DEFAULTS.title,
     description: attribues.description ?? DEFAULTS.description,
     availableForSale: attribues.availableForSale ?? true,
@@ -68,6 +70,7 @@ function getVariants(
 export function getPartialProduct(
   attribues: Partial<{
     id: string;
+    slug: string;
     title: string;
     price: {
       amount: string;
@@ -86,6 +89,7 @@ export function getPartialProduct(
 
   return {
     id: attribues.id ?? DEFAULTS.id,
+    handle: attribues.slug ?? DEFAULTS.slug,
     title: attribues.title ?? DEFAULTS.title,
     priceRange: {
       minVariantPrice: discountedPrice,
@@ -104,6 +108,7 @@ export function getPartialProduct(
 
 const DEFAULTS = {
   id: "gid://shopify/Product/1234567890",
+  slug: "new-balance-991v2",
   title: "New Balance - 991v2",
   description: "Lorem ipsum dolor sit amet",
   image: "https://mydomain.shopify.com/media/image.jpg",
@@ -120,6 +125,7 @@ const DEFAULTS = {
 
 export type Product = {
   id: string;
+  handle: string;
   title: string;
   description: string;
   availableForSale: boolean;
@@ -164,6 +170,7 @@ export type Product = {
 
 export type PartialProduct = {
   id: string;
+  handle: string;
   title: string;
   priceRange: {
     minVariantPrice: {

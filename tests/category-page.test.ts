@@ -108,6 +108,7 @@ test("render products in grid", async ({
   const product1 = getProduct({
     id: "gid://shopify/Product/1",
     title: "Brand 1 - Product 1",
+    slug: "brand-1-product-1",
     price: {
       amount: "110.0",
       currencyCode: "EUR",
@@ -118,6 +119,7 @@ test("render products in grid", async ({
   const product2 = getProduct({
     id: "gid://shopify/Product/2",
     title: "Brand 2 - Product 2",
+    slug: "brand-2-product-2",
     price: {
       amount: "120.0",
       currencyCode: "EUR",
@@ -150,7 +152,10 @@ test("render products in grid", async ({
 
     const link = productCard.getByRole("link");
     const id = product.id.split("/").pop();
-    await expect(link).toHaveAttribute("href", `/products/${id}`);
+    await expect(link).toHaveAttribute(
+      "href",
+      `/products/${product.handle}/${id}`
+    );
 
     const image = productCard.getByRole("img");
     await expect(image).toBeVisible();
@@ -221,11 +226,13 @@ test("render products with discounted price in grid", async ({
 
 test("products grid ordering", async ({ page, pageObjects, next, shopify }) => {
   const product1 = getProduct({
-    id: "gid://shopify/Product/1",
+    id: "gid://shopify/Product/0123456789",
+    slug: "product-1",
   });
 
   const product2 = getProduct({
-    id: "gid://shopify/Product/2",
+    id: "gid://shopify/Product/1234567890",
+    slug: "product-2",
   });
 
   shopify.stub({
@@ -244,9 +251,15 @@ test("products grid ordering", async ({ page, pageObjects, next, shopify }) => {
 
   const firstProductInGrid = productsGridItems.nth(0);
   const firstProductInGridLink = firstProductInGrid.getByRole("link");
-  await expect(firstProductInGridLink).toHaveAttribute("href", "/products/2");
+  await expect(firstProductInGridLink).toHaveAttribute(
+    "href",
+    "/products/product-2/1234567890"
+  );
 
   const secondProductInGrid = productsGridItems.nth(1);
   const secondProductInGridLink = secondProductInGrid.getByRole("link");
-  await expect(secondProductInGridLink).toHaveAttribute("href", "/products/1");
+  await expect(secondProductInGridLink).toHaveAttribute(
+    "href",
+    "/products/product-1/0123456789"
+  );
 });

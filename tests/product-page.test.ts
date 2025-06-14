@@ -19,7 +19,7 @@ test("redirect to 404 when product not found", async ({
   });
 
   const response = await page.goto(
-    `http://localhost:${next.port}/products/1234567890`
+    `http://localhost:${next.port}/products/slug/1234567890`
   );
 
   expect(response?.status()).toBe(404);
@@ -40,7 +40,7 @@ test("redirect to 404 when product not found", async ({
     });
 
     const response = await page.goto(
-      `http://localhost:${next.port}/products/1234567890`
+      `http://localhost:${next.port}/products/slug/1234567890`
     );
 
     expect(response?.status()).toBe(404);
@@ -78,10 +78,40 @@ test("redirect to 404 when product not found", async ({
     ]);
 
     const response = await page.goto(
-      `http://localhost:${next.port}/products/1234567890`
+      `http://localhost:${next.port}/products/${product.handle}/1234567890`
     );
     expect(response?.status()).toBe(200);
   });
+});
+
+test(`redirect to a url having the right slug`, async ({
+  page,
+  next,
+  shopify,
+}) => {
+  const product = getProduct({
+    id: "gid://shopify/Product/1234567890",
+    title: "New Balance - 990v4",
+    slug: "new-balance-990v4",
+  });
+
+  shopify.stub([
+    {
+      request: Request.PRODUCT,
+      response: {
+        payload: {
+          data: {
+            product,
+          },
+        },
+      },
+    },
+  ]);
+
+  const response = await page.goto(
+    `http://localhost:${next.port}/products/wrong-slug/1234567890`
+  );
+  expect(response?.status()).toBe(200);
 });
 
 test("page title as product name", async ({ page, next, shopify }) => {
@@ -100,7 +130,9 @@ test("page title as product name", async ({ page, next, shopify }) => {
       },
     },
   });
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const title = await page.title();
   expect(title).toEqual(product.title);
@@ -127,7 +159,9 @@ test("page description as product description", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const description = await page
     .locator('meta[name="description"]')
@@ -158,7 +192,9 @@ test("render product brand and name", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { productBrand, productName } = pageObjects.productPage;
   await expect(productBrand).toBeVisible();
@@ -189,7 +225,9 @@ test("render product price", async ({ page, pageObjects, next, shopify }) => {
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { productPrice } = pageObjects.productPage;
 
@@ -232,7 +270,9 @@ test("render product with disocunted price", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { productPrice, productDiscountedPrice } = pageObjects.productPage;
 
@@ -265,7 +305,9 @@ test("render product description", async ({ page, next, shopify }) => {
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const description = page.getByText(product.description);
   await expect(description).toBeVisible();
@@ -292,7 +334,9 @@ test("render product images", async ({ page, pageObjects, next, shopify }) => {
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { productImages } = pageObjects.productPage;
 
@@ -331,7 +375,9 @@ test("don't render size selector when unique size product", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { sizeSelector } = pageObjects.productPage;
   await expect(sizeSelector).not.toBeAttached();
@@ -365,7 +411,9 @@ test("render add to cart when a unique size product is available for sale", asyn
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { addToCartButton } = pageObjects.productPage;
   await expect(addToCartButton).toBeVisible();
@@ -400,7 +448,9 @@ test("render sold out when a unique size product is not available for sale", asy
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { soldOutButton } = pageObjects.productPage;
   await expect(soldOutButton).toBeVisible();
@@ -436,7 +486,9 @@ test("render size selector when multi size product", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { sizeSelector } = pageObjects.productPage;
   await expect(sizeSelector).toBeVisible();
@@ -474,7 +526,9 @@ test("render add to cart when multi size product has any size available for sale
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { addToCartButton } = pageObjects.productPage;
   await expect(addToCartButton).toBeVisible();
@@ -513,7 +567,9 @@ test("render sold out when multi size product doesn't have any size available fo
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { soldOutButton } = pageObjects.productPage;
   await expect(soldOutButton).toBeVisible();
@@ -549,7 +605,9 @@ test("render select size when trying to add to cart without having selected a si
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { addToCartButton, selectSizeButton } = pageObjects.productPage;
 
@@ -588,7 +646,9 @@ test("numeric sizes ordering", async ({ page, pageObjects, next, shopify }) => {
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { sizes } = pageObjects.productPage;
 
@@ -644,7 +704,9 @@ test("not numeric sizes ordering", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { sizes } = pageObjects.productPage;
 
@@ -688,7 +750,9 @@ test("can select available for sale sizes", async ({
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { sizeSelector } = pageObjects.productPage;
 
@@ -723,7 +787,7 @@ test("cannot select not available for sale sizes", async ({
     availableForSale: false,
   };
 
-  const targetProduct = getProduct({
+  const product = getProduct({
     id: "gid://shopify/Product/1234567890",
     variants: [availableForSaleVariant, notAvailableForSaleVariant],
   });
@@ -733,13 +797,15 @@ test("cannot select not available for sale sizes", async ({
     response: {
       payload: {
         data: {
-          product: targetProduct,
+          product,
         },
       },
     },
   });
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { sizeSelector } = pageObjects.productPage;
 
@@ -765,6 +831,7 @@ test("show product recommendations", async ({
   const recommendedProduct1 = getRecommendedProduct({
     id: "gid://shopify/Product/12345678901",
     title: "New Balance - 991v2",
+    slug: "new-balance-991v2",
     price: {
       amount: "100.0",
       currencyCode: "EUR",
@@ -775,6 +842,7 @@ test("show product recommendations", async ({
   const recommendedProduct2 = getRecommendedProduct({
     id: "gid://shopify/Product/12345678902",
     title: "New Balance - 550",
+    slug: "new-balance-550",
     price: {
       amount: "110.0",
       currencyCode: "EUR",
@@ -807,7 +875,9 @@ test("show product recommendations", async ({
     },
   ]);
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { productRecommendations, productRecommendationsItems } =
     pageObjects.productPage;
@@ -828,7 +898,10 @@ test("show product recommendations", async ({
 
     const link = productCard.getByRole("link");
     const id = product.id.split("/").pop();
-    await expect(link).toHaveAttribute("href", `/products/${id}`);
+    await expect(link).toHaveAttribute(
+      "href",
+      `/products/${product.handle}/${id}`
+    );
 
     const image = productCard.getByRole("img");
     await expect(image).toBeVisible();
@@ -896,7 +969,9 @@ test("show product recommendations with discounted price", async ({
     },
   ]);
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { productRecommendationsItems } = pageObjects.productPage;
 
@@ -947,7 +1022,9 @@ test("do not show product recommendations when no recommendations", async ({
     },
   ]);
 
-  await page.goto(`http://localhost:${next.port}/products/1234567890`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/1234567890`
+  );
 
   const { productRecommendations } = pageObjects.productPage;
 

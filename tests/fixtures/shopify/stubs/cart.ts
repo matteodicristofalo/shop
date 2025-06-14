@@ -51,6 +51,7 @@ export function getCartLine(
       ...getProductVariant(product, variant),
       product: {
         id: product.id,
+        handle: product.handle,
         title: product.title,
         featuredImage: {
           src: product.images.nodes[0].src,
@@ -87,6 +88,7 @@ type CartLine = {
     };
     product: {
       id: string;
+      handle: string;
       title: string;
       featuredImage: {
         src: string;

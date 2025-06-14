@@ -47,6 +47,7 @@ test("load cart getting the id from localStorage", async ({
   const productInCart = getProduct({
     id: "gid://shopify/Product/3456789012",
     title: "New Balance - 991v2",
+    slug: "new-balance-991v2",
     images: ["https://mydomain.shopify.com/media/image.jpg"],
     price: { amount: "20.00", currencyCode: "EUR" },
     variants: [
@@ -89,7 +90,7 @@ test("load cart getting the id from localStorage", async ({
   await expect(cartItem).toBeVisible();
   await expect(cartItem.getByRole("link")).toHaveAttribute(
     "href",
-    "/products/3456789012"
+    "/products/new-balance-991v2/3456789012"
   );
   const image = cartItem.getByRole("img");
   await expect(image).toHaveAttribute(
@@ -149,6 +150,7 @@ test("empty cart", async ({ page, pageObjects, next, shopify }) => {
 test("cart items ordering", async ({ page, pageObjects, next, shopify }) => {
   const firstProductAdded = getProduct({
     id: "gid://shopify/Product/3456789013",
+    slug: "first-product-added-slug",
     variants: [
       {
         title: "Taglia unica",
@@ -158,6 +160,7 @@ test("cart items ordering", async ({ page, pageObjects, next, shopify }) => {
 
   const secondProductAdded = getProduct({
     id: "gid://shopify/Product/3456789012",
+    slug: "second-product-added-slug",
     variants: [
       {
         title: "Taglia unica",
@@ -167,6 +170,7 @@ test("cart items ordering", async ({ page, pageObjects, next, shopify }) => {
 
   const thirdProductAdded = getProduct({
     id: "gid://shopify/Product/3456789014",
+    slug: "third-product-added-slug",
     variants: [
       {
         title: "Taglia unica",
@@ -205,19 +209,19 @@ test("cart items ordering", async ({ page, pageObjects, next, shopify }) => {
   const firstCartItem = cartItems.nth(0);
   await expect(firstCartItem.getByRole("link")).toHaveAttribute(
     "href",
-    "/products/3456789013"
+    "/products/first-product-added-slug/3456789013"
   );
 
   const secondCartItem = cartItems.nth(1);
   await expect(secondCartItem.getByRole("link")).toHaveAttribute(
     "href",
-    "/products/3456789012"
+    "/products/second-product-added-slug/3456789012"
   );
 
   const thirdCartItem = cartItems.nth(2);
   await expect(thirdCartItem.getByRole("link")).toHaveAttribute(
     "href",
-    "/products/3456789014"
+    "/products/third-product-added-slug/3456789014"
   );
 });
 
@@ -225,6 +229,7 @@ test("add to cart", async ({ page, pageObjects, next, shopify }) => {
   const product = getProduct({
     id: "gid://shopify/Product/3456789012",
     title: "New Balance - 991v2",
+    slug: "new-balance-991v2",
     price: {
       amount: "20.00",
       currencyCode: "EUR",
@@ -283,7 +288,9 @@ test("add to cart", async ({ page, pageObjects, next, shopify }) => {
   ]);
 
   await setCartIdInLocalStorage(page, cartId);
-  await page.goto(`http://localhost:${next.port}/products/3456789012`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/3456789012`
+  );
 
   const { addToCart } = pageObjects.productPage;
   const { cartDrawer, cartItems } = pageObjects.cart;
@@ -299,7 +306,7 @@ test("add to cart", async ({ page, pageObjects, next, shopify }) => {
   await expect(cartItem).toBeVisible();
   await expect(cartItem.getByRole("link")).toHaveAttribute(
     "href",
-    "/products/3456789012"
+    "/products/new-balance-991v2/3456789012"
   );
   const image = cartItem.getByRole("img");
   await expect(image).toHaveAttribute(
@@ -326,6 +333,7 @@ test("add to cart an already existing product variant", async ({
   const product = getProduct({
     id: "gid://shopify/Product/3456789012",
     title: "New Balance - 991v2",
+    slug: "new-balance-991v2",
     price: {
       amount: "20.00",
       currencyCode: "EUR",
@@ -387,7 +395,9 @@ test("add to cart an already existing product variant", async ({
   ]);
 
   await setCartIdInLocalStorage(page, cartId);
-  await page.goto(`http://localhost:${next.port}/products/3456789012`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/3456789012`
+  );
 
   const { sizeSelector, addToCart } = pageObjects.productPage;
   const { cartDrawer, cartItems } = pageObjects.cart;
@@ -409,7 +419,7 @@ test("add to cart an already existing product variant", async ({
     await expect(cartItem).toBeVisible();
     await expect(cartItem.getByRole("link")).toHaveAttribute(
       "href",
-      "/products/3456789012"
+      "/products/new-balance-991v2/3456789012"
     );
     const image = cartItem.getByRole("img");
     await expect(image).toHaveAttribute(
@@ -437,6 +447,7 @@ test("add to cart a not already existing product variant", async ({
   const product = getProduct({
     id: "gid://shopify/Product/3456789012",
     title: "New Balance - 991v2",
+    slug: "new-balance-991v2",
     price: {
       amount: "20.00",
       currencyCode: "EUR",
@@ -498,7 +509,9 @@ test("add to cart a not already existing product variant", async ({
   ]);
 
   await setCartIdInLocalStorage(page, cartId);
-  await page.goto(`http://localhost:${next.port}/products/3456789012`);
+  await page.goto(
+    `http://localhost:${next.port}/products/${product.handle}/3456789012`
+  );
 
   const { sizeSelector, addToCart } = pageObjects.productPage;
   const { cartDrawer, cartItems } = pageObjects.cart;
@@ -520,7 +533,7 @@ test("add to cart a not already existing product variant", async ({
     await expect(cartItem).toBeVisible();
     await expect(cartItem.getByRole("link")).toHaveAttribute(
       "href",
-      "/products/3456789012"
+      "/products/new-balance-991v2/3456789012"
     );
     const image = cartItem.getByRole("img");
     await expect(image).toHaveAttribute(
@@ -547,6 +560,7 @@ test("remove product from cart", async ({
 }) => {
   const product = getProduct({
     id: "gid://shopify/Product/3456789015",
+    slug: "product-slug",
     price: {
       amount: "20.00",
       currencyCode: "EUR",
@@ -640,7 +654,7 @@ test("remove product from cart", async ({
   const cartItem = cartItems.nth(0);
   await expect(cartItem.getByRole("link")).toHaveAttribute(
     "href",
-    "/products/3456789015"
+    "/products/product-slug/3456789015"
   );
 
   const checkoutButton = cartDrawer.getByRole("button", {
