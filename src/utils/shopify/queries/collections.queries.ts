@@ -36,3 +36,43 @@ export const productsInCategoryQuery = (id: string) => `
     }
   }
 `;
+
+export const collectionQuery = (slug: string) => `
+  query GetCollection {
+    collection(handle: "${slug}") {
+      title
+      products(first: 10) {
+        nodes {
+          id
+          handle
+          title
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+            maxVariantPrice {
+              amount
+              currencyCode  
+            }
+          }
+          compareAtPriceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          images(first: 2) {
+            nodes {
+              src
+            }
+          }
+        }
+      }
+    }
+  }
+`;

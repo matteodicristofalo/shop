@@ -1,0 +1,18 @@
+@use "@mixins/display.scss" as display;
+
+.collection-page {
+  padding: 6rem 1rem 0 1rem;
+
+  @include display.desktop {
+    padding: 6rem 2rem 0 2rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 400;
+
+    @include display.desktop {
+      font-size: 3rem;
+    }
+  }
+}

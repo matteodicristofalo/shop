@@ -4,7 +4,7 @@ import { ShopifyProductResponse } from "@utils/shopify/responses/products.respon
 import { getBrand, getName } from "@domain/converters/product.converters";
 import { Nullable } from "@utils/types.utils";
 import { getProductQuery } from "@utils/shopify/queries/products.queries";
-import { Product } from "@domain/models/product.models";
+import { PartialProduct, Product } from "@domain/models/product.models";
 import { productRecommendationsQuery } from "@utils/shopify/queries/recommendations.queries";
 import { ShopifyRecommendationsResponse } from "@utils/shopify/responses/recommendations.responses";
 import { getId } from "@domain/services/ids.service";
@@ -39,14 +39,9 @@ export const getProduct = cache(
   }
 );
 
-type ProductRecommendation = Omit<
-  Product,
-  "title" | "description" | "availableForSale" | "variants"
->;
-
 export async function getProductRecommendations(
   id: string
-): Promise<Nullable<ProductRecommendation[]>> {
+): Promise<Nullable<PartialProduct[]>> {
   const query = productRecommendationsQuery(id);
   const response = await fetchShopify<ShopifyRecommendationsResponse>(query);
 

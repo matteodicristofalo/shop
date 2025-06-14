@@ -23,3 +23,8 @@ export type Variant = {
   title: string;
   availableForSale: boolean;
 };
+
+export type PartialProduct = Omit<
+  Product,
+  "title" | "description" | "availableForSale" | "variants"
+>;

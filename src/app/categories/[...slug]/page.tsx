@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getCategory } from "@domain/services/categories.service";
 import { getProductsInCategory } from "./data-fetching";
 import { Breadcrumbs } from "@components/business/breadcrumbs/breadcrumbs";
-import { ProductCard } from "@components/business/product-card/product-card";
+import { ProductGrid } from "@components/business/product-grid/product-grid";
 import styles from "./page.module.scss";
 
 type Params = Promise<{
@@ -40,21 +40,7 @@ export default async function CategoryPage({
         <Breadcrumbs category={category} />
       </div>
 
-      <ol className={styles["category-page__grid"]} title="products grid">
-        {products.map((product) => (
-          <li key={product.id} className={styles["category-page__grid__item"]}>
-            <ProductCard
-              id={product.id}
-              slug={product.slug}
-              brand={product.brand}
-              name={product.name}
-              price={product.price.original}
-              discountedPrice={product.price.discounted}
-              images={product.images}
-            />
-          </li>
-        ))}
-      </ol>
+      <ProductGrid products={products} />
     </div>
   );
 }

@@ -4,13 +4,8 @@ import { getId } from "@domain/services/ids.service";
 import { getBrand, getName } from "@domain/converters/product.converters";
 import { Nullable } from "@utils/types.utils";
 import { productsInCategoryQuery } from "@utils/shopify/queries/collections.queries";
-import { Product } from "@domain/models/product.models";
+import { PartialProduct } from "@domain/models/product.models";
 import { getProductPrice } from "@domain/converters/product.converters";
-
-type PartialProduct = Omit<
-  Product,
-  "title" | "description" | "availableForSale" | "variants"
->;
 
 export async function getProductsInCategory(
   id: string

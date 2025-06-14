@@ -3,6 +3,7 @@ import { ShopifyPrice } from "./price.responses";
 
 export type ShopifyCollectionResponse = ShopifyResponse<{
   collection: {
+    title: string;
     products: {
       nodes: {
         id: string;
