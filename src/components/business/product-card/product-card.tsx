@@ -5,6 +5,7 @@ import styles from "./product-card.module.scss";
 
 type ProductCardProps = {
   id: string;
+  slug: string;
   brand: string;
   name: string;
   price: Price;
@@ -15,6 +16,7 @@ type ProductCardProps = {
 
 export function ProductCard({
   id,
+  slug,
   brand,
   name,
   price,
@@ -23,7 +25,7 @@ export function ProductCard({
   size,
 }: Readonly<ProductCardProps>) {
   return (
-    <Link href={`/products/${id}`} aria-label={`${brand} ${name}`}>
+    <Link href={`/products/${slug}/${id}`} aria-label={`${brand} ${name}`}>
       <div className={styles["product-card"]}>
         <div className={styles["product-card__image"]}>
           {images.map((image) => (

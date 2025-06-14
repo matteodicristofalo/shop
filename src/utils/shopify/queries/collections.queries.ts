@@ -4,6 +4,7 @@ export const productsInCategoryQuery = (id: string) => `
       products(first: 10, filters: {category: { id: "${id}" } }) {
         nodes {
           id
+          handle
           title
           priceRange {
             minVariantPrice {

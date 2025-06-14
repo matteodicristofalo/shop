@@ -2,6 +2,7 @@ export const getProductQuery = (id: string) => `
   query GetProduct {
     product(id: "gid://shopify/Product/${id}") {
       id
+      handle
       title
       description
       availableForSale

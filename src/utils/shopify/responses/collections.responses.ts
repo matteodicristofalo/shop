@@ -6,6 +6,7 @@ export type ShopifyCollectionResponse = ShopifyResponse<{
     products: {
       nodes: {
         id: string;
+        handle: string;
         title: string;
         priceRange: ShopifyPrice;
         compareAtPriceRange: ShopifyPrice;

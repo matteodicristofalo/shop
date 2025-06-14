@@ -45,6 +45,7 @@ export default async function CategoryPage({
           <li key={product.id} className={styles["category-page__grid__item"]}>
             <ProductCard
               id={product.id}
+              slug={product.slug}
               brand={product.brand}
               name={product.name}
               price={product.price.original}

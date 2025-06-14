@@ -4,6 +4,7 @@ import { ShopifyPrice } from "./price.responses";
 export type ShopifyProductResponse = ShopifyResponse<{
   product: {
     id: string;
+    handle: string;
     title: string;
     description: string;
     availableForSale: boolean;

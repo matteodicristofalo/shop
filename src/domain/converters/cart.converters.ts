@@ -17,6 +17,7 @@ export function getCart(cart: ShopifyCart): Cart {
       price: line.merchandise.price,
       product: {
         id: getId(line.merchandise.product.id),
+        slug: line.merchandise.product.handle,
         name: getName(line.merchandise.product.title),
         brand: getBrand(line.merchandise.product.title),
         image: line.merchandise.product.featuredImage.src,

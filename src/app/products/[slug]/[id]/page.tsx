@@ -8,6 +8,7 @@ import { extractFulfilledValueOrDefault } from "@utils/promise.utils";
 import styles from "./page.module.scss";
 
 type Params = Promise<{
+  slug: string;
   id: string;
 }>;
 
@@ -26,7 +27,7 @@ export async function generateMetadata({
 export default async function ProductPage({
   params,
 }: Readonly<{ params: Params }>) {
-  const { id } = await params;
+  const { slug, id } = await params;
 
   const [productPromise, recommendationsPromise] = await Promise.allSettled([
     getProduct(id),
@@ -39,7 +40,13 @@ export default async function ProductPage({
     []
   );
 
-  if (!product) redirect("/404");
+  if (!product) {
+    redirect("/404");
+  }
+
+  if (slug !== product.slug) {
+    redirect(`/products/${product.slug}/${product.id}`);
+  }
 
   return (
     <div className={styles["product-page"]}>
@@ -132,6 +139,7 @@ export default async function ProductPage({
               <li key={product.id}>
                 <ProductCard
                   id={product.id}
+                  slug={product.slug}
                   name={product.name}
                   brand={product.brand}
                   price={product.price.original}

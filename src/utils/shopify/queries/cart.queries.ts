@@ -39,6 +39,7 @@ export const getCartQuery = (cartId: string) => `
               }
               product {
                 id
+                handle
                 title
                 featuredImage {
                   src
@@ -78,6 +79,7 @@ export const addToCartQuery = `
                 }
                 product {
                   id
+                  handle
                   title
                   featuredImage {
                     src
@@ -118,6 +120,7 @@ export const removeFromCartQuery = `
                 }
                 product {
                   id
+                  handle
                   title
                   featuredImage {
                     src

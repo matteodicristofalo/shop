@@ -4,6 +4,7 @@ import { ShopifyPrice } from "./price.responses";
 export type ShopifyRecommendationsResponse = ShopifyResponse<{
   productRecommendations: {
     id: string;
+    handle: string;
     title: string;
     priceRange: ShopifyPrice;
     compareAtPriceRange: ShopifyPrice;

@@ -10,6 +10,7 @@ export type Cart = {
       price: Price;
       product: {
         id: string;
+        slug: string;
         name: string;
         brand: string;
         image: string;

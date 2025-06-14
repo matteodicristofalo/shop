@@ -35,6 +35,7 @@ function CartDrawerContent() {
                 <li key={index} className={styles["cart__item"]}>
                   <ProductCard
                     id={product.id}
+                    slug={product.slug}
                     brand={product.brand}
                     name={product.name}
                     images={[product.image]}

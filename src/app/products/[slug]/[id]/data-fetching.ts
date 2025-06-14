@@ -24,6 +24,7 @@ export const getProduct = cache(
 
     return {
       id,
+      slug: product.handle,
       title: product.title,
       brand: getBrand(product.title),
       name: getName(product.title),
@@ -57,6 +58,7 @@ export async function getProductRecommendations(
 
   return productRecommendations.map((product) => ({
     id: getId(product.id),
+    slug: product.handle,
     brand: getBrand(product.title),
     name: getName(product.title),
     price: getProductPrice(product.compareAtPriceRange, product.priceRange),

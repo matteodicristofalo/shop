@@ -26,6 +26,7 @@ export async function getProductsInCategory(
 
   return collection.products.nodes.map((product) => ({
     id: getId(product.id),
+    slug: product.handle,
     brand: getBrand(product.title),
     name: getName(product.title),
     price: getProductPrice(product.compareAtPriceRange, product.priceRange),

@@ -2,6 +2,7 @@ export const productRecommendationsQuery = (id: string) => `
   query GetRecommendations {
     productRecommendations(productId: "gid://shopify/Product/${id}") {
       id
+      handle
       title
       priceRange {
         minVariantPrice {

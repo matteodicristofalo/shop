@@ -2,6 +2,7 @@ import { Price } from "./price.models";
 
 export type Product = {
   id: string;
+  slug: string;
   title: string;
   brand: string;
   name: string;
